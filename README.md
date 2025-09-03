@@ -36,15 +36,7 @@ O **CliniData** é construído em uma arquitetura moderna e desacoplada, garanti
 
 O projeto segue uma estrutura organizada, com todas as camadas em um único repositório:
 
-.
-└── CliniData/
-    ├── CliniData.API/         # API em .NET
-    ├── CliniData.Domain/      # Lógica de negócio
-    ├── CliniData.Web/         # Aplicação Web em React
-    ├── CliniData.Mobile/      # Aplicação Mobile em React Native
-    ├── .gitignore/            # Arquivo de configuração do Git
-    ├── LICENSE/               # Licença do projeto
-    └── README.md/             # Documentação principal
+<img width="615" height="250" alt="image" src="https://github.com/user-attachments/assets/54b44912-de09-4862-b784-460bf593e1b8" />
 
 ## 🛠 Tecnologias Utilizadas
 

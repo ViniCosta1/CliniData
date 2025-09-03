@@ -1,2 +1,54 @@
 # CliniData
-CliniData – Plataforma para gestão de consultas, exames e históricos médicos, conectando instituições, médicos e pacientes.
+
+**CliniData** é uma plataforma de gestão integrada de saúde que conecta **instituições médicas, profissionais de saúde e pacientes**.  
+O sistema permite o registro de consultas, acompanhamento do histórico do paciente e controle de insumos, além de oferecer um aplicativo para que os pacientes possam centralizar seus exames e informações clínicas.
+
+## ✨ Funcionalidades
+
+- **Instituições e médicos**
+  - Cadastro de instituições e médicos vinculados.
+  - Registro de consultas com dados completos dos pacientes.
+  - Relatórios de atendimentos e procedimentos realizados.
+  - Controle de gastos com materiais.
+
+- **Pacientes**
+  - Aplicativo móvel para cadastro de exames por meio de foto.
+  - Histórico completo de consultas e exames acessível pelo perfil.
+  - Compartilhamento de informações com médicos e instituições.
+
+## 🏗 Arquitetura do Projeto
+
+O **CliniData** é construído em uma arquitetura moderna e desacoplada, garantindo escalabilidade e manutenibilidade:
+
+- **CliniData.API**  
+  Desenvolvido em **.NET**, responsável pela comunicação com o frontend e persistência dos dados.
+
+- **CliniData.Web**  
+  Construído em **React**, voltado para instituições e médicos gerenciarem consultas, pacientes e relatórios.
+
+- **CliniData.Mobile**  
+  Criado em **React Native**, focado na experiência do paciente para registro de exames e acompanhamento de histórico.
+
+- **CliniData.Domain**  
+  Camada de regras de negócio e lógica de domínio, separada para garantir organização e clareza no desenvolvimento.
+
+## 📂 Estrutura do Repositório
+
+O projeto segue uma estrutura organizada, com todas as camadas em um único repositório:
+
+.
+└── CliniData/
+    ├── CliniData.API/         # API em .NET
+    ├── CliniData.Domain/      # Lógica de negócio
+    ├── CliniData.Web/         # Aplicação Web em React
+    ├── CliniData.Mobile/      # Aplicação Mobile em React Native
+    ├── .gitignore/            # Arquivo de configuração do Git
+    ├── LICENSE/               # Licença do projeto
+    └── README.md/             # Documentação principal
+
+## 🛠 Tecnologias Utilizadas
+
+- **.NET** – Backend API
+- **React** – Frontend Web
+- **React Native** – Aplicativo Mobile
+- **Domain Layer** – Regras de negócio desacopladas

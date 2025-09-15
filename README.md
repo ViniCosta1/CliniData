@@ -44,3 +44,47 @@ O projeto segue uma estrutura organizada, com todas as camadas em um único repo
 - **React** – Frontend Web
 - **React Native** – Aplicativo Mobile
 - **Domain Layer** – Regras de negócio desacopladas
+
+## 📚 Documentação Detalhada
+
+### 📖 Documentação por Módulo
+- **[CliniData.API](./API/README.md)** - Documentação completa da API .NET
+  - Arquitetura e padrões de design
+  - Endpoints e modelos de dados
+  - Autenticação e autorização
+  - Configuração e deployment
+  
+- **[CliniData.Domain](./Domain/README.md)** - Camada de domínio e regras de negócio
+  - Domain-Driven Design (DDD)
+  - Entidades e value objects
+  - Serviços de domínio e especificações
+  - Eventos de domínio
+  
+- **[CliniData.Web](./Web/README.md)** - Aplicação frontend React
+  - Arquitetura de componentes
+  - Gerenciamento de estado
+  - Formulários e validações
+  - Design system e responsividade
+  
+- **[CliniData.Mobile](./Mobile/README.md)** - Aplicativo móvel React Native
+  - Navegação e estrutura mobile
+  - Captura de exames por foto
+  - Armazenamento offline
+  - Notificações push
+
+### 🚀 Guias de Desenvolvimento
+- **[Guia de Configuração](./DEVELOPMENT.md)** - Setup completo do ambiente de desenvolvimento
+  - Pré-requisitos e instalação
+  - Configuração de IDEs
+  - Docker e ferramentas de desenvolvimento
+  - Troubleshooting comum
+
+- **[Guia de Contribuição](./CONTRIBUTING.md)** - Como contribuir com o projeto
+  - Fluxo de trabalho Git
+  - Padrões de código e commits
+  - Code review e testes
+  - Processo de release
+
+### 📋 Informações do Projeto
+- **[Changelog](./CHANGELOG.md)** - Histórico de mudanças e versões
+- **[Licença](./LICENSE)** - Termos de uso e distribuição

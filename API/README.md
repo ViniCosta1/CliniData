@@ -1,7 +1,5 @@
 # CliniData.API
 
-# CliniData.API
-
 ## 📋 O que é
 
 A **CliniData.API** é o servidor do sistema CliniData, feito em **.NET**. Este servidor é responsável por:

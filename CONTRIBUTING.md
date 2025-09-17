@@ -1,36 +1,29 @@
-# Guia de Contribuição - CliniData
+# Como Contribuir - CliniData
 
-## 🤝 Como Contribuir
+## 🤝 Bem-vindo!
 
-Agradecemos seu interesse em contribuir com o CliniData! Este documento fornece diretrizes para garantir que o processo de contribuição seja eficiente e mantenha a qualidade do código.
+Obrigado por querer contribuir com o CliniData! Este documento vai te ajudar a entender como trabalhar no projeto e seguir as regras que mantêm tudo organizado.
 
-## 📋 Pré-requisitos
+## 📋 Antes de começar
 
-### Ambiente de Desenvolvimento
+### O que você precisa saber
 - **Node.js 18+** para desenvolvimento Web e Mobile
-- **.NET 8.0 SDK** para desenvolvimento da API
+- **.NET 8.0** para desenvolvimento da API
 - **Git** para controle de versão
 - **Visual Studio Code** ou **Visual Studio 2022** (recomendado)
 
-### Ferramentas Específicas por Plataforma
-
-#### API (.NET)
+### Ferramentas específicas
 - **SQL Server LocalDB** para desenvolvimento local
 - **Entity Framework Core Tools**: `dotnet tool install --global dotnet-ef`
-
-#### Web (React)
-- **npm** ou **yarn** como gerenciador de pacotes
-
-#### Mobile (React Native)
 - **Expo CLI**: `npm install -g @expo/cli`
-- **Android Studio** para desenvolvimento Android
-- **Xcode** para desenvolvimento iOS (apenas macOS)
+- **Android Studio** para desenvolvimento Android (opcional)
+- **Xcode** para desenvolvimento iOS - só no Mac (opcional)
 
-## 🔄 Fluxo de Trabalho
+## 🔄 Como trabalhar no projeto
 
-### 1. Configuração Inicial
+### 1. Preparar o ambiente
 ```bash
-# 1. Fork o repositório no GitHub
+# 1. Faça um fork do repositório no GitHub
 # 2. Clone seu fork
 git clone https://github.com/seu-usuario/CliniData.git
 cd CliniData
@@ -43,412 +36,183 @@ git config user.name "Seu Nome"
 git config user.email "seu.email@exemplo.com"
 ```
 
-### 2. Criando uma Branch
+### 2. Criar uma branch para sua funcionalidade
 ```bash
-# Sempre trabalhe em uma branch específica para sua feature/bugfix
-git checkout -b tipo/nome-da-feature
-
-# Exemplos:
-git checkout -b feature/patient-search
-git checkout -b bugfix/appointment-validation
-git checkout -b docs/api-documentation
+# Sempre crie uma branch específica para o que você vai fazer
+git checkout -b feature/nome-da-funcionalidade
+# ou
+git checkout -b bugfix/nome-do-bug
+# ou
+git checkout -b docs/melhoria-documentacao
 ```
 
-### 3. Tipos de Branch
-- **feature/**: Novas funcionalidades
-- **bugfix/**: Correção de bugs
-- **hotfix/**: Correções urgentes para produção
-- **docs/**: Melhorias na documentação
-- **refactor/**: Refatoração de código
-- **test/**: Adição ou melhoria de testes
+**Nomes de branch recomendados**:
+- `feature/adicionar-login-paciente`
+- `bugfix/corrigir-upload-foto`
+- `docs/atualizar-readme-api`
+- `refactor/simplificar-validacao-cpf`
 
-### 4. Desenvolvimento
+### 3. Fazer suas mudanças
 ```bash
 # Mantenha sua branch atualizada
 git fetch upstream
 git rebase upstream/main
 
-# Faça commits pequenos e descritivos
-git add .
-git commit -m "feat: adiciona validação de CPF no cadastro de paciente"
+# Faça mudanças pequenas e teste cada uma
+# Teste localmente antes de fazer commit
 
-# Use conventional commits (veja seção específica)
+# Faça commits pequenos e claros
+git add .
+git commit -m "Adiciona validação de CPF no cadastro"
 ```
 
-### 5. Pull Request
+### 4. Enviar suas mudanças
 ```bash
-# Push para sua branch
-git push origin feature/nome-da-feature
+# Envie para seu fork
+git push origin feature/nome-da-funcionalidade
 
 # Abra um Pull Request no GitHub
-# Use o template de PR fornecido
+# Descreva o que você fez e por que fez
 ```
 
-## 📝 Conventional Commits
+## 📝 Como escrever commits
 
-Utilizamos a convenção [Conventional Commits](https://www.conventionalcommits.org/) para padronizar mensagens de commit:
+Use mensagens claras que expliquem o que você fez:
 
-### Formato
+### Formato simples
 ```
-<tipo>[escopo opcional]: <descrição>
+tipo: descrição clara do que foi feito
 
-[corpo opcional]
-
-[rodapé opcional]
+Exemplos:
+feat: adiciona busca de pacientes por nome
+fix: corrige erro ao salvar consulta
+docs: atualiza instruções de instalação
 ```
 
-### Tipos Principais
+### Tipos de commit
 - **feat**: Nova funcionalidade
-- **fix**: Correção de bug
-- **docs**: Mudanças na documentação
-- **style**: Formatação, espaçamento (não afeta código)
-- **refactor**: Refatoração sem mudar funcionalidade
-- **test**: Adição ou correção de testes
-- **chore**: Tarefas de build, configuração
+- **fix**: Correção de erro
+- **docs**: Mudança na documentação
+- **refactor**: Melhoria no código sem mudar funcionamento
+- **test**: Adição de testes
 
-### Exemplos
+### Exemplos bons ✅
 ```bash
-feat(api): adiciona endpoint para busca de pacientes
-fix(mobile): corrige crash ao capturar foto de exame
-docs(web): atualiza documentação dos componentes
-style(api): aplica formatação no controller de consultas
-refactor(domain): simplifica validação de agendamento
-test(web): adiciona testes para componente PatientForm
-chore(mobile): atualiza dependências do Expo
+feat: adiciona tela de cadastro de paciente
+fix: corrige upload de foto no mobile
+docs: simplifica README da API
+refactor: organiza componentes do formulário
+test: adiciona teste para validação de CPF
 ```
 
-### Escopos por Projeto
-- **api**: Código do backend .NET
-- **web**: Aplicação React
-- **mobile**: Aplicação React Native
-- **domain**: Camada de domínio
-- **docs**: Documentação
-- **ci**: Integração contínua
-
-## 🏗 Padrões de Código
-
-### Estrutura de Arquivos
-```
-# Novos arquivos devem seguir a estrutura existente
-API/
-├── Controllers/
-│   └── PatientsController.cs      # PascalCase para C#
-Web/
-├── src/components/
-│   └── PatientForm.tsx            # PascalCase para componentes
-Mobile/
-├── src/screens/
-│   └── PatientListScreen.tsx      # PascalCase + "Screen"
+### Exemplos ruins ❌
+```bash
+git commit -m "fix"
+git commit -m "alterações"
+git commit -m "código novo"
 ```
 
-### Convenções de Nomenclatura
+## 🏗 Regras do código
 
-#### C# (API/Domain)
-```csharp
-// Classes e métodos: PascalCase
-public class PatientService
-{
-    public async Task<Patient> GetPatientAsync(int id) { }
-}
+### Como organizar arquivos
+- **API (.NET)**: Use PascalCase (`PatientController.cs`)
+- **Web (React)**: Use PascalCase para componentes (`PatientForm.tsx`)
+- **Mobile (React Native)**: Use PascalCase + "Screen" (`PatientListScreen.tsx`)
 
-// Variáveis locais e parâmetros: camelCase
-var patientName = "João Silva";
-public void UpdatePatient(Patient patient, string updatedBy) { }
+### Regras importantes
+1. **API (.NET)**:
+   - Classes em PascalCase: `PatientService`
+   - Métodos em PascalCase: `GetPatientById()`
+   - Propriedades em PascalCase: `FirstName`
 
-// Constantes: PascalCase
-public const string DefaultTimeZone = "America/Sao_Paulo";
+2. **Web/Mobile (React)**:
+   - Componentes em PascalCase: `PatientForm`
+   - Funções em camelCase: `handleSubmit`
+   - Constantes em UPPER_CASE: `API_URL`
 
-// Interfaces: Prefixo "I"
-public interface IPatientRepository { }
-```
-
-#### TypeScript (Web/Mobile)
-```typescript
-// Componentes e tipos: PascalCase
-interface PatientProps {
-  patient: Patient;
-  onEdit: (patient: Patient) => void;
-}
-
-const PatientCard: React.FC<PatientProps> = ({ patient, onEdit }) => {
-  // Variáveis e funções: camelCase
-  const [isEditing, setIsEditing] = useState(false);
-  
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-};
-
-// Hooks customizados: prefixo "use"
-const usePatientData = (id: string) => { };
-
-// Constantes: SCREAMING_SNAKE_CASE
-const API_BASE_URL = 'https://api.clinidata.com';
-```
-
-### Formatação de Código
-
-#### C# (.editorconfig)
-```ini
-[*.cs]
-indent_style = space
-indent_size = 4
-end_of_line = crlf
-insert_final_newline = true
-trim_trailing_whitespace = true
-
-# Naming conventions
-dotnet_naming_rule.interfaces_should_be_prefixed_with_i.severity = warning
-dotnet_naming_rule.interfaces_should_be_prefixed_with_i.symbols = interface_symbols
-dotnet_naming_rule.interfaces_should_be_prefixed_with_i.style = prefix_interface_with_i
-```
-
-#### TypeScript (prettier.config.js)
-```javascript
-module.exports = {
-  semi: true,
-  trailingComma: 'es5',
-  singleQuote: true,
-  printWidth: 80,
-  tabWidth: 2,
-  useTabs: false,
-};
-```
+3. **Geral**:
+   - Nomes em inglês no código
+   - Comentários em português
+   - Sempre teste antes de enviar
 
 ## 🧪 Testes
 
-### Cobertura Mínima
-- **Novos recursos**: 80% de cobertura de código
-- **Correções de bugs**: Teste que reproduz o bug + correção
-- **APIs**: Testes de integração para endpoints críticos
-- **Componentes**: Testes unitários para lógica complexa
+### Quando escrever testes
+- **Novas funcionalidades**: Sempre teste a lógica principal
+- **Correção de bugs**: Escreva um teste que reproduz o problema
+- **Componentes complexos**: Teste as interações importantes
 
-### Estrutura de Testes
-
-#### API (.NET)
-```
-CliniData.API.Tests/
-├── Controllers/
-│   └── PatientsControllerTests.cs
-├── Services/
-│   └── PatientServiceTests.cs
-├── Integration/
-│   └── PatientEndpointsTests.cs
-└── Fixtures/
-    └── PatientFixtures.cs
-```
-
-#### Web/Mobile (Jest)
-```
-tests/
-├── components/
-│   └── PatientForm.test.tsx
-├── hooks/
-│   └── usePatientData.test.ts
-├── utils/
-│   └── validation.test.ts
-└── __mocks__/
-    └── api.ts
-```
-
-### Comandos de Teste
+### Como rodar testes
 ```bash
 # API
-cd API
-dotnet test --collect:"XPlat Code Coverage"
+cd API && dotnet test
 
 # Web
-cd Web
-npm test -- --coverage
+cd Web && npm test
 
 # Mobile
-cd Mobile
-npm test -- --coverage
+cd Mobile && npm test
 ```
 
-## 📋 Checklist de Pull Request
+## 📋 Checklist antes de enviar
 
-### Antes de Abrir o PR
-- [ ] Código segue os padrões estabelecidos
-- [ ] Testes foram adicionados/atualizados
-- [ ] Documentação foi atualizada (se necessário)
-- [ ] Build passa sem erros
-- [ ] Testes passam com cobertura adequada
-- [ ] Branch está atualizada com main
+Antes de abrir um Pull Request, verifique:
 
-### Template de Pull Request
-```markdown
-## 📝 Descrição
-Breve descrição das mudanças realizadas.
+- [ ] ✅ Código compila sem erros
+- [ ] ✅ Testes passam
+- [ ] ✅ Funcionalidade funciona como esperado
+- [ ] ✅ Seguiu as regras de nomenclatura
+- [ ] ✅ Commit tem mensagem clara
+- [ ] ✅ Documentação foi atualizada (se necessário)
 
-## 🔗 Issue Relacionada
-Closes #123
+## 🐛 Como reportar bugs
 
-## 📋 Tipo de Mudança
-- [ ] Bug fix (mudança que corrige um problema)
-- [ ] Nova feature (mudança que adiciona funcionalidade)
-- [ ] Breaking change (mudança que quebra compatibilidade)
-- [ ] Documentação
+Se encontrar um problema:
 
-## 🧪 Como Testar
-1. Execute o projeto localmente
-2. Navegue para...
-3. Verifique que...
+1. **Verifique se já existe**: Procure nas issues existentes
+2. **Descreva o problema**: O que estava fazendo quando deu erro?
+3. **Como reproduzir**: Passo a passo para reproduzir o erro
+4. **O que esperava**: O que deveria ter acontecido?
+5. **Screenshots**: Se for problema visual, adicione prints
 
-## 📸 Screenshots (se aplicável)
-<!-- Adicione screenshots para mudanças de UI -->
+### Exemplo de bug report
+```
+## Bug: Erro ao salvar paciente
 
-## ✅ Checklist
-- [ ] Meu código segue os padrões do projeto
-- [ ] Realizei code review do meu próprio código
-- [ ] Comentei áreas complexas do código
-- [ ] Atualizei a documentação
-- [ ] Adicionei testes que provam que minha correção/feature funciona
-- [ ] Testes novos e existentes passam localmente
+**Descrição**: Quando clico em "Salvar" no formulário de paciente, aparece erro.
+
+**Como reproduzir**:
+1. Vá para "Pacientes" > "Novo Paciente"
+2. Preencha todos os campos
+3. Clique em "Salvar"
+4. Aparece erro: "CPF inválido"
+
+**Esperado**: Paciente deveria ser salvo sem erro
+
+**Ambiente**: Chrome, Windows 10
 ```
 
-## 🐛 Relatando Bugs
+## 🚀 Como sugerir melhorias
 
-### Template de Issue para Bugs
-```markdown
-## 🐛 Descrição do Bug
-Descrição clara e concisa do bug.
+Para sugerir novas funcionalidades:
 
-## 🔄 Passos para Reproduzir
-1. Vá para '...'
-2. Clique em '...'
-3. Role para baixo até '...'
-4. Veja o erro
+1. **Descreva a ideia**: O que você gostaria que fosse adicionado?
+2. **Por que é útil**: Que problema isso resolve?
+3. **Como funcionaria**: Descreva como o usuário usaria
+4. **Alternativas**: Já tentou resolver de outra forma?
 
-## 🎯 Comportamento Esperado
-Descrição do que deveria acontecer.
+## 📞 Precisa de ajuda?
 
-## 📸 Screenshots
-Se aplicável, adicione screenshots.
+- **Dúvidas técnicas**: Abra uma Discussion no GitHub
+- **Bugs**: Abra uma Issue
+- **Novas ideias**: Abra uma Issue com o tipo "enhancement"
 
-## 💻 Ambiente
-- OS: [ex: iOS, Android, Windows, macOS]
-- Browser: [ex: Chrome, Safari]
-- Versão: [ex: 22]
-- Device: [ex: iPhone 12, Samsung Galaxy]
+## 🎯 Dicas importantes
 
-## 📋 Contexto Adicional
-Qualquer informação adicional sobre o problema.
-```
+1. **Comece pequeno**: Faça pequenas mudanças primeiro para conhecer o projeto
+2. **Pergunte antes**: Se não tem certeza de algo, pergunte antes de começar
+3. **Seja paciente**: Code review pode demorar alguns dias
+4. **Mantenha simples**: Código simples é melhor que código complexo
+5. **Documente**: Se fez algo complexo, explique em comentários
 
-## 💡 Solicitando Features
-
-### Template de Issue para Features
-```markdown
-## 🚀 Descrição da Feature
-Descrição clara da funcionalidade desejada.
-
-## 🎯 Problema que Resolve
-Explicação do problema que esta feature resolve.
-
-## 💭 Solução Proposta
-Descrição da solução que você gostaria de ver.
-
-## 🔄 Alternativas Consideradas
-Outras soluções ou features que você considerou.
-
-## 📋 Contexto Adicional
-Informações adicionais, mockups, etc.
-```
-
-## 🔍 Code Review
-
-### Para Reviewers
-- **Foque na lógica**: Entenda o problema e se a solução é apropriada
-- **Verifique testes**: Cobertura e qualidade dos testes
-- **Considere performance**: Impacto na performance da aplicação
-- **Avalie UX**: Para mudanças de interface, considere a experiência do usuário
-- **Sugira melhorias**: Seja construtivo em seus comentários
-
-### Para Autores
-- **Responda rapidamente**: Trate feedback como uma conversa
-- **Explique decisões**: Justifique escolhas não óbvias
-- **Seja receptivo**: Aceite sugestões de melhoria
-- **Faça pequenos PRs**: Facilita o review e acelera aprovação
-
-### Critérios de Aprovação
-- [ ] Funcionalidade implementada corretamente
-- [ ] Código legível e bem estruturado
-- [ ] Testes adequados e passando
-- [ ] Documentação atualizada
-- [ ] Sem regressões identificadas
-- [ ] Performance aceitável
-
-## 🚀 Deploy e Release
-
-### Versionamento Semântico
-Seguimos [Semantic Versioning](https://semver.org/):
-- **MAJOR**: Mudanças incompatíveis de API
-- **MINOR**: Funcionalidades adicionadas de forma compatível
-- **PATCH**: Correções de bugs compatíveis
-
-### Processo de Release
-1. **Feature Freeze**: Congelar novas features
-2. **Testing**: Testes extensivos em ambiente de staging
-3. **Documentation**: Atualizar documentação e changelog
-4. **Tag Release**: Criar tag com nova versão
-5. **Deploy**: Deploy automático via CI/CD
-6. **Monitoring**: Monitorar aplicação pós-deploy
-
-### Hotfixes
-Para correções urgentes:
-```bash
-# Criar branch hotfix a partir da main
-git checkout main
-git pull upstream main
-git checkout -b hotfix/critical-bug-fix
-
-# Desenvolver correção
-# Testar extensivamente
-# Abrir PR marcado como hotfix
-```
-
-## 📞 Suporte e Comunicação
-
-### Canais de Comunicação
-- **Issues**: Para bugs e feature requests
-- **Discussions**: Para perguntas e discussões gerais
-- **Email**: Para questões sensíveis ou privadas
-
-### Tempo de Resposta
-- **Issues de bug crítico**: 24 horas
-- **Pull Requests**: 48 horas úteis
-- **Issues gerais**: 72 horas úteis
-- **Discussions**: Best effort
-
-### Código de Conduta
-- Seja respeitoso e profissional
-- Foque no código, não na pessoa
-- Aceite feedback construtivo
-- Ajude outros contribuidores
-- Mantenha discussões relevantes ao projeto
-
-## 📚 Recursos Adicionais
-
-### Documentação
-- [README principal](./README.md)
-- [API Documentation](./API/README.md)
-- [Web Documentation](./Web/README.md)
-- [Mobile Documentation](./Mobile/README.md)
-- [Domain Documentation](./Domain/README.md)
-
-### Ferramentas Úteis
-- [Git Flow Cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/)
-- [Conventional Commits](https://www.conventionalcommits.org/)
-- [Semantic Versioning](https://semver.org/)
-- [Keep a Changelog](https://keepachangelog.com/)
-
-### Aprendizado
-- [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- [React Best Practices](https://react.dev/learn)
-- [React Native Guide](https://reactnative.dev/docs/getting-started)
-- [.NET Best Practices](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/)
-
----
-
-Obrigado por contribuir com o CliniData! Juntos, estamos construindo uma plataforma que melhora o cuidado com a saúde. 🏥💙
+Obrigado por contribuir com o CliniData! 🏥💙

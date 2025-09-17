@@ -1,90 +1,100 @@
 # CliniData
 
-**CliniData** é uma plataforma de gestão integrada de saúde que conecta **instituições médicas, profissionais de saúde e pacientes**.  
-O sistema permite o registro de consultas, acompanhamento do histórico do paciente e controle de insumos, além de oferecer um aplicativo para que os pacientes possam centralizar seus exames e informações clínicas.
+**CliniData** é um sistema para clínicas e hospitais que conecta **médicos, instituições de saúde e pacientes** em uma plataforma simples e integrada.
 
-## ✨ Funcionalidades
+O sistema permite que clínicas façam o registro de consultas, que médicos acompanhem o histórico dos pacientes, e que os próprios pacientes organizem seus exames através de um aplicativo móvel.
 
-- **Instituições e médicos**
-  - Cadastro de instituições e médicos vinculados.
-  - Registro de consultas com dados completos dos pacientes.
-  - Relatórios de atendimentos e procedimentos realizados.
-  - Controle de gastos com materiais.
+## ✨ O que o sistema faz
 
-- **Pacientes**
-  - Aplicativo móvel para cadastro de exames por meio de foto.
-  - Histórico completo de consultas e exames acessível pelo perfil.
-  - Compartilhamento de informações com médicos e instituições.
+### Para Clínicas e Médicos
+- Cadastrar e gerenciar pacientes
+- Agendar e registrar consultas médicas  
+- Visualizar histórico completo dos pacientes
+- Gerar relatórios de atendimentos
+- Controlar gastos com materiais e medicamentos
 
-## 🏗 Arquitetura do Projeto
+### Para Pacientes  
+- Aplicativo no celular para fotografar e organizar exames
+- Ver todas as consultas e exames em um só lugar
+- Compartilhar informações médicas com diferentes médicos
+- Receber lembretes de consultas e medicamentos
 
-O **CliniData** é construído em uma arquitetura moderna e desacoplada, garantindo escalabilidade e manutenibilidade:
+## 🏗 Como o projeto está organizado
 
-- **CliniData.API**  
-  Desenvolvido em **.NET**, responsável pela comunicação com o frontend e persistência dos dados.
+O CliniData é dividido em 4 partes principais que trabalham juntas:
 
-- **CliniData.Web**  
-  Construído em **React**, voltado para instituições e médicos gerenciarem consultas, pacientes e relatórios.
+### **CliniData.API** (Servidor/Backend)
+Feito em **.NET** - É o "cérebro" do sistema que:
+- Guarda todos os dados no banco de dados
+- Controla quem pode acessar o que
+- Processa as informações entre as outras partes
 
-- **CliniData.Mobile**  
-  Criado em **React Native**, focado na experiência do paciente para registro de exames e acompanhamento de histórico.
+### **CliniData.Web** (Site para Médicos)  
+Feito em **React** - Site que médicos e clínicas usam para:
+- Cadastrar e buscar pacientes
+- Marcar consultas
+- Ver relatórios e estatísticas
 
-- **CliniData.Domain**  
-  Camada de regras de negócio e lógica de domínio, separada para garantir organização e clareza no desenvolvimento.
+### **CliniData.Mobile** (App do Paciente)
+Feito em **React Native** - Aplicativo que pacientes usam para:
+- Fotografar exames e resultados
+- Ver seu histórico médico
+- Agendar consultas
 
-## 📂 Estrutura do Repositório
+### **CliniData.Domain** (Regras do Negócio)
+Contém as **regras principais** do sistema, como:
+- Como validar dados de pacientes  
+- Quando uma consulta pode ser marcada
+- Que informações são obrigatórias
 
-O projeto segue uma estrutura organizada, com todas as camadas em um único repositório:
+## 📂 Estrutura das Pastas
+
+```
+CliniData/
+├── API/              # Servidor em .NET
+├── Web/              # Site em React  
+├── Mobile/           # App em React Native
+├── Domain/           # Regras de negócio
+├── Database/         # Scripts do banco de dados
+└── README.md         # Este arquivo
+```
 
 <img width="615" height="250" alt="image" src="https://github.com/user-attachments/assets/54b44912-de09-4862-b784-460bf593e1b8" />
 
-## 🛠 Tecnologias Utilizadas
+## 🛠 Tecnologias
 
-- **.NET** – Backend API
-- **React** – Frontend Web
-- **React Native** – Aplicativo Mobile
-- **Domain Layer** – Regras de negócio desacopladas
+- **.NET 8** – Para criar o servidor/API
+- **React** – Para criar o site dos médicos  
+- **React Native** – Para criar o app dos pacientes
+- **SQL Server** – Para guardar os dados
 
-## 📚 Documentação Detalhada
+## 📚 Como Usar Esta Documentação
 
-### 📖 Documentação por Módulo
-- **[CliniData.API](./API/README.md)** - Documentação completa da API .NET
-  - Arquitetura e padrões de design
-  - Endpoints e modelos de dados
-  - Autenticação e autorização
-  - Configuração e deployment
+### 🚀 Para Começar a Desenvolver
+- **[Configuração do Ambiente](./DEVELOPMENT.md)** - Como instalar e configurar tudo
+- **[Como Contribuir](./CONTRIBUTING.md)** - Regras para trabalhar no projeto
+
+### 📖 Documentação de Cada Parte
+- **[CliniData.API](./API/README.md)** - Servidor que conecta tudo
+  - Como rodar o servidor  
+  - Como funciona a autenticação
+  - Lista de todas as funcionalidades da API
   
-- **[CliniData.Domain](./Domain/README.md)** - Camada de domínio e regras de negócio
-  - Domain-Driven Design (DDD)
-  - Entidades e value objects
-  - Serviços de domínio e especificações
-  - Eventos de domínio
+- **[CliniData.Web](./Web/README.md)** - Site para médicos e clínicas
+  - Como criar e editar as telas
+  - Como adicionar novos componentes
+  - Como fazer formulários e validações
   
-- **[CliniData.Web](./Web/README.md)** - Aplicação frontend React
-  - Arquitetura de componentes
-  - Gerenciamento de estado
-  - Formulários e validações
-  - Design system e responsividade
+- **[CliniData.Mobile](./Mobile/README.md)** - App para os pacientes
+  - Como funciona a câmera para exames  
+  - Como o app funciona sem internet
+  - Como enviar notificações
   
-- **[CliniData.Mobile](./Mobile/README.md)** - Aplicativo móvel React Native
-  - Navegação e estrutura mobile
-  - Captura de exames por foto
-  - Armazenamento offline
-  - Notificações push
+- **[CliniData.Domain](./Domain/README.md)** - Regras de negócio
+  - Como funcionam as validações
+  - Quais são as regras do sistema
+  - Como adicionar novas funcionalidades
 
-### 🚀 Guias de Desenvolvimento
-- **[Guia de Configuração](./DEVELOPMENT.md)** - Setup completo do ambiente de desenvolvimento
-  - Pré-requisitos e instalação
-  - Configuração de IDEs
-  - Docker e ferramentas de desenvolvimento
-  - Troubleshooting comum
-
-- **[Guia de Contribuição](./CONTRIBUTING.md)** - Como contribuir com o projeto
-  - Fluxo de trabalho Git
-  - Padrões de código e commits
-  - Code review e testes
-  - Processo de release
-
-### 📋 Informações do Projeto
-- **[Changelog](./CHANGELOG.md)** - Histórico de mudanças e versões
-- **[Licença](./LICENSE)** - Termos de uso e distribuição
+### 📋 Informações Extras
+- **[Mudanças do Projeto](./CHANGELOG.md)** - O que mudou em cada versão
+- **[Licença](./LICENSE)** - Termos de uso do código

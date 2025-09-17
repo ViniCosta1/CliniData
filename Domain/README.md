@@ -1,7 +1,5 @@
 # CliniData.Domain
 
-# CliniData.Domain
-
 ## 📋 O que é
 
 A **CliniData.Domain** contém as **regras de negócio** do sistema CliniData. É aqui que ficam as validações, regras e lógicas principais que definem como o sistema deve funcionar.

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "0PYo08m/GpU=",
+  "success": true,
+  "projectFilePath": "C:\\Projetos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Aluno\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\Aluno\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

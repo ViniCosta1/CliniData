@@ -2,7 +2,7 @@
 
 Este diretório contém os arquivos relacionados à modelagem do banco de dados do projeto **CliniData**.
 
-<img width="1448" height="1136" alt="CliniDataDB" src="https://github.com/user-attachments/assets/dc829e23-e89f-43ce-aa5b-aa269331a8ae" />
+<img width="1503" height="1136" alt="CliniDataDB" src="https://github.com/user-attachments/assets/f9018649-0e00-4a03-8bc6-ef8aacd48743" />
 
 
 ## SGBD Utilizado
@@ -26,7 +26,6 @@ Armazena os dados dos pacientes atendidos pela clínica.
 ### **2. Médico**
 Registra os profissionais que realizam atendimentos.
 - **Principais campos:** Nome, CRM (registro profissional, único), especialidade, telefone, e-mail.
-- **Instituição vinculada:** Indica onde o médico atende.
 - **Observação:** O CRM deve ser preenchido no formato XXXXX/XX (ex: 12345/SP) e é único por estado.
 
 ### **3. Instituição**
@@ -47,7 +46,7 @@ Registra os atendimentos realizados entre médicos e pacientes.
 
 ### **6. Exame**
 Armazena os exames solicitados/realizados para os pacientes.
-- **Principais campos:** Tipo de exame, data/hora, paciente, médico, instituição, resultado, observação.
+- **Principais campos:** Tipo de exame, data/hora, paciente, médico, instituição, resultado, observação, documentoexame.
 - **Observação:** Permite controlar e consultar exames por paciente e médico.
 
 ### **7. Histórico Médico**

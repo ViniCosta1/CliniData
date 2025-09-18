@@ -1,0 +1,74 @@
+Table Paciente {
+  IdPaciente INT [pk, increment]
+  Nome VARCHAR(100)
+  DataNascimento DATE
+  Sexo VARCHAR(10)
+  CPF VARCHAR(14)
+  Telefone VARCHAR(20)
+  Email VARCHAR(100)
+  Rua VARCHAR(100)
+  Numero VARCHAR(10)
+  Complemento VARCHAR(30)
+  Bairro VARCHAR(50)
+  Cidade VARCHAR(50)
+  Estado VARCHAR(2)
+  CEP VARCHAR(10)
+}
+
+Table Medico {
+  IdMedico INT [pk, increment]
+  Nome VARCHAR(100)
+  CRM VARCHAR(20) [unique]
+  EspecialidadeId INT [ref: > EspecialidadeMedica.IdEspecialidade]
+  Telefone VARCHAR(20)
+  Email VARCHAR(100)
+  InstituicaoId INT [ref: > Instituicao.IdInstituicao]
+
+  note: 'O CRM deve ser preenchido no formato XXXXX/XX, sendo único por estado.'
+}
+
+Table Instituicao {
+  IdInstituicao INT [pk, increment]
+  Nome VARCHAR(100)
+  CNPJ VARCHAR(18) [unique]
+  Telefone VARCHAR(20)
+  Rua VARCHAR(100)
+  Numero VARCHAR(10)
+  Bairro VARCHAR(50)
+  Cidade VARCHAR(50)
+  Estado VARCHAR(2)
+  CEP VARCHAR(10)
+}
+
+Table EspecialidadeMedica {
+  IdEspecialidade INT [pk, increment]
+  NomeEspecialidade VARCHAR(100)
+}
+
+Table Consulta {
+  IdConsulta INT [pk, increment]
+  DataHora DATETIME
+  PacienteId INT [ref: > Paciente.IdPaciente]
+  MedicoId INT [ref: > Medico.IdMedico]
+  InstituicaoId INT [ref: > Instituicao.IdInstituicao]
+  Observacao VARCHAR(500)
+}
+
+Table Exame {
+  IdExame INT [pk, increment]
+  TipoExame VARCHAR(100)
+  DataHora DATETIME
+  PacienteId INT [ref: > Paciente.IdPaciente]
+  MedicoId INT [ref: > Medico.IdMedico]
+  InstituicaoId INT [ref: > Instituicao.IdInstituicao]
+  Resultado VARCHAR(500)
+  Observacao VARCHAR(500)
+}
+
+Table HistoricoMedico {
+  IdHistorico INT [pk, increment]
+  PacienteId INT [ref: > Paciente.IdPaciente]
+  DataRegistro DATETIME
+  Descricao VARCHAR(500)
+  MedicoId INT [ref: > Medico.IdMedico]
+}

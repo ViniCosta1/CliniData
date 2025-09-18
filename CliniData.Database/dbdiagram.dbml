@@ -22,7 +22,6 @@ Table Medico {
   EspecialidadeId INT [ref: > EspecialidadeMedica.IdEspecialidade]
   Telefone VARCHAR(20)
   Email VARCHAR(100)
-  InstituicaoId INT [ref: > Instituicao.IdInstituicao]
 
   note: 'O CRM deve ser preenchido no formato XXXXX/XX, sendo único por estado.'
 }
@@ -63,6 +62,7 @@ Table Exame {
   InstituicaoId INT [ref: > Instituicao.IdInstituicao]
   Resultado VARCHAR(500)
   Observacao VARCHAR(500)
+  DocumentoExame VARBINARY(MAX)
 }
 
 Table HistoricoMedico {
@@ -71,4 +71,4 @@ Table HistoricoMedico {
   DataRegistro DATETIME
   Descricao VARCHAR(500)
   MedicoId INT [ref: > Medico.IdMedico]
-}
+} 

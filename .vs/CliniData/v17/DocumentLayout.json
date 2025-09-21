@@ -1,12 +1,105 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Aluno\\source\\repos\\CliniData\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.api\\controllers\\pacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\pacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.api\\models\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\models\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.api\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Paciente.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Paciente.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T19:16:33.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PacientesController.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\PacientesController.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
+              "RelativeToolTip": "CliniData.Api\\Controllers\\PacientesController.cs",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T19:11:04.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\Models\\Paciente.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Models\\Paciente.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\Models\\Paciente.cs",
+              "RelativeToolTip": "CliniData.Api\\Models\\Paciente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T19:10:36.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\README.md",
+              "RelativeDocumentMoniker": "CliniData.Api\\README.md",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\README.md",
+              "RelativeToolTip": "CliniData.Api\\README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-09-19T19:10:22.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\README.md",
+              "RelativeDocumentMoniker": "CliniData.Domain\\README.md",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\README.md",
+              "RelativeToolTip": "CliniData.Domain\\README.md",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABkAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-09-19T19:07:04.464Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

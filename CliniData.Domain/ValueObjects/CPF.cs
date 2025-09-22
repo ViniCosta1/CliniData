@@ -20,7 +20,7 @@ public sealed class CPF : ValueObjects
     {
         var normalized = Normalize(cpf);
         if (!IsValid(normalized))
-            throw new InvalidCPFException("CPF inválido!");
+            throw new InvalidCPFException(cpf);
 
         Value = normalized;
     }

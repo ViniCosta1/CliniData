@@ -1,5 +1,5 @@
 ﻿using System;
-
+using CliniData.Domain.ValueObjects;
 public class Paciente
 {
     public int IdPaciente { get; private set; }

@@ -1,51 +1,108 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using CliniData.Domain.Enums;
+using CliniData.Domain.Exceptions;
 
-public class Endereco
+
+namespace CliniData.Domain.ValueObjects;
+
+public sealed class Endereco : ValueObjects
 {
-    public string Rua { get; private set; }
-    public string Numero { get; private set; }
-    public string Complemento { get; private set; }
-    public string Bairro { get; private set; }
-    public string Cidade { get; private set; }
-    public string Estado { get; private set; }
-    public string CEP { get; private set; }
+    private static readonly Regex CepDigits = new(@"^\d{8}$", RegexOptions.Compiled);
+
+    public string Rua { get; }
+    public string Numero { get; }
+    public string? Complemento { get; }
+    public string Bairro { get; }
+    public string Cidade { get; }
+    public UF UF { get; } // 2 letras
+    public string CEP { get; }  // armazenado como 8 dígitos (sem máscara)
+
+    protected Endereco()
+    {
+        Rua = Numero = Bairro = Cidade = CEP = String.Empty;
+        UF = UF.SP;
+    }
 
     public Endereco(
+         string rua,
+         string numero,
+         string? complemento,
+         string bairro,
+         string cidade,
+         UF estadoUF,
+         string cep
+        )
+    {
+        Rua = NormalizeRequired(rua, "Rua é obrigatória.");
+        Numero = NormalizeRequired(numero, "Número é obrigatório.");
+        Complemento = string.IsNullOrWhiteSpace(complemento) ? null : complemento.Trim();
+        Bairro = NormalizeRequired(bairro, "Bairro é obrigatório.");
+        Cidade = NormalizeRequired(cidade, "Cidade é obrigatória.");
+        UF = estadoUF;
+        CEP = NormalizeCEP(cep);
+    }
+
+    public static Endereco CreateFromString(
         string rua,
         string numero,
-        string complemento,
+        string? complemento,
         string bairro,
         string cidade,
-        string estado,
-        string cep)
+        string ufString,
+        string cep
+        )
     {
-        if (string.IsNullOrWhiteSpace(rua))
-            throw new ArgumentException("Rua é obrigatória.");
-        if (string.IsNullOrWhiteSpace(cidade))
-            throw new ArgumentException("Cidade é obrigatória.");
-        if (string.IsNullOrWhiteSpace(estado))
-            throw new ArgumentException("Estado é obrigatório.");
-        if (!IsValidCEP(cep))
-            throw new ArgumentException("CEP inválido.");
+        if (!Enum.TryParse<UF>(ufString?.Trim().ToUpperInvariant(), out var uf))
+            throw new InvalidEnderecoException("UF inválida.");
+        return new Endereco(
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            uf,
+            cep);
 
-        Rua = rua;
-        Numero = numero;
-        Complemento = complemento;
-        Bairro = bairro;
-        Cidade = cidade;
-        Estado = estado;
-        CEP = cep;
     }
 
-    private static bool IsValidCEP(string cep)
+    public override string ToString()
     {
-        if (string.IsNullOrWhiteSpace(cep)) return false;
-        cep = cep.Replace("-", "");
-        return cep.Length == 8 && long.TryParse(cep, out _);
+        var comp = string.IsNullOrEmpty(Complemento) ? "" : $" - {Complemento}";
+        return $"{Rua}, {Numero}{comp}, {Bairro}, {Cidade} - {UF}, CEP: {ToMasked(CEP)}";
     }
 
-    public string GetEnderecoCompleto()
+    public static string ToMasked(string digits8) => CepDigits.IsMatch(digits8) ? $"{digits8[..5]}-{digits8[5..]}" : digits8;
+
+
+    public static string NormalizeCEP(string input)
     {
-        return $"{Rua}, {Numero} {Complemento}, {Bairro}, {Cidade} - {Estado}, CEP: {CEP}";
+        var digits = new string((input ?? "").Where(char.IsDigit).ToArray());
+        if(!CepDigits.IsMatch(digits))
+            throw new InvalidEnderecoException("CEP inválido. Deve conter 8 dígitos.");
+        return digits;
     }
+
+    public static string NormalizeRequired(string input, string error)
+    {
+        if(string.IsNullOrWhiteSpace(input))
+            throw new InvalidEnderecoException(error);
+        return input.Trim();
+    }
+
+    protected override System.Collections.Generic.IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Rua;
+        yield return Numero;
+        yield return Complemento;
+        yield return Bairro;
+        yield return Cidade;
+        yield return UF;
+        yield return CEP;
+    }
+
+
+
+
 }

@@ -2,11 +2,11 @@
 using CliniData.Domain.ValueObjects;
 using CliniData.Domain.Exceptions;
 using CliniData.Domain.Enums;
+using CliniData.Domain.Abstractions;
 
 
-public class Paciente
+public class Paciente: BaseEntity<int>
 {
-    public int IdPaciente { get; private set; }
     public string Nome { get; private set; }
     public DateTime DataNascimento { get; private set; }
     public Sexo Sexo { get; private set; }
@@ -19,13 +19,12 @@ public class Paciente
 
     private Paciente()
     {
-        Nome = string.Empty;
+        Nome = Telefone = string.Empty;
         Email = new Email("placeholder@example.com");
         CPF = new CPF("00000000000");
         Endereco = new Endereco("", "", "", "", "", UF.SP, "00000000");
     }
     public Paciente(
-        int idPaciente,
         string nome,
         DateTime dataNascimento,
         Sexo sexo,
@@ -36,7 +35,6 @@ public class Paciente
         string? nomeResponsavel = null
         )
     {
-        IdPaciente = idPaciente;
         Nome = NormalizeRequired(nome, "Nome é obrigatório.");
         DataNascimento = dataNascimento;
         Sexo = sexo;
@@ -47,12 +45,6 @@ public class Paciente
         NomeResponsavel = string.IsNullOrWhiteSpace(nomeResponsavel) ? null : nomeResponsavel.Trim();
 
         ValidarResponsavelParaMenor(DateTime.UtcNow);
-    }
-
-    public static string NormalizeRequired(string? valor, string messagemErro)
-    {
-        if (string.IsNullOrWhiteSpace(valor)) throw new BusinessRuleException(messagemErro);
-        return valor.Trim();
     }
 
     // Exemplo de métodos complementares
@@ -68,33 +60,52 @@ public class Paciente
     public void AtualizarEmail(Email novoEmail)
     {
         Email = novoEmail ?? throw new BusinessRuleException("Email é obrigatório.");
+        MarcarAtualizado(DateTime.UtcNow);
     }
 
     public void AtualizarTelefone(string novoTelefone)
     {
         Telefone = NormalizeRequired(novoTelefone, "Telefone é obrigatório.");
+        MarcarAtualizado(DateTime.UtcNow);
     }
 
     public void AtualizarNome(string novoNome)
     {
         Nome = NormalizeRequired(novoNome, "Nome é obrigatório.");
+        MarcarAtualizado(DateTime.UtcNow);
     }
 
     public void DefinirSexo(Sexo sexo)
     {
         Sexo = sexo;
+        MarcarAtualizado(DateTime.UtcNow);
     }
 
     public void DefinirResponsavel(string? nomeResponsavel, DateTime hoje)
     {
         NomeResponsavel = NormalizeRequired(nomeResponsavel, "Nome do responsável é obrigatório.");
         ValidarResponsavelParaMenor(hoje);
+        MarcarAtualizado(DateTime.UtcNow);
+    }
+
+    public void RemoverResponsavel(DateTime hoje)
+    {
+        NomeResponsavel = null;
+        ValidarResponsavelParaMenor(hoje);
+        MarcarAtualizado(DateTime.UtcNow);
     }
 
     public void ValidarResponsavelParaMenor(DateTime hoje)
     {
         if(EhMenorDeIdade(hoje) && string.IsNullOrWhiteSpace(NomeResponsavel))
             throw new PacienteMenoridadeException();
+    
+    }
+
+    public static string NormalizeRequired(string? valor, string messagemErro)
+    {
+        if (string.IsNullOrWhiteSpace(valor)) throw new BusinessRuleException(messagemErro);
+        return valor.Trim();
     }
 
 

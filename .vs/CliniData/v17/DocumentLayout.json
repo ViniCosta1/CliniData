@@ -7,6 +7,22 @@
       "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\abstractions\\baseentity.tid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\abstractions\\baseentity.tid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\abstractions\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\abstractions\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\abstractions\\domainevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\abstractions\\domainevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\abstractions\\idomainevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\abstractions\\idomainevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\onedrive\\documentos\\clinidata\\clinidata.domain\\enums\\sexo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\enums\\sexo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -86,11 +102,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BaseEntity.TId.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\BaseEntity.TId.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Abstractions\\BaseEntity.TId.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\BaseEntity.TId.cs",
+              "RelativeToolTip": "CliniData.Domain\\Abstractions\\BaseEntity.TId.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T17:46:51.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IDomainEvent.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\IDomainEvent.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Abstractions\\IDomainEvent.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\IDomainEvent.cs",
+              "RelativeToolTip": "CliniData.Domain\\Abstractions\\IDomainEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T17:38:40.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DomainEvent.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\DomainEvent.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Abstractions\\DomainEvent.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\DomainEvent.cs",
+              "RelativeToolTip": "CliniData.Domain\\Abstractions\\DomainEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T17:38:28.157Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Abstractions\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Abstractions\\BaseEntity.cs",
+              "RelativeToolTip": "CliniData.Domain\\Abstractions\\BaseEntity.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAmwBUAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T17:37:06.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "PacienteMenoridadeException.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Exceptions\\PacienteMenoridadeException.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Exceptions\\PacienteMenoridadeException.cs",
@@ -103,7 +171,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Paciente.cs",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Paciente.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAkwG0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T19:16:33.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "InvalidEnderecoException.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Exceptions\\InvalidEnderecoException.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Exceptions\\InvalidEnderecoException.cs",
@@ -116,7 +197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "ValueObjects.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\ValueObjects\\ValueObjects.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\ValueObjects.cs",
@@ -129,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "Endereco.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\ValueObjects\\Endereco.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\Endereco.cs",
@@ -142,20 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Paciente.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Paciente.cs",
-              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
-              "RelativeToolTip": "CliniData.Domain\\Entities\\Paciente.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwB4AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T19:16:33.422Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Sexo.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Enums\\Sexo.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\Sexo.cs",
@@ -168,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "InvalidEmailException.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Exceptions\\InvalidEmailException.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Exceptions\\InvalidEmailException.cs",
@@ -181,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "UF.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Enums\\UF.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\UF.cs",
@@ -194,7 +262,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "CPF.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\ValueObjects\\CPF.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\CPF.cs",
@@ -207,7 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "Email.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\ValueObjects\\Email.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\Email.cs",
@@ -220,7 +288,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "InvalidCPFException.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Exceptions\\InvalidCPFException.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Exceptions\\InvalidCPFException.cs",
@@ -233,7 +301,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "BusinessRuleException.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Exceptions\\BusinessRuleException.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Exceptions\\BusinessRuleException.cs",
@@ -246,7 +314,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "UserRole.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Enums\\UserRole.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\UserRole.cs",
@@ -258,7 +326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "AppointmentStatus.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\Enums\\AppointmentStatus.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\AppointmentStatus.cs",
@@ -270,12 +338,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "CliniData.Domain.csproj",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
               "RelativeDocumentMoniker": "CliniData.Domain\\CliniData.Domain.csproj",
-              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
-              "RelativeToolTip": "CliniData.Domain\\CliniData.Domain.csproj",
+              "ToolTip": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj*",
+              "RelativeToolTip": "CliniData.Domain\\CliniData.Domain.csproj*",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-09-21T00:54:58.271Z",
@@ -283,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "PacientesController.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\PacientesController.cs",
@@ -295,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "Paciente.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\Models\\Paciente.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Models\\Paciente.cs",
@@ -307,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\README.md",
               "RelativeDocumentMoniker": "CliniData.Api\\README.md",
@@ -319,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Domain\\README.md",
               "RelativeDocumentMoniker": "CliniData.Domain\\README.md",

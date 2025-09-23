@@ -4,6 +4,7 @@ using CliniData.Domain.Exceptions;
 using CliniData.Domain.Enums;
 using CliniData.Domain.Abstractions;
 
+namespace CliniData.Domain.Entities;
 
 public class Paciente: BaseEntity<int>
 {

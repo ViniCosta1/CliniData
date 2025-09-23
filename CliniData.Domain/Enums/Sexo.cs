@@ -1,13 +1,11 @@
 ﻿using System;
 
 
-namespace CliniData.Domain.Enums
+namespace CliniData.Domain.Enums;
+public enum Sexo
 {
-    internal enum Sexo
-    {
-        Masculino = 1,
-        Feminino = 2,
-        Outro = 3,
-        NaoInformado = 4
-    }
+    Masculino = 1,
+    Feminino = 2,
+    Outro = 3,
+    NaoInformado = 4
 }

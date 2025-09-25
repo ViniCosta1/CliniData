@@ -25,9 +25,9 @@ public sealed class Medico : BaseEntity<int>
         )
     {
         Nome = NormalizedRequired(nome, "Nome do médico é obrigatório!");
-        CRM = crm ?? thorw new BusinessRuleException("CRM é obrigatório");
+        CRM = crm ?? throw new BusinessRuleException("CRM é obrigatório");
         EspecialidadeId = especialidadeId > 0 ? especialidadeId : throw new BusinessRuleException("Especialidade é obrigatória.");
-        Telefone = NormalizedRequired(telelfone, "Telefone é obrigatório");
+        Telefone = NormalizedRequired(telefone, "Telefone é obrigatório");
         Email = email ?? throw new BusinessRuleException("Email é obrigatório");
     }
 

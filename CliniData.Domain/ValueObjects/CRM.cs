@@ -7,7 +7,7 @@ namespace CliniData.Domain.ValueObjects;
 
 public sealed class CRM : ValueObjects
 {
-    private static readonly Regex Pattern = new(@"(@""^(?<num>\d{4,6})[\/\s-]?(?<uf>[A-Za-z]{2})$", RegexOptions.Compiled);
+    private static readonly Regex Pattern = new(@"^(?<num>\d{4,6})[\/\s-]?(?<uf>[A-Za-z]{2})$", RegexOptions.Compiled);
 
     public string Value { get; }
 

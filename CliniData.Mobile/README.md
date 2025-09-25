@@ -48,3 +48,30 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Troubleshooting: "expo: command not found"
+
+1. Instale dependências do projeto (na raiz do projeto):
+   ```bash
+   npm install
+   ```
+
+2. Execute o Expo via npx (não precisa instalar globalmente):
+   ```bash
+   npx expo start
+   ```
+   ou via npm script:
+   ```bash
+   npm run start
+   ```
+
+3. Se preferir instalar globalmente (opcional):
+   ```bash
+   npm install -g expo-cli
+   ```
+   (ou use `npm i -g expo` se sua versão do ambiente requerer — o recomendado é usar `npx`.)
+
+4. Se o comando continuar com erro:
+   - Verifique se Node.js e npm estão instalados e na variável PATH.
+   - Reinicie o terminal depois de instalar pacotes globais.
+   - Limpe cache do Metro: `expo start -c` (use via npx se necessário: `npx expo start -c`).

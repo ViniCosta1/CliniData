@@ -16,6 +16,7 @@ namespace CliniData.Api.Data
 
         // Tabela de pacientes
         public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<Medico> Medicos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

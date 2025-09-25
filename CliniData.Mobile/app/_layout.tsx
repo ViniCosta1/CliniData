@@ -5,7 +5,8 @@ export default function RootLayout() {
     <Stack screenOptions={
       { headerShown: false }
     }>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      {/* Remova ou ajuste a linha abaixo se não quiser index como rota global */}
+      {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
     </Stack>
   );
 }

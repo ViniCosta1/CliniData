@@ -28,16 +28,16 @@ export default function TabLayout() {
 			<Tabs.Screen name="home" options={{ title: 'Home' }} />
 			<Tabs.Screen name="exames" options={{ title: 'Exames' }} />
 			<Tabs.Screen name="logout" options={{ title: 'Logout' }} />
-
-			{/* Rota de detalhes existe para navegação, mas não deve aparecer no Tab Bar */}
 			<Tabs.Screen
 				name="detalhes"
 				options={{
 					title: 'Detalhes',
-					// remove o botão da tab bar
 					tabBarButton: () => null,
 				}}
 			/>
+			{/* Certifique-se que NÃO existe index.tsx ou CadastroExameScreen.tsx em app/tabs/ */}
+			{/* Mova esses arquivos para app/screens/ ou exclua se não forem necessários */}
 		</Tabs>
 	);
 }
+

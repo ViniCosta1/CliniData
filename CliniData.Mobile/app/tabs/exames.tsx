@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
     FlatList,
-    SafeAreaView,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -32,30 +31,30 @@ export default function ExamesScreen() {
       !!nav?.getState?.()?.routeNames?.includes?.(name);
 
     // 1) current navigator: usar o nome de rota "detalhes"
-    if (hasRoute(navigation, 'detalhes')) {
-      navigation.navigate('detalhes' as any, params);
+    if (hasRoute(navigation, 'screens/detalhes')) {
+      navigation.navigate('screens/detalhes' as any, params);
       return;
     }
 
     if (hasRoute(navigation, 'Exames')) {
-      navigation.navigate('Exames' as any, { screen: 'detalhes', params });
+      navigation.navigate('Exames' as any, { screen: 'screens/detalhes', params });
       return;
     }
 
     // 2) parent navigator(s)
     const parent = navigation.getParent?.();
     if (parent) {
-      if (hasRoute(parent, 'detalhes')) {
-        parent.navigate('detalhes' as any, params);
+      if (hasRoute(parent, 'screens/detalhes')) {
+        parent.navigate('screens/detalhes' as any, params);
         return;
       }
       if (hasRoute(parent, 'Exames')) {
-        parent.navigate('Exames' as any, { screen: 'detalhes', params });
+        parent.navigate('Exames' as any, { screen: 'screens/detalhes', params });
         return;
       }
       const grandParent = parent.getParent?.();
-      if (grandParent && hasRoute(grandParent, 'detalhes')) {
-        grandParent.navigate('detalhes' as any, params);
+      if (grandParent && hasRoute(grandParent, 'screens/detalhes')) {
+        grandParent.navigate('screens/detalhes' as any, params);
         return;
       }
     }
@@ -87,10 +86,13 @@ export default function ExamesScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.header}>Exames</Text>
 
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('screens/CadastroExameScreen')}
+      >
         <Text style={styles.addButtonText}>Inserir novo exame +</Text>
       </TouchableOpacity>
 
@@ -101,7 +103,7 @@ export default function ExamesScreen() {
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 

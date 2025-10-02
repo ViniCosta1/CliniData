@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {}
+    "C:\\Users\\Aluno\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {
+    "C:\\Users\\Aluno\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Aluno\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
         "projectName": "CliniData.Api",
-        "projectPath": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
-        "packagesPath": "C:\\Users\\phavl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phavl\\OneDrive\\Documentos\\CliniData\\CliniData.Api\\obj\\",
+        "projectPath": "C:\\Users\\Aluno\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+        "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Aluno\\Source\\Repos\\CliniData\\CliniData.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\phavl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

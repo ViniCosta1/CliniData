@@ -19,6 +19,18 @@ builder.Services.AddScoped<IPacienteService, PacienteService>();
 builder.Services.AddScoped<IMedicoRepository, MedicoRepository>();
 builder.Services.AddScoped<IMedicoService, MedicoService>();
 
+builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
+builder.Services.AddScoped<IConsultaService, ConsultaService>();
+
+builder.Services.AddScoped<IExameRepository, ExameRepository>();
+builder.Services.AddScoped<IExameService, ExameService>();
+
+builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
+builder.Services.AddScoped<IInstituicaoService, InstituicaoService>();
+
+builder.Services.AddScoped<IHistoricoMedicoRepository, HistoricoMedicoRepository>();
+builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
+
 // Configuração do Swagger para documentação da API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

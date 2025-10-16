@@ -1,13 +1,15 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using CliniData.Domain.Exceptions;
 using CliniData.Domain.Abstractions;
 using CliniData.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace CliniData.Domain.Entities;
 
 public sealed class Medico : BaseEntity<int>
 {
     public string Nome { get; private set; }
+    [Required]
     public CRM CRM { get; private set; } = null!;
 
     public int EspecialidadeId { get; private set; }

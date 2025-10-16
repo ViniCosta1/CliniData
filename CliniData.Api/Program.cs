@@ -5,14 +5,14 @@ using CliniData.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ConfiguraÁ„o dos serviÁos
+// Configura√ß√£o dos servi√ßos
 builder.Services.AddControllers();
 
-// ConfiguraÁ„o do Entity Framework
+// Configura√ß√£o do Entity Framework
 builder.Services.AddDbContext<CliniDataDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Registro dos repositÛrios e serviÁos (Dependency Injection)
+// Registro dos reposit√≥rios e servi√ßos (Dependency Injection)
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IPacienteService, PacienteService>();
 
@@ -31,7 +31,7 @@ builder.Services.AddScoped<IInstituicaoService, InstituicaoService>();
 builder.Services.AddScoped<IHistoricoMedicoRepository, HistoricoMedicoRepository>();
 builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
 
-// ConfiguraÁ„o do Swagger para documentaÁ„o da API
+// Configura√ß√£o do Swagger para documenta√ß√£o da API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API para gerenciamento de pacientes do sistema CliniData"
     });
 
-    // Incluir coment·rios XML na documentaÁ„o
+    // Incluir coment√°rios XML na documenta√ß√£o
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
@@ -51,7 +51,7 @@ builder.Services.AddSwaggerGen(c =>
     }
 });
 
-// ConfiguraÁ„o de CORS (para permitir acesso do frontend)
+// Configura√ß√£o de CORS (para permitir acesso do frontend)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -64,14 +64,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ConfiguraÁ„o do pipeline de requisiÁıes
+// Configura√ß√£o do pipeline de requisi√ß√µes
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "CliniData API v1");
-        c.RoutePrefix = string.Empty; // Swagger na raiz da aplicaÁ„o
+        c.RoutePrefix = string.Empty; // Swagger na raiz da aplica√ß√£o
     });
 }
 
@@ -80,7 +80,7 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 
-// VerificaÁ„o de sa˙de da aplicaÁ„o
-app.MapGet("/health", () => Results.Ok(new { Status = "Saud·vel", Timestamp = DateTime.UtcNow }));
+// Verifica√ß√£o de sa√∫de da aplica√ß√£o
+app.MapGet("/health", () => Results.Ok(new { Status = "Saud√°vel", Timestamp = DateTime.UtcNow }));
 
 app.Run();

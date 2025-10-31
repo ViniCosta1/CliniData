@@ -8,9 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuração dos serviços
 builder.Services.AddControllers();
 
-// Configuração do Entity Framework
+// Lê a connection string (DefaultConnection) do appsettings
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
+
+// Configuração do Entity Framework para Postgres (Npgsql)
 builder.Services.AddDbContext<CliniDataDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        // configura retries (opcional)
+        npgsqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(15), null);
+    }));
 
 // Registro dos repositórios e serviços (Dependency Injection)
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
@@ -42,7 +50,6 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API para gerenciamento de pacientes do sistema CliniData"
     });
 
-    // Incluir comentários XML na documentação
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))

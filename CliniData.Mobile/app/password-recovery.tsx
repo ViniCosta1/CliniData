@@ -1,5 +1,3 @@
-// Cole isso dentro de: app/register.tsx
-
 import React, { useState } from 'react';
 import { 
     View, 
@@ -10,65 +8,48 @@ import {
     Image,
     SafeAreaView 
 } from 'react-native';
-// Importe o Link para navegar de volta ao login
+
 import { Link } from 'expo-router'; 
 
-export default function RegisterScreen() {
-    const [cpf, setCpf] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [repetirSenha, setRepetirSenha] = useState('');
-    const logo = require('../assets/images/logo.png');
+
+const logo = require('../assets/images/logo.png');
+
+export default function PasswordRecoveryScreen() {
+    const [codigo, setCodigo] = useState('');
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.formContainer}>
-
+                {/* 1. Logo */}
                 <Image source={logo} style={styles.logo} />
-                {/* <Text style={styles.logoPlaceholder}>Logo</Text> */}
 
-                <Text style={styles.title}>Cadastro</Text>
+                {/* 2. Título */}
+                <Text style={styles.title}>Recuperação De Senha</Text>
+                <Text style={styles.subtitle}>Digite o código enviado no E-Mail para recuperar a senha</Text>
+
 
                 {/* 3. Inputs */}
                 <TextInput
                     style={styles.input}
-                    placeholder="C.P.F"
-                    value={cpf}
-                    onChangeText={setCpf}
+                    placeholder="Digite o Código"
+                    value={codigo}
+                    onChangeText={setCodigo}
                     keyboardType="numeric"
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder="E-mail"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Senha"
-                    value={senha}
-                    onChangeText={setSenha}
-                    secureTextEntry 
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Repita a senha"
-                    value={repetirSenha}
-                    onChangeText={setRepetirSenha}
-                    secureTextEntry 
-                />
 
-                {/* 4. Botão de Entrar */}
-                <TouchableOpacity style={styles.button} onPress={() => { /* Lógica de cadastro aqui */ }}>
-                    <Text style={styles.buttonText}>Entrar</Text> 
+                {/* 4. Botões */}
+                <TouchableOpacity style={styles.button} onPress={() => { /* Lógica de reenviar código */ }}>
+                    <Text style={styles.buttonText}>Reenviar código</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={() => { /* Lógica de entrar */ }}>
+                    <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
 
                 {/* 5. Link de Navegação para voltar ao Login */}
                 <Link href="/" asChild> 
                     <TouchableOpacity style={styles.linkButton}>
-                        <Text style={styles.linkText}>Já possui uma conta? Faça login</Text>
+                        <Text style={styles.linkText}>Lembra da senha? Faça login</Text>
                     </TouchableOpacity>
                 </Link>
             </View>
@@ -96,18 +77,6 @@ const styles = StyleSheet.create({
         shadowRadius: 2.62,
         elevation: 4,
     },
-    logoPlaceholder: {
-        width: 70,
-        height: 70,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        backgroundColor: '#eee',
-        color: '#aaa',
-        borderRadius: 35,
-        marginBottom: 20,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
     logo: {
         width: 70,
         height: 70,
@@ -118,7 +87,15 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: '#333',
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    subtitle: {
+        fontSize: 14,
+        color: '#666',
+        textAlign: 'center',
         marginBottom: 20,
+        paddingHorizontal: 10,
     },
     input: {
         width: '100%',
@@ -134,7 +111,7 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: '#007bff', // Azul
+        backgroundColor: '#007bff', 
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,

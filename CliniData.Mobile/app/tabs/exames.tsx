@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
-    FlatList,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 type Exame = {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   addButton: {
-    backgroundColor: '#2e8b57',
+    backgroundColor: '#2ea7ff',
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: 6,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   list: {
-    paddingBottom: 24,
+    paddingBottom: 100, // garantir espaço para a navbar
   },
   card: {
     flexDirection: 'row',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   detailButton: {
-    backgroundColor: '#2e8b57',
+    backgroundColor: '#2ea7ff',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 6,

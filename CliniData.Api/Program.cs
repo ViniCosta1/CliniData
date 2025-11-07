@@ -8,10 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuração dos serviços
 builder.Services.AddControllers();
 
+
 // Lê a connection string (DefaultConnection) do appsettings
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
-
 // Configuração do Entity Framework para Postgres (Npgsql)
 builder.Services.AddDbContext<CliniDataDbContext>(options =>
     options.UseNpgsql(connectionString, npgsqlOptions =>
@@ -19,6 +19,10 @@ builder.Services.AddDbContext<CliniDataDbContext>(options =>
         // configura retries (opcional)
         npgsqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(15), null);
     }));
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 
 // Registro dos repositórios e serviços (Dependency Injection)
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
@@ -81,7 +85,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty; // Swagger na raiz da aplicação
     });
 }
-
+app.MapIdentityApi<User>();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseAuthorization();

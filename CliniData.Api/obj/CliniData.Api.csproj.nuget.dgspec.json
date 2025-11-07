@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {}
   },
   "projects": {
@@ -12,12 +13,29 @@
         "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
         "packagesPath": "C:\\Users\\phavl\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\obj\\",
+=======
+    "C:\\Projetos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {}
+  },
+  "projects": {
+    "C:\\Projetos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projetos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+        "projectName": "CliniData.Api",
+        "projectPath": "C:\\Projetos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+        "packagesPath": "C:\\Users\\Interfocus\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\CliniData\\CliniData.Api\\obj\\",
+>>>>>>> fecf86e817889b2fe21817d14a3896ebac56e257
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\phavl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\Interfocus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> fecf86e817889b2fe21817d14a3896ebac56e257
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +44,13 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+<<<<<<< HEAD
           "https://api.nuget.org/v3/index.json": {}
+=======
+          "http://192.168.10.40/GaleriaNugetInterfocus/nuget": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://interfocus.pkgs.visualstudio.com/_packaging/InterfocusNuget/nuget/v3/index.json": {}
+>>>>>>> fecf86e817889b2fe21817d14a3896ebac56e257
         },
         "frameworks": {
           "net8.0": {
@@ -90,7 +114,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+>>>>>>> fecf86e817889b2fe21817d14a3896ebac56e257
         }
       }
     }

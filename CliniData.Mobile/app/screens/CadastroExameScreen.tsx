@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 
 export default function CadastroExameScreen() {
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 16,
     paddingTop: 32,
+    paddingBottom: 100, // espaço reservado para a navbar (evita corte do botão Salvar)
     justifyContent: 'flex-start',
   },
   form: {
@@ -99,18 +100,18 @@ const styles = StyleSheet.create({
     borderColor: '#d0d0d0',
   },
   uploadButton: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
     alignItems: 'center',
     marginBottom: 32,
     borderWidth: 1,
-    borderColor: '#d0d0d0',
+    borderColor: '#2ea7ff',
     alignSelf: 'flex-start',
   },
   uploadButtonText: {
-    color: '#444',
+    color: '#2ea7ff',
     fontWeight: '500',
     fontSize: 15,
   },
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   saveButton: {
-    backgroundColor: '#009e60',
+    backgroundColor: '#2ea7ff',
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 10,

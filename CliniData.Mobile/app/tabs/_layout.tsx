@@ -21,13 +21,15 @@ export default function TabLayout() {
 						color={color}
 					/>
 				),
+				headerShown: false,
+				tabBarShowLabel: false,
 				tabBarActiveTintColor: '#1976d2',
 				tabBarInactiveTintColor: '#888',
 			})}
 		>
-			<Tabs.Screen name="home" options={{ title: 'Home' }} />
-			<Tabs.Screen name="exames" options={{ title: 'Exames' }} />
-			<Tabs.Screen name="logout" options={{ title: 'Logout' }} />
+			<Tabs.Screen name="home"/>
+			<Tabs.Screen name="exames" />
+			<Tabs.Screen name="logout" />
 			<Tabs.Screen
 				name="detalhes"
 				options={{

@@ -14,9 +14,7 @@ public sealed class ApplicationUserConfiguration : IEntityTypeConfiguration<Appl
         builder.HasIndex(u => u.Email).HasDatabaseName("IX_AspNetUsers_Email");
 
         // Ligações com o domínio (FK opcionais; crie se quiser integridade referencial)
-        builder.Property(u => u.MedicoId);
-        builder.Property(u => u.PacienteId);
-
+        builder.Property(u => u.UserRole);
         // Se quiser FK de verdade, adicione navegações no ApplicationUser e configure aqui.
         // Como alternativa, mantenha apenas os IDs e trate na aplicação.
     }

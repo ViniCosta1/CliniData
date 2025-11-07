@@ -3,7 +3,7 @@
 
 namespace CliniData.Domain.Enums
 {
-    internal enum AppointmentStatus
+    public enum AppointmentStatus
     {
         Agendado = 1,
         Confirmado = 2,

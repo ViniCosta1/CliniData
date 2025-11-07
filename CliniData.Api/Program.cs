@@ -1,9 +1,22 @@
-using Microsoft.EntityFrameworkCore;
 using CliniData.Api.Data;
 using CliniData.Api.Repositories;
 using CliniData.Api.Services;
+using CliniData.Infra.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization(options => { });
+
+
+builder.Services
+    .AddIdentityCore<ApplicationUser>()
+    .AddEntityFrameworkStores<CliniDataDbContext>() 
+    .AddApiEndpoints();
 
 // Configuração dos serviços
 builder.Services.AddControllers();
@@ -13,6 +26,9 @@ builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
 // Configuração do Entity Framework para Postgres (Npgsql)
+
+
+
 builder.Services.AddDbContext<CliniDataDbContext>(options =>
     options.UseNpgsql(connectionString, npgsqlOptions =>
     {
@@ -20,8 +36,6 @@ builder.Services.AddDbContext<CliniDataDbContext>(options =>
         npgsqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(15), null);
     }));
 
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
 
 
 // Registro dos repositórios e serviços (Dependency Injection)
@@ -85,7 +99,7 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty; // Swagger na raiz da aplicação
     });
 }
-app.MapIdentityApi<User>();
+app.MapIdentityApi<ApplicationUser>();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseAuthorization();

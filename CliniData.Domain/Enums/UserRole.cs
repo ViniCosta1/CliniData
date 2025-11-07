@@ -2,7 +2,7 @@
 
 namespace CliniData.Domain.Enums
 {
-    internal enum UserRole
+    public enum UserRole
     {
         Admin = 1,
         Instituicao = 2,

@@ -8,39 +8,58 @@ import {
     Image,
     SafeAreaView 
 } from 'react-native';
-
 import { Link, router } from 'expo-router'; 
 
-
-const logo = require('../assets/images/logo.png'); // LOGO
+const logo = require('../assets/images/logoreal.png');
 
 export default function LoginScreen() {
     const [emailCpf, setEmailCpf] = useState('');
     const [senha, setSenha] = useState('');
 
     function handleLogin() {
-        
+    
         router.replace('/(tabs)/home'); 
     }
+
+
+    const formatCPF = (text: string) => {
+        const cleaned = text.replace(/\D/g, '');
+        const limited = cleaned.slice(0, 11);
+        let masked = limited.replace(/(\d{3})(\d)/, '$1.$2');
+        masked = masked.replace(/(\d{3})(\d)/, '$1.$2');
+        masked = masked.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        return masked;
+    };
+
+    
+    const handleLoginChange = (text: string) => {
+      
+        const isEmail = /[a-zA-Z@]/.test(text);
+
+        if (isEmail) {
+           
+            setEmailCpf(text);
+        } else {
+          
+            const formattedCpf = formatCPF(text);
+            setEmailCpf(formattedCpf);
+        }
+    };
+    
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.formContainer}>
-
-                {/* 1. Logo */}
-                 <Image source={logo} style={styles.logo} />
-                {/* <Text style={styles.logoPlaceholder}>[Logo]</Text> */}
-
-                {/* 2. Título */}
+                
+                <Image source={logo} style={styles.logo} />
+                
                 <Text style={styles.title}>Login</Text>
 
-                {/* 3. Inputs */}
                 <TextInput
                     style={styles.input}
                     placeholder="C.P.F OU E-mail"
                     value={emailCpf}
-                    onChangeText={setEmailCpf}
-                    keyboardType="email-address"
+                    onChangeText={handleLoginChange} 
                     autoCapitalize="none"
                 />
                 <TextInput
@@ -48,25 +67,19 @@ export default function LoginScreen() {
                     placeholder="Senha"
                     value={senha}
                     onChangeText={setSenha}
-                    secureTextEntry // Para esconder a senha
+                    secureTextEntry
                 />
 
-                {/* 4. Botão de Entrar */}
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
 
-                {/* 5. Links de Navegação */}
-                
-                {/* Este Link usa o Expo Router para ir para a tela app/register.tsx */}
                 <Link href="/register" asChild>
                     <TouchableOpacity style={styles.linkButton}>
-                        {/* O texto da sua imagem estava "Faça login", ajustei para "Cadastre-se" */}
                         <Text style={styles.linkText}>Não possui uma conta? Cadastre-se</Text> 
                     </TouchableOpacity>
                 </Link>
 
-                {/* Este Link irá para app/password-recovery.tsx (quando criarmos) */}
                 <Link href="/password-recovery" asChild> 
                     <TouchableOpacity style={styles.linkButton}>
                         <Text style={styles.linkText}>Esqueci a senha</Text>
@@ -77,7 +90,7 @@ export default function LoginScreen() {
     );
 }
 
-// Estilos para parecer com a sua imagem
+// Estilos 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -96,18 +109,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-    },
-    logoPlaceholder: {
-        width: 70,
-        height: 70,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        backgroundColor: '#eee',
-        color: '#aaa',
-        borderRadius: 35,
-        marginBottom: 20,
-        fontSize: 16,
-        fontWeight: 'bold',
     },
     logo: {
         width: 70,
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: '#007bff', // Azul
+        backgroundColor: '#007bff',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,

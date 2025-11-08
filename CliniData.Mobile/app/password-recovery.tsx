@@ -12,7 +12,7 @@ import {
 import { Link } from 'expo-router'; 
 
 
-const logo = require('../assets/images/logo.png');
+const logo = require('../assets/images/logoreal.png');
 
 export default function PasswordRecoveryScreen() {
     const [codigo, setCodigo] = useState('');

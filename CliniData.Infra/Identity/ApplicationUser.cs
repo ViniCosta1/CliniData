@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CliniData.Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace CliniData.Infra.Identity;
 
@@ -6,8 +7,7 @@ namespace CliniData.Infra.Identity;
 public class ApplicationUser : IdentityUser<int>
 {
     // Relacionamentos com entidades de domínio (opcionais)
-    public int? MedicoId { get; set; }
-    public int? PacienteId { get; set; }
+    public UserRole UserRole { get; set; }
 
     // Se quiser, adicione campos de conta (mas evite campos de domínio aqui)
 }

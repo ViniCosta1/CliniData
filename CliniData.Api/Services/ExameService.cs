@@ -1,5 +1,5 @@
 ﻿using CliniData.Api.DTOs;
-using CliniData.Api.Models;
+using CliniData.Domain.Entities;
 using CliniData.Api.Repositories;
 
 namespace CliniData.Api.Services
@@ -53,7 +53,7 @@ namespace CliniData.Api.Services
 
         private static ExameDto ConverterParaDto(Exame e) => new()
         {
-            IdExame = e.IdExame,
+            IdExame = e.Id,
             TipoExame = e.TipoExame,
             DataHora = e.DataHora,
             PacienteId = e.PacienteId,
@@ -62,25 +62,31 @@ namespace CliniData.Api.Services
             Resultado = e.Resultado,
             Observacao = e.Observacao
         };
-        private static Exame ConverterParaEntidade(CriarExameDto dto) => new()
+        private static Exame ConverterParaEntidade(CriarExameDto dto)
         {
-            TipoExame = dto.TipoExame,
-            DataHora = dto.DataHora,
-            PacienteId = dto.PacienteId,
-            MedicoId = dto.MedicoId,
-            InstituicaoId = dto.InstituicaoId,
-            Resultado = dto.Resultado,
-            Observacao = dto.Observacao
-        };
+            return Exame.Criar(
+                tipoExame: dto.TipoExame,
+                dataHora: dto.DataHora,
+                pacienteId: dto.PacienteId,
+                medicoId: dto.MedicoId,
+                instituicaoId: dto.InstituicaoId,
+                resultado: dto.Resultado,
+                observacao: dto.Observacao
+            );
+        }
+
         private static void AtualizarEntidadeDoDto(Exame e, CriarExameDto dto)
         {
-            e.TipoExame = dto.TipoExame;
-            e.DataHora = dto.DataHora;
-            e.PacienteId = dto.PacienteId;
-            e.MedicoId = dto.MedicoId;
-            e.InstituicaoId = dto.InstituicaoId;
-            e.Resultado = dto.Resultado;
-            e.Observacao = dto.Observacao;
+            e.Atualizar(
+                tipoExame: dto.TipoExame,
+                dataHora: dto.DataHora,
+                pacienteId: dto.PacienteId,
+                medicoId: dto.MedicoId,
+                instituicaoId: dto.InstituicaoId,
+                resultado: dto.Resultado,
+                observacao: dto.Observacao
+            );
         }
+
     }
 }

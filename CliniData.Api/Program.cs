@@ -1,44 +1,80 @@
-using CliniData.Api.Data;
 using CliniData.Api.Repositories;
 using CliniData.Api.Services;
 using CliniData.Infra.Identity;
+using CliniData.Infra.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization(options => { });
-
-
-builder.Services
-    .AddIdentityCore<ApplicationUser>()
-    .AddEntityFrameworkStores<CliniDataDbContext>() 
-    .AddApiEndpoints();
-
-// Configuração dos serviços
-builder.Services.AddControllers();
-
-
-// Lê a connection string (DefaultConnection) do appsettings
+// --------------------------------------------------
+// 🔹 CONFIGURAÇÃO DE CONNECTION STRING E DB CONTEXT
+// --------------------------------------------------
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
-// Configuração do Entity Framework para Postgres (Npgsql)
 
-
-
-builder.Services.AddDbContext<CliniDataDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString, npgsqlOptions =>
     {
-        // configura retries (opcional)
         npgsqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(15), null);
     }));
 
+// --------------------------------------------------
+// 🔹 CONFIGURAÇÃO DE IDENTITY
+// --------------------------------------------------
+builder.Services
+    .AddIdentityCore<ApplicationUser>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddSignInManager<SignInManager<ApplicationUser>>()
+    .AddDefaultTokenProviders();
 
+builder.Services.AddSingleton<IEmailSender<ApplicationUser>, NoOpEmailSender>();
 
-// Registro dos repositórios e serviços (Dependency Injection)
+// --------------------------------------------------
+// 🔹 CONFIGURAÇÃO DO JWT
+// --------------------------------------------------
+var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("Jwt:Key não encontrada no appsettings.json");
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "CliniDataAPI";
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
+// --------------------------------------------------
+// 🔹 AUTORIZAÇÃO E CORS
+// --------------------------------------------------
+builder.Services.AddAuthorization();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+// --------------------------------------------------
+// 🔹 DEPENDENCY INJECTION DE REPOSITORIES E SERVICES
+// --------------------------------------------------
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IPacienteService, PacienteService>();
 
@@ -57,7 +93,12 @@ builder.Services.AddScoped<IInstituicaoService, InstituicaoService>();
 builder.Services.AddScoped<IHistoricoMedicoRepository, HistoricoMedicoRepository>();
 builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
 
-// Configuração do Swagger para documentação da API
+builder.Services.AddScoped<AuthService>();
+
+// --------------------------------------------------
+// 🔹 CONTROLLERS E SWAGGER
+// --------------------------------------------------
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -71,41 +112,32 @@ builder.Services.AddSwaggerGen(c =>
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
-    {
         c.IncludeXmlComments(xmlPath);
-    }
 });
 
-// Configuração de CORS (para permitir acesso do frontend)
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-
+// --------------------------------------------------
+// 🔹 PIPELINE
+// --------------------------------------------------
 var app = builder.Build();
 
-// Configuração do pipeline de requisições
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "CliniData API v1");
-        c.RoutePrefix = string.Empty; // Swagger na raiz da aplicação
+        c.RoutePrefix = string.Empty;
     });
 }
-app.MapIdentityApi<ApplicationUser>();
+
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 
-// Verificação de saúde da aplicação
+app.MapControllers();
+app.MapIdentityApi<ApplicationUser>();
+
 app.MapGet("/health", () => Results.Ok(new { Status = "Saudável", Timestamp = DateTime.UtcNow }));
 
 app.Run();

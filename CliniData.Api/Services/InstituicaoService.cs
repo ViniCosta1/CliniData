@@ -1,6 +1,9 @@
 ﻿using CliniData.Api.DTOs;
-using CliniData.Api.Models;
 using CliniData.Api.Repositories;
+using CliniData.Domain.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace CliniData.Api.Services
 {
@@ -8,11 +11,16 @@ namespace CliniData.Api.Services
     {
         private readonly IInstituicaoRepository _repositorio;
         private readonly ILogger<InstituicaoService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public InstituicaoService(IInstituicaoRepository repositorio, ILogger<InstituicaoService> logger)
+        public InstituicaoService(
+            IInstituicaoRepository repositorio,
+            ILogger<InstituicaoService> logger,
+            IHttpContextAccessor httpContextAccessor)
         {
             _repositorio = repositorio;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<InstituicaoDto>> BuscarTodasAsync()
@@ -40,7 +48,26 @@ namespace CliniData.Api.Services
             if (await _repositorio.CnpjExisteAsync(dto.CNPJ))
                 throw new Exception("Já existe instituição com este CNPJ");
 
-            var instituicao = ConverterParaEntidade(dto);
+            // 🔐 Captura o ID do usuário logado
+            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim is null)
+                throw new UnauthorizedAccessException("Usuário não autenticado.");
+
+            var userId = int.Parse(userIdClaim);
+
+            var instituicao = new Instituicao(
+                nome: dto.Nome,
+                cnpj: dto.CNPJ,
+                telefone: dto.Telefone,
+                rua: dto.Rua,
+                numero: dto.Numero,
+                bairro: dto.Bairro,
+                cidade: dto.Cidade,
+                estado: dto.Estado,
+                cep: dto.CEP,
+                userId: userId
+            );
+
             var criada = await _repositorio.CriarAsync(instituicao);
             return ConverterParaDto(criada);
         }
@@ -49,10 +76,21 @@ namespace CliniData.Api.Services
         {
             var existente = await _repositorio.BuscarPorIdAsync(id)
                 ?? throw new Exception($"Instituição com ID {id} não encontrada");
+
             if (await _repositorio.CnpjExisteAsync(dto.CNPJ, id))
                 throw new Exception("Já existe outra instituição com este CNPJ");
 
-            AtualizarEntidadeDoDto(existente, dto);
+            existente.Atualizar(
+                nome: dto.Nome,
+                telefone: dto.Telefone,
+                rua: dto.Rua,
+                numero: dto.Numero,
+                bairro: dto.Bairro,
+                cidade: dto.Cidade,
+                estado: dto.Estado,
+                cep: dto.CEP
+            );
+
             var atualizada = await _repositorio.AtualizarAsync(existente);
             return ConverterParaDto(atualizada);
         }
@@ -66,42 +104,16 @@ namespace CliniData.Api.Services
 
         private static InstituicaoDto ConverterParaDto(Instituicao i) => new()
         {
-            IdInstituicao = i.IdInstituicao,
+            IdInstituicao = i.Id,
             Nome = i.Nome,
-            CNPJ = i.CNPJ,
+            CNPJ = i.Cnpj,
             Telefone = i.Telefone,
             Rua = i.Rua,
             Numero = i.Numero,
             Bairro = i.Bairro,
             Cidade = i.Cidade,
             Estado = i.Estado,
-            CEP = i.CEP
+            CEP = i.Cep
         };
-
-        private static Instituicao ConverterParaEntidade(CriarInstituicaoDto dto) => new()
-        {
-            Nome = dto.Nome,
-            CNPJ = dto.CNPJ,
-            Telefone = dto.Telefone,
-            Rua = dto.Rua,
-            Numero = dto.Numero,
-            Bairro = dto.Bairro,
-            Cidade = dto.Cidade,
-            Estado = dto.Estado,
-            CEP = dto.CEP
-        };
-
-        private static void AtualizarEntidadeDoDto(Instituicao i, CriarInstituicaoDto dto)
-        {
-            i.Nome = dto.Nome;
-            i.CNPJ = dto.CNPJ;
-            i.Telefone = dto.Telefone;
-            i.Rua = dto.Rua;
-            i.Numero = dto.Numero;
-            i.Bairro = dto.Bairro;
-            i.Cidade = dto.Cidade;
-            i.Estado = dto.Estado;
-            i.CEP = dto.CEP;
-        }
     }
 }

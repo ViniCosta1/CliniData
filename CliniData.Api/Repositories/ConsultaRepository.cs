@@ -1,49 +1,49 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using CliniData.Api.Data;
-using CliniData.Api.Models;
+using CliniData.Domain.Entities;
+using CliniData.Infra.Persistence;
 
-namespace CliniData.Api.Repositories
+namespace CliniData.Api.Repositories;
+
+public class ConsultaRepository : IConsultaRepository
 {
-    public class ConsultaRepository : IConsultaRepository
+    private readonly AppDbContext _contexto;
+
+    public ConsultaRepository(AppDbContext contexto)
     {
-        private readonly CliniDataDbContext _contexto;
-
-        public ConsultaRepository(CliniDataDbContext contexto)
-        {
-            _contexto = contexto;
-        }
-
-        public async Task<IEnumerable<Consulta>> BuscarTodasAsync() =>
-            await _contexto.Consultas.OrderBy(c => c.DataHora).ToListAsync();
-
-        public async Task<Consulta?> BuscarPorIdAsync(int id) =>
-            await _contexto.Consultas.FirstOrDefaultAsync(c => c.IdConsulta == id);
-
-        public async Task<Consulta> CriarAsync(Consulta consulta)
-        {
-            _contexto.Consultas.Add(consulta);
-            await _contexto.SaveChangesAsync();
-            return consulta;
-        }
-
-        public async Task<Consulta> AtualizarAsync(Consulta consulta)
-        {
-            _contexto.Entry(consulta).State = EntityState.Modified;
-            await _contexto.SaveChangesAsync();
-            return consulta;
-        }
-
-        public async Task RemoverAsync(int id)
-        {
-            var consulta = await BuscarPorIdAsync(id);
-            if (consulta != null)
-            {
-                _contexto.Consultas.Remove(consulta);
-                await _contexto.SaveChangesAsync();
-            }
-        }
-
-        public async Task<bool> ExisteAsync(int id) =>
-            await _contexto.Consultas.AnyAsync(c => c.IdConsulta == id);
+        _contexto = contexto;
     }
+
+    public async Task<IEnumerable<Consulta>> BuscarTodasAsync() =>
+        await _contexto.Consulta.OrderBy(c => c.DataHora).ToListAsync();
+
+    public async Task<Consulta?> BuscarPorIdAsync(int id) =>
+        await _contexto.Consulta.FirstOrDefaultAsync(c => c.Id == id);
+
+    public async Task<Consulta> CriarAsync(Consulta consulta)
+    {
+        _contexto.Consulta.Add(consulta);
+        await _contexto.SaveChangesAsync();
+        return consulta;
+    }
+
+    public async Task<Consulta> AtualizarAsync(Consulta consulta)
+    {
+        // Atualização é feita via método da entidade, então apenas garantimos que o EF Core sabe que houve mudança
+        _contexto.Consulta.Update(consulta);
+        await _contexto.SaveChangesAsync();
+        return consulta;
+    }
+
+    public async Task RemoverAsync(int id)
+    {
+        var consulta = await BuscarPorIdAsync(id);
+        if (consulta != null)
+        {
+            _contexto.Consulta.Remove(consulta);
+            await _contexto.SaveChangesAsync();
+        }
+    }
+
+    public async Task<bool> ExisteAsync(int id) =>
+        await _contexto.Consulta.AnyAsync(c => c.Id == id);
 }

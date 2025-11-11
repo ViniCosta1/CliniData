@@ -1,30 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using CliniData.Api.Data;
-using CliniData.Api.Models;
+using CliniData.Domain.Entities;
+using CliniData.Infra.Persistence;
+
 
 namespace CliniData.Api.Repositories
 {
     public class InstituicaoRepository : IInstituicaoRepository
     {
-        private readonly CliniDataDbContext _contexto;
+        private readonly AppDbContext _contexto;
 
-        public InstituicaoRepository(CliniDataDbContext contexto)
+        public InstituicaoRepository(AppDbContext contexto)
         {
             _contexto = contexto;
         }
 
         public async Task<IEnumerable<Instituicao>> BuscarTodasAsync() =>
-            await _contexto.Instituicoes.OrderBy(i => i.Nome).ToListAsync();
+            await _contexto.Instituicao.OrderBy(i => i.Nome).ToListAsync();
 
         public async Task<Instituicao?> BuscarPorIdAsync(int id) =>
-            await _contexto.Instituicoes.FirstOrDefaultAsync(i => i.IdInstituicao == id);
+            await _contexto.Instituicao.FirstOrDefaultAsync(i => i.Id == id);
 
         public async Task<Instituicao?> BuscarPorCnpjAsync(string cnpj) =>
-            await _contexto.Instituicoes.FirstOrDefaultAsync(i => i.CNPJ == cnpj);
+            await _contexto.Instituicao.FirstOrDefaultAsync(i => i.Cnpj == cnpj);
 
         public async Task<Instituicao> CriarAsync(Instituicao instituicao)
         {
-            _contexto.Instituicoes.Add(instituicao);
+            _contexto.Instituicao.Add(instituicao);
             await _contexto.SaveChangesAsync();
             return instituicao;
         }
@@ -41,19 +42,19 @@ namespace CliniData.Api.Repositories
             var instituicao = await BuscarPorIdAsync(id);
             if (instituicao != null)
             {
-                _contexto.Instituicoes.Remove(instituicao);
+                _contexto.Instituicao.Remove(instituicao);
                 await _contexto.SaveChangesAsync();
             }
         }
 
         public async Task<bool> ExisteAsync(int id) =>
-            await _contexto.Instituicoes.AnyAsync(i => i.IdInstituicao == id);
+            await _contexto.Instituicao.AnyAsync(i => i.Id == id);
 
         public async Task<bool> CnpjExisteAsync(string cnpj, int? excluirId = null)
         {
-            var query = _contexto.Instituicoes.Where(i => i.CNPJ == cnpj);
+            var query = _contexto.Instituicao.Where(i => i.Cnpj == cnpj);
             if (excluirId.HasValue)
-                query = query.Where(i => i.IdInstituicao != excluirId.Value);
+                query = query.Where(i => i.Id != excluirId.Value);
             return await query.AnyAsync();
         }
     }

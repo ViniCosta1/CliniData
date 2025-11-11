@@ -1,4 +1,5 @@
 ﻿using CliniData.Api.DTOs;
+using CliniData.Domain.ValueObjects;
 
 namespace CliniData.Api.Services
 {

@@ -1,19 +1,20 @@
-﻿using System.Linq;
+﻿using CliniData.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-using CliniData.Domain.Exceptions;
 
 
 namespace CliniData.Domain.ValueObjects;
 
-public sealed class CPF : ValueObjects
+[Owned]
+    public sealed class CPF : ValueObjects, IValueObject<string>
 {
     private static readonly Regex DigitsOnly = new(@"^\d{11}$", RegexOptions.Compiled);
-        
-    public string Value { get; }
+
+    public string Valor { get; }
 
     protected CPF()
     {
-        Value = "000000000000";
+        Valor = "00000000000";
     }
 
     public CPF(string cpf)
@@ -22,30 +23,28 @@ public sealed class CPF : ValueObjects
         if (!IsValid(normalized))
             throw new InvalidCPFException(cpf);
 
-        Value = normalized;
+        Valor = normalized;
     }
 
-    public override string ToString() => ToMasked(Value);
+    public override string ToString() => ToMasked(Valor);
 
     public static string ToMasked(string digits11)
     {
         if (!DigitsOnly.IsMatch(digits11)) return digits11;
         return $"{digits11[..3]}.{digits11[3..6]}.{digits11[6..9]}-{digits11[9..]}";
-
     }
 
     public static string Normalize(string? input)
     {
         if (string.IsNullOrWhiteSpace(input)) return string.Empty;
         return new string(input.Where(char.IsDigit).ToArray());
-
     }
 
     public static bool IsValid(string digits11)
     {
         if (!DigitsOnly.IsMatch(digits11)) return false;
         if (digits11.Distinct().Count() == 1) return false;
-            
+
         int CalcDV(ReadOnlySpan<char> span, int length)
         {
             int sum = 0, weight = length + 1;
@@ -62,7 +61,6 @@ public sealed class CPF : ValueObjects
 
     protected override IEnumerable<object?> GetEqualityComponents()
     {
-        yield return Value;
+        yield return Valor;
     }
-
 }

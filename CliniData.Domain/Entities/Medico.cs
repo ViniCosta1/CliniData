@@ -1,72 +1,48 @@
-using System.Text.RegularExpressions;
-using CliniData.Domain.Exceptions;
 using CliniData.Domain.Abstractions;
 using CliniData.Domain.ValueObjects;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CliniData.Domain.Entities;
-
-public sealed class Medico : BaseEntity<int>
+namespace CliniData.Domain.Entities
 {
-    public string Nome { get; private set; }
-    [Required]
-    public CRM CRM { get; private set; } = null!;
-
-    public int EspecialidadeId { get; private set; }
-    public string? Telefone { get; private set; } = string.Empty;
-    public Email Email { get; private set; } = null!;
-
-    public EspecialidadeMedica? Especialidade { get; private set; }
-
-    public Medico(
-        string nome,
-        CRM crm,
-        int especialidadeId,
-        string telefone,
-        Email email
-        )
+    [Table("medico")]
+    public class Medico : BaseEntity<int>
     {
-        Nome = NormalizedRequired(nome, "Nome do médico é obrigatório!");
-        CRM = crm ?? throw new BusinessRuleException("CRM é obrigatório");
-        EspecialidadeId = especialidadeId > 0 ? especialidadeId : throw new BusinessRuleException("Especialidade é obrigatória.");
-        Telefone = NormalizedRequired(telefone, "Telefone é obrigatório");
-        Email = email ?? throw new BusinessRuleException("Email é obrigatório");
-    }
+        public string Nome { get; private set; }
+        public CRM CRM { get; private set; }
+        public int EspecialidadeMedicaId { get; private set; } // 🔹 FK
+        public EspecialidadeMedica EspecialidadeMedica { get; private set; } // 🔹 Navegação
+        public string Telefone { get; private set; }
+        public Email Email { get; private set; }
+        public int InstituicaoId { get; private set; }
+        public int UserId { get; private set; }
 
-    public void AlterarNome(string nome)
-    {
-        Nome = NormalizedRequired(nome, "Nome do médico é obrigatório.");
-        MarcarAtualizado(DateTime.UtcNow);
-    }
+        // Navegação
+        public Instituicao? Instituicao { get; private set; }
 
-    public void AlterarCRM(CRM crm)
-    {
-        CRM = crm ?? throw new BusinessRuleException("CRM é obrigatório.");
-        MarcarAtualizado(DateTime.UtcNow);
-    }
+        protected Medico() { } // EF Core
 
-    public void DefinirEspecialidade(int especialidadeId)
-    {
-        if (especialidadeId <= 0) throw new BusinessRuleException("Especialidade inválida.");
-        EspecialidadeId = especialidadeId;
-        MarcarAtualizado(DateTime.UtcNow);
-    }
+        private Medico(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email, int instituicaoId)
+        {
+            Nome = nome;
+            CRM = crm;
+            EspecialidadeMedicaId = especialidadeMedicaId;
+            Telefone = telefone;
+            Email = email;
+            InstituicaoId = instituicaoId;
+        }
 
-    public void AlterarTelefone(string telefone)
-    {
-        Telefone = NormalizedRequired(telefone, "Telefone é obrigatório.");
-        MarcarAtualizado(DateTime.UtcNow);
-    }
+        public static Medico Criar(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email, int instituicaoId)
+        {
+            return new Medico(nome, crm, especialidadeMedicaId, telefone, email, instituicaoId);
+        }
 
-    public void AlterarEmail(Email email)
-    {
-        Email = email ?? throw new BusinessRuleException("Email é obrigatório.");
-        MarcarAtualizado(DateTime.UtcNow);
-    }
-
-    public static string NormalizedRequired(string valor, string erro)
-    {
-        if (string.IsNullOrWhiteSpace(valor)) throw new BusinessRuleException(erro);
-        return valor.Trim();
+        public void Atualizar(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email)
+        {
+            Nome = nome;
+            CRM = crm;
+            EspecialidadeMedicaId = especialidadeMedicaId;
+            Telefone = telefone;
+            Email = email;
+        }
     }
 }

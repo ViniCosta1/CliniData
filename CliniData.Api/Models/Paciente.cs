@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CliniData.Domain.ValueObjects;
 
 namespace CliniData.Api.Models
 {
@@ -7,66 +8,70 @@ namespace CliniData.Api.Models
     /// Modelo que representa um paciente no sistema
     /// Mapeado para a tabela 'Paciente' do banco de dados
     /// </summary>
-    [Table("Paciente")]
+    [Table("paciente")]
     public class Paciente
     {
         [Key]
-        [Column("IdPaciente")]
+        [Column("idpaciente")]
         public int IdPaciente { get; set; }
 
         [Required(ErrorMessage = "Nome é obrigatório")]
         [StringLength(100, ErrorMessage = "Nome deve ter no máximo 100 caracteres")]
-        [Column("Nome")]
+        [Column("nome")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Data de nascimento é obrigatória")]
-        [Column("DataNascimento")]
-        public DateTime DataNascimento { get; set; }
+        [Column("datanascimento")]
+        private DateTime _dataNascimento;
+        public DateTime DataNascimento
+        {
+            get => _dataNascimento;
+            set => _dataNascimento = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
 
         [StringLength(10)]
-        [Column("Sexo")]
+        [Column("sexo")]
         public string Sexo { get; set; }
 
         [Required(ErrorMessage = "CPF é obrigatório")]
-        [StringLength(14)]
-        [Column("CPF")]
+        [Column("cpf")]
         public string CPF { get; set; }
 
         [StringLength(20)]
-        [Column("Telefone")]
+        [Column("telefone")]
         public string Telefone { get; set; }
 
         [StringLength(100)]
-        [EmailAddress(ErrorMessage = "Email deve ter formato válido")]
-        [Column("Email")]
+        [Column("email")]
         public string Email { get; set; }
 
         [StringLength(100)]
-        [Column("Rua")]
+        [Column("rua")]
         public string Rua { get; set; }
 
         [StringLength(10)]
-        [Column("Numero")]
+        [Column("numero")]
         public string Numero { get; set; }
 
         [StringLength(30)]
-        [Column("Complemento")]
+        [Column("complemento")]
         public string Complemento { get; set; }
 
         [StringLength(50)]
-        [Column("Bairro")]
+        [Column("bairro")]
         public string Bairro { get; set; }
 
         [StringLength(50)]
-        [Column("Cidade")]
+        [Column("cidade")]
         public string Cidade { get; set; }
 
         [StringLength(2)]
-        [Column("Estado")]
+        [Column("estado")]
         public string Estado { get; set; }
 
         [StringLength(10)]
-        [Column("CEP")]
+        [Column("cep")]
         public string CEP { get; set; }
+        public int UserId { get; set; }
     }
 }

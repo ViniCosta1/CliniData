@@ -1,4 +1,4 @@
-﻿using CliniData.Api.Models;
+﻿using CliniData.Domain.Entities;
 
 namespace CliniData.Api.Repositories
 {

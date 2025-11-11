@@ -6,21 +6,56 @@ import {
     TouchableOpacity, 
     StyleSheet, 
     Image,
-    SafeAreaView 
+    SafeAreaView,
+    Alert
 } from 'react-native';
 import { Link, router } from 'expo-router'; 
+import api from './services/api'; 
 
-const logo = require('../assets/images/logoreal.png');
+const logo = require('../assets/images/logoreal.png'); 
 
 export default function LoginScreen() {
     const [emailCpf, setEmailCpf] = useState('');
     const [senha, setSenha] = useState('');
+    const [isLoading, setIsLoading] = useState(false); 
 
-    function handleLogin() {
+    const handleLogin = async () => {
+        if (isLoading) return;
+        setIsLoading(true);
+
+        const loginData = emailCpf.includes('@') ? emailCpf : emailCpf.replace(/\D/g, '');
+
+        try {
     
-        router.replace('/(tabs)/home'); 
-    }
+            const response = await api.post('/Login', { 
+                login: loginData,
+                senha: senha 
+            });
 
+            console.log('Resposta da API:', response.data);
+            const token = response.data.token; 
+
+            if (token) {
+                
+                console.log('Token recebido:', token);
+                router.replace('/(tabs)/home');
+            } else {
+                Alert.alert('Erro', 'Login bem-sucedido, mas nenhum token foi recebido.');
+            }
+
+        } catch (error: any) {
+            console.error('Erro na chamada da API:', error);
+            let mensagemErro = 'Não foi possível fazer o login.';
+            if (error.response && error.response.status === 401) {
+                mensagemErro = 'Usuário ou senha inválidos.';
+            } else if (error.request) {
+                mensagemErro = 'Não foi possível conectar ao servidor. Verifique sua rede e se a API está rodando.';
+            }
+            Alert.alert('Erro no Login', mensagemErro);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const formatCPF = (text: string) => {
         const cleaned = text.replace(/\D/g, '');
@@ -31,22 +66,16 @@ export default function LoginScreen() {
         return masked;
     };
 
-    
     const handleLoginChange = (text: string) => {
-      
         const isEmail = /[a-zA-Z@]/.test(text);
-
         if (isEmail) {
-           
             setEmailCpf(text);
         } else {
-          
             const formattedCpf = formatCPF(text);
             setEmailCpf(formattedCpf);
         }
     };
     
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.formContainer}>
@@ -59,8 +88,9 @@ export default function LoginScreen() {
                     style={styles.input}
                     placeholder="C.P.F OU E-mail"
                     value={emailCpf}
-                    onChangeText={handleLoginChange} 
+                    onChangeText={handleLoginChange}
                     autoCapitalize="none"
+                    editable={!isLoading}
                 />
                 <TextInput
                     style={styles.input}
@@ -68,29 +98,36 @@ export default function LoginScreen() {
                     value={senha}
                     onChangeText={setSenha}
                     secureTextEntry
+                    editable={!isLoading}
                 />
 
-                <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={styles.buttonText}>Entrar</Text>
+                <TouchableOpacity 
+                    style={[styles.button, isLoading && styles.buttonDisabled]}
+                    onPress={handleLogin}
+                    disabled={isLoading}
+                >
+                    <Text style={styles.buttonText}>
+                        {isLoading ? 'Entrando...' : 'Entrar'}
+                    </Text>
                 </TouchableOpacity>
 
                 <Link href="/register" asChild>
-                    <TouchableOpacity style={styles.linkButton}>
+                    <TouchableOpacity style={styles.linkButton} disabled={isLoading}>
                         <Text style={styles.linkText}>Não possui uma conta? Cadastre-se</Text> 
                     </TouchableOpacity>
                 </Link>
 
                 <Link href="/password-recovery" asChild> 
-                    <TouchableOpacity style={styles.linkButton}>
+                    <TouchableOpacity style={styles.linkButton} disabled={isLoading}>
                         <Text style={styles.linkText}>Esqueci a senha</Text>
                     </TouchableOpacity>
                 </Link>
+                
             </View>
         </SafeAreaView>
     );
 }
 
-// Estilos 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -136,11 +173,14 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: '#007bff',
+        backgroundColor: '#007bff', 
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
         marginTop: 10,
+    },
+    buttonDisabled: {
+        backgroundColor: '#99caff', 
     },
     buttonText: {
         color: '#fff',

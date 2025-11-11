@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {}
+    "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {
+    "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Api\\CliniData.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+        "projectUniqueName": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
         "projectName": "CliniData.Api",
-        "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
-        "packagesPath": "C:\\Users\\phavl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\obj\\",
+        "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+        "packagesPath": "C:\\Users\\santo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\phavl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\santo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,11 +32,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
-                "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj"
+              "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
+                "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj"
               },
-              "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj": {
-                "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj"
+              "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj": {
+                "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj"
               }
             }
           }
@@ -111,20 +111,20 @@
         }
       }
     },
-    "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
+    "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
         "projectName": "CliniData.Domain",
-        "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
-        "packagesPath": "C:\\Users\\phavl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\obj\\",
+        "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+        "packagesPath": "C:\\Users\\santo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\phavl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\santo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -188,20 +188,20 @@
         }
       }
     },
-    "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj": {
+    "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj",
+        "projectUniqueName": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj",
         "projectName": "CliniData.Infra",
-        "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj",
-        "packagesPath": "C:\\Users\\phavl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\obj\\",
+        "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj",
+        "packagesPath": "C:\\Users\\santo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Infra\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\phavl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\santo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -216,8 +216,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
-                "projectPath": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj"
+              "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
+                "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj"
               }
             }
           }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { 
     View, 
     Text, 
@@ -7,17 +7,20 @@ import {
     StyleSheet, 
     Image,
     SafeAreaView,
-    Alert // <-- 1. IMPORTE O ALERTA
+    Alert 
 } from 'react-native';
 
-import { Link } from 'expo-router'; 
+import { Link, router } from 'expo-router'; 
+import api from './services/api'; 
 
 export default function RegisterScreen() {
     const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [repetirSenha, setRepetirSenha] = useState('');
-    const logo = require('../assets/images/logoreal.png');
+    const [isLoading, setIsLoading] = useState(false); 
+    const logo = require('../assets/images/logoreal.png'); 
+
 
     const formatCPF = (text: string) => {
         const cleaned = text.replace(/\D/g, '');
@@ -33,36 +36,62 @@ export default function RegisterScreen() {
         setCpf(formattedCpf);
     };
 
-    // --- 2. NOVA FUNÇÃO DE REGISTRO ---
-    const handleRegister = () => {
-        // Validação 1: CPF
-        if (cpf.length < 14) { // "000.000.000-00" tem 14 caracteres
-            Alert.alert('Erro no Cadastro', 'Por favor, preencha o CPF completo.');
-            return; // Para a função
-        }
 
-        // Validação 2: E-mail
+    const handleRegister = async () => {
+        if (isLoading) return;
+
+        if (cpf.length < 14) {
+            Alert.alert('Erro no Cadastro', 'Por favor, preencha o CPF completo.');
+            return;
+        }
         if (!email.includes('@') || !email.includes('.')) {
             Alert.alert('Erro no Cadastro', 'Por favor, insira um e-mail válido.');
             return;
         }
-
-        // Validação 3: Senha curta
         if (senha.length < 6) {
             Alert.alert('Erro no Cadastro', 'A senha deve ter pelo menos 6 caracteres.');
             return;
         }
-
-        // Validação 4: Senhas diferentes
         if (senha !== repetirSenha) {
             Alert.alert('Erro no Cadastro', 'As senhas não coincidem.');
             return;
         }
+        
+        setIsLoading(true);
 
-        // Se tudo estiver certo:
-        Alert.alert('Sucesso!', 'Validação concluída. Pronto para enviar à API!');
-        console.log('Dados prontos para enviar:', { cpf, email, senha });
+        const cpfLimpo = cpf.replace(/\D/g, '');
 
+        try {
+            const response = await api.post('/Register', { 
+                cpf: cpfLimpo, 
+                email: email, 
+                senha: senha,
+            });
+
+            Alert.alert(
+                'Sucesso!', 
+                'Usuário cadastrado com sucesso. Você será enviado para a tela de Login.',
+                [
+                    { text: 'OK', onPress: () => router.replace('/') } 
+                ]
+            );
+
+        } catch (error: any) {
+            console.error('Erro na chamada da API de Registro:', error);
+            
+            let mensagemErro = 'Não foi possível fazer o cadastro.';
+            if (error.response && error.response.data) {
+                mensagemErro = error.response.data.message || 'Erro ao cadastrar. Tente novamente.';
+            } else if (error.response && error.response.status === 400) {
+                 mensagemErro = 'Dados inválidos ou e-mail/CPF já cadastrado.';
+            } else if (error.request) {
+                mensagemErro = 'Não foi possível conectar ao servidor. Verifique sua rede.';
+            }
+
+            Alert.alert('Erro no Cadastro', mensagemErro);
+        } finally {
+            setIsLoading(false); 
+        }
     };
     
     return (
@@ -80,6 +109,7 @@ export default function RegisterScreen() {
                     onChangeText={handleCpfChange} 
                     keyboardType="numeric"
                     maxLength={14} 
+                    editable={!isLoading} 
                 />
                 <TextInput
                     style={styles.input}
@@ -88,6 +118,7 @@ export default function RegisterScreen() {
                     onChangeText={setEmail}
                     keyboardType="email-address"
                     autoCapitalize="none"
+                    editable={!isLoading}
                 />
                 <TextInput
                     style={styles.input}
@@ -95,6 +126,7 @@ export default function RegisterScreen() {
                     value={senha}
                     onChangeText={setSenha}
                     secureTextEntry 
+                    editable={!isLoading}
                 />
                 <TextInput
                     style={styles.input}
@@ -102,16 +134,21 @@ export default function RegisterScreen() {
                     value={repetirSenha}
                     onChangeText={setRepetirSenha}
                     secureTextEntry 
+                    editable={!isLoading}
                 />
 
-                {/* 3. BOTÃO AGORA CHAMA A FUNÇÃO */}
-                <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                    {/* (Mudei o texto de "Entrar" para "Cadastrar") */}
-                    <Text style={styles.buttonText}>Cadastrar</Text> 
+                <TouchableOpacity 
+                    style={[styles.button, isLoading && styles.buttonDisabled]}
+                    onPress={handleRegister}
+                    disabled={isLoading}
+                >
+                    <Text style={styles.buttonText}>
+                        {isLoading ? 'Cadastrando...' : 'Cadastrar'}
+                    </Text> 
                 </TouchableOpacity>
 
                 <Link href="/" asChild> 
-                    <TouchableOpacity style={styles.linkButton}>
+                    <TouchableOpacity style={styles.linkButton} disabled={isLoading}>
                         <Text style={styles.linkText}>Já possui uma conta? Faça login</Text>
                     </TouchableOpacity>
                 </Link>
@@ -120,7 +157,6 @@ export default function RegisterScreen() {
     );
 }
 
-// Estilos 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -166,11 +202,14 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: '#007bff',
+        backgroundColor: '#007bff', 
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
         marginTop: 10,
+    },
+    buttonDisabled: {
+        backgroundColor: '#99caff', 
     },
     buttonText: {
         color: '#fff',

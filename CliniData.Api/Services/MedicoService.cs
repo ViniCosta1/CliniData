@@ -1,6 +1,8 @@
 ﻿using CliniData.Api.DTOs;
-using CliniData.Api.Models;
 using CliniData.Api.Repositories;
+using CliniData.Domain.Entities;
+using CliniData.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 
 namespace CliniData.Api.Services
 {
@@ -35,24 +37,40 @@ namespace CliniData.Api.Services
             return ConverterParaDto(medico);
         }
 
-        public async Task<MedicoDto> CriarAsync(CriarMedicoDto criarDto)
+        public async Task<MedicoDto> CriarAsync(CriarMedicoDto dto)
         {
-            if (await _repositorio.CrmExisteAsync(criarDto.CRM))
+            if (await _repositorio.CrmExisteAsync(dto.CRM))
                 throw new Exception("Já existe médico com este CRM");
 
-            var medico = ConverterParaEntidade(criarDto);
+            var medico = Medico.Criar(
+                nome: dto.Nome,
+                crm: new CRM(dto.CRM),
+                especialidadeMedicaId: dto.EspecialidadeMedicaId,
+                telefone: dto.Telefone,
+                email: new Email(dto.Email),
+                instituicaoId: dto.InstituicaoId
+            );
+
             var criado = await _repositorio.CriarAsync(medico);
             return ConverterParaDto(criado);
         }
 
-        public async Task<MedicoDto> AtualizarAsync(int id, CriarMedicoDto atualizarDto)
+        public async Task<MedicoDto> AtualizarAsync(int id, CriarMedicoDto dto)
         {
             var existente = await _repositorio.BuscarPorIdAsync(id)
                            ?? throw new Exception($"Médico com ID {id} não encontrado");
-            if (await _repositorio.CrmExisteAsync(atualizarDto.CRM, id))
+
+            if (await _repositorio.CrmExisteAsync(dto.CRM, id))
                 throw new Exception("Já existe outro médico com este CRM");
 
-            AtualizarEntidadeDoDto(existente, atualizarDto);
+            existente.Atualizar(
+                nome: dto.Nome,
+                crm: new CRM(dto.CRM),
+                especialidadeMedicaId: dto.EspecialidadeMedicaId,
+                telefone: dto.Telefone,
+                email: new Email(dto.Email)
+            );
+
             var atualizado = await _repositorio.AtualizarAsync(existente);
             return ConverterParaDto(atualizado);
         }
@@ -61,35 +79,19 @@ namespace CliniData.Api.Services
         {
             if (!await _repositorio.ExisteAsync(id))
                 throw new Exception($"Médico com ID {id} não encontrado");
+
             await _repositorio.RemoverAsync(id);
         }
 
         private static MedicoDto ConverterParaDto(Medico medico) => new()
         {
-            IdMedico = medico.IdMedico,
+            IdMedico = medico.Id,
             Nome = medico.Nome,
-            CRM = medico.CRM,
-            Especialidade = medico.Especialidade,
+            CRM = medico.CRM.Valor,
+            EspecialidadeMedicaId = medico.EspecialidadeMedicaId,
             Telefone = medico.Telefone,
-            Email = medico.Email
+            Email = medico.Email.Valor,
+            InstituicaoId = medico.InstituicaoId
         };
-
-        private static Medico ConverterParaEntidade(CriarMedicoDto dto) => new()
-        {
-            Nome = dto.Nome,
-            CRM = dto.CRM,
-            Especialidade = dto.Especialidade,
-            Telefone = dto.Telefone,
-            Email = dto.Email
-        };
-
-        private static void AtualizarEntidadeDoDto(Medico medico, CriarMedicoDto dto)
-        {
-            medico.Nome = dto.Nome;
-            medico.CRM = dto.CRM;
-            medico.Especialidade = dto.Especialidade;
-            medico.Telefone = dto.Telefone;
-            medico.Email = dto.Email;
-        }
     }
 }

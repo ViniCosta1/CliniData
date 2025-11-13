@@ -1,61 +1,66 @@
 using CliniData.Domain.Entities;
+using CliniData.Infra.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CliniData.Infra.Persistence.Configurations;
-
-public sealed class MedicoConfiguration : IEntityTypeConfiguration<Medico>
+namespace CliniData.Infra.Persistence.Configurations
 {
-    public void Configure(EntityTypeBuilder<Medico> builder)
+    public sealed class MedicoConfiguration : IEntityTypeConfiguration<Medico>
     {
-        builder.ToTable("Medico");
-
-        builder.HasKey(m => m.Id);
-
-        builder.Property(m => m.Id)
-               .HasColumnName("IdMedico")
-               .ValueGeneratedOnAdd();
-
-        builder.Property(m => m.Nome)
-               .HasMaxLength(100)
-               .IsRequired();
-
-        builder.Property(m => m.CRM)
-               .HasMaxLength(20)
-               .IsRequired();
-
-        builder.HasIndex(m => m.CRM)
-               .IsUnique()
-               .HasDatabaseName("UX_Medico_CRM");
-
-        builder.Property(m => m.EspecialidadeId)
-               .HasColumnName("EspecialidadeId")
-               .IsRequired();
-
-        builder.Property(m => m.Telefone)
-               .HasMaxLength(20)
-               .IsRequired();
-
-        // Email como Value Object (Owned)
-        builder.OwnsOne(m => m.Email, email =>
+        public void Configure(EntityTypeBuilder<Medico> builder)
         {
-            email.Property(x => x.Value)
-                 .HasColumnName("Email")
-                 .HasMaxLength(100) // conforme SQL
-                 .IsRequired();
+            builder.ToTable("medico");
 
-            // Índice de e-mail (opcional; geralmente não único globalmente para médicos)
-            // email.HasIndex(x => x.Value).HasDatabaseName("IX_Medico_Email");
-        });
+            builder.HasKey(m => m.Id);
+            builder.Property(m => m.Id)
+                   .HasColumnName("id_medico")
+                   .ValueGeneratedOnAdd();
 
-        // Relacionamento com EspecialidadeMedica (FK EspecialidadeId)
-        builder.HasOne(m => m.Especialidade)
-               .WithMany()
-               .HasForeignKey(m => m.EspecialidadeId)
-               .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(m => m.Nome)
+                   .HasMaxLength(100)
+                   .IsRequired();
 
-        // Timestamps (BaseEntity)
-        builder.Property(m => m.CriadoEmUtc).IsRequired();
-        builder.Property(m => m.AtualizadoEmUtc);
+            builder.Property(m => m.Telefone)
+                   .HasMaxLength(20)
+                   .IsRequired();
+
+            builder.Property(m => m.EspecialidadeMedicaId)
+                   .HasColumnName("especialidade_id")
+                   .IsRequired();
+
+            // CRM
+            builder.OwnsOne(m => m.CRM, crm =>
+            {
+                crm.Property(c => c.Valor)
+                   .HasColumnName("crm")
+                   .HasMaxLength(20)
+                   .IsRequired();
+
+                crm.WithOwner().HasForeignKey("id_medico"); // 👈 força usar a mesma PK
+                crm.HasIndex(c => c.Valor)
+                   .IsUnique()
+                   .HasDatabaseName("ix_medico_crm");
+            });
+
+            // Email
+            builder.OwnsOne(m => m.Email, email =>
+            {
+                email.Property(e => e.Valor)
+                     .HasColumnName("email")
+                     .HasMaxLength(100)
+                     .IsRequired();
+
+                email.WithOwner().HasForeignKey("id_medico"); // 👈 aqui é o conserto
+            });
+
+            builder.HasOne<ApplicationUser>()
+                   .WithMany()
+                   .HasForeignKey(m => m.UserId)
+                   .HasConstraintName("fk_medico_user")
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(m => m.CriadoEmUtc).IsRequired();
+            builder.Property(m => m.AtualizadoEmUtc);
+        }
     }
 }

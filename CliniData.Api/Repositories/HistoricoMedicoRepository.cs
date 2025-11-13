@@ -1,31 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using CliniData.Api.Data;
-using CliniData.Api.Models;
+using CliniData.Domain.Entities;
+using CliniData.Infra.Persistence;
 
 namespace CliniData.Api.Repositories
 {
     public class HistoricoMedicoRepository : IHistoricoMedicoRepository
     {
-        private readonly CliniDataDbContext _contexto;
+        private readonly AppDbContext _contexto;
 
-        public HistoricoMedicoRepository(CliniDataDbContext contexto)
+        public HistoricoMedicoRepository(AppDbContext contexto)
         {
             _contexto = contexto;
         }
 
         public async Task<IEnumerable<HistoricoMedico>> BuscarTodosAsync() =>
-            await _contexto.HistoricosMedicos.OrderBy(h => h.DataRegistro).ToListAsync();
+            await _contexto.HistoricosMedico.OrderBy(h => h.DataRegistro).ToListAsync();
 
         public async Task<IEnumerable<HistoricoMedico>> BuscarPorPacienteAsync(int pacienteId) =>
-            await _contexto.HistoricosMedicos.Where(h => h.PacienteId == pacienteId)
+            await _contexto.HistoricosMedico.Where(h => h.PacienteId == pacienteId)
                 .OrderBy(h => h.DataRegistro).ToListAsync();
 
         public async Task<HistoricoMedico?> BuscarPorIdAsync(int id) =>
-            await _contexto.HistoricosMedicos.FirstOrDefaultAsync(h => h.IdHistorico == id);
+            await _contexto.HistoricosMedico.FirstOrDefaultAsync(h => h.Id == id);
 
         public async Task<HistoricoMedico> CriarAsync(HistoricoMedico historico)
         {
-            _contexto.HistoricosMedicos.Add(historico);
+            _contexto.HistoricosMedico.Add(historico);
             await _contexto.SaveChangesAsync();
             return historico;
         }
@@ -42,12 +42,12 @@ namespace CliniData.Api.Repositories
             var historico = await BuscarPorIdAsync(id);
             if (historico != null)
             {
-                _contexto.HistoricosMedicos.Remove(historico);
+                _contexto.HistoricosMedico.Remove(historico);
                 await _contexto.SaveChangesAsync();
             }
         }
 
         public async Task<bool> ExisteAsync(int id) =>
-            await _contexto.HistoricosMedicos.AnyAsync(h => h.IdHistorico == id);
+            await _contexto.HistoricosMedico.AnyAsync(h => h.Id == id);
     }
 }

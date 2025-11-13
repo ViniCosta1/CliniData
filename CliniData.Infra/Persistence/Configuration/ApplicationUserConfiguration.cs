@@ -8,10 +8,10 @@ public sealed class ApplicationUserConfiguration : IEntityTypeConfiguration<Appl
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.ToTable("AspNetUsers"); // padrão do Identity
+        builder.ToTable("aspnetusers"); // padrão do Identity
 
         // Índices já existem por padrão, mas você pode adicionar os seus
-        builder.HasIndex(u => u.Email).HasDatabaseName("IX_AspNetUsers_Email");
+        builder.HasIndex(u => u.Email).HasDatabaseName("ix_aspnetusers_email");
 
         // Ligações com o domínio (FK opcionais; crie se quiser integridade referencial)
         builder.Property(u => u.UserRole);

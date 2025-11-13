@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CliniData.Api.DTOs;
 using CliniData.Api.Services;
+using CliniData.Domain.ValueObjects;
 
 namespace CliniData.Api.Controllers
 {

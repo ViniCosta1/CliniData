@@ -1,6 +1,6 @@
 ﻿using CliniData.Api.DTOs;
-using CliniData.Api.Models;
 using CliniData.Api.Repositories;
+using CliniData.Domain.Entities;
 
 namespace CliniData.Api.Services
 {
@@ -36,7 +36,14 @@ namespace CliniData.Api.Services
 
         public async Task<HistoricoMedicoDto> CriarAsync(CriarHistoricoMedicoDto dto)
         {
-            var historico = ConverterParaEntidade(dto);
+            var historico = new HistoricoMedico
+            {
+                PacienteId = dto.PacienteId,
+                MedicoId = dto.MedicoId,
+                DataRegistro = dto.DataRegistro == DateTime.MinValue ? DateTime.UtcNow : dto.DataRegistro,
+                Descricao = dto.Descricao
+            };
+
             var criado = await _repositorio.CriarAsync(historico);
             return ConverterParaDto(criado);
         }
@@ -45,7 +52,12 @@ namespace CliniData.Api.Services
         {
             var existente = await _repositorio.BuscarPorIdAsync(id)
                 ?? throw new Exception($"Histórico médico com ID {id} não encontrado");
-            AtualizarEntidadeDoDto(existente, dto);
+
+            existente.PacienteId = dto.PacienteId;
+            existente.MedicoId = dto.MedicoId;
+            existente.DataRegistro = dto.DataRegistro == DateTime.MinValue ? DateTime.UtcNow : dto.DataRegistro;
+            existente.Descricao = dto.Descricao;
+
             var atualizado = await _repositorio.AtualizarAsync(existente);
             return ConverterParaDto(atualizado);
         }
@@ -59,28 +71,11 @@ namespace CliniData.Api.Services
 
         private static HistoricoMedicoDto ConverterParaDto(HistoricoMedico h) => new()
         {
-            IdHistorico = h.IdHistorico,
+            IdHistorico = h.Id,
             PacienteId = h.PacienteId,
+            MedicoId = h.MedicoId,
             DataRegistro = h.DataRegistro,
-            Diagnostico = h.Diagnostico,
-            Tratamento = h.Tratamento,
-            Observacao = h.Observacao
+            Descricao = h.Descricao
         };
-        private static HistoricoMedico ConverterParaEntidade(CriarHistoricoMedicoDto dto) => new()
-        {
-            PacienteId = dto.PacienteId,
-            DataRegistro = dto.DataRegistro == DateTime.MinValue ? DateTime.Now : dto.DataRegistro,
-            Diagnostico = dto.Diagnostico,
-            Tratamento = dto.Tratamento,
-            Observacao = dto.Observacao
-        };
-        private static void AtualizarEntidadeDoDto(HistoricoMedico h, CriarHistoricoMedicoDto dto)
-        {
-            h.PacienteId = dto.PacienteId;
-            h.DataRegistro = dto.DataRegistro == DateTime.MinValue ? DateTime.Now : dto.DataRegistro;
-            h.Diagnostico = dto.Diagnostico;
-            h.Tratamento = dto.Tratamento;
-            h.Observacao = dto.Observacao;
-        }
     }
 }

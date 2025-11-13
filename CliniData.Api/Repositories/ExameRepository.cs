@@ -1,27 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using CliniData.Api.Data;
-using CliniData.Api.Models;
+using CliniData.Infra.Persistence;
+using CliniData.Domain.Entities;
 
 namespace CliniData.Api.Repositories
 {
     public class ExameRepository : IExameRepository
     {
-        private readonly CliniDataDbContext _contexto;
+        private readonly AppDbContext _contexto;
 
-        public ExameRepository(CliniDataDbContext contexto)
+        public ExameRepository(AppDbContext contexto)
         {
             _contexto = contexto;
         }
 
         public async Task<IEnumerable<Exame>> BuscarTodosAsync() =>
-            await _contexto.Exames.OrderBy(e => e.DataHora).ToListAsync();
+            await _contexto.Exame.OrderBy(e => e.DataHora).ToListAsync();
 
         public async Task<Exame?> BuscarPorIdAsync(int id) =>
-            await _contexto.Exames.FirstOrDefaultAsync(e => e.IdExame == id);
+            await _contexto.Exame.FirstOrDefaultAsync(e => e.Id == id);
 
         public async Task<Exame> CriarAsync(Exame exame)
         {
-            _contexto.Exames.Add(exame);
+            _contexto.Exame.Add(exame);
             await _contexto.SaveChangesAsync();
             return exame;
         }
@@ -38,12 +38,12 @@ namespace CliniData.Api.Repositories
             var exame = await BuscarPorIdAsync(id);
             if (exame != null)
             {
-                _contexto.Exames.Remove(exame);
+                _contexto.Exame.Remove(exame);
                 await _contexto.SaveChangesAsync();
             }
         }
 
         public async Task<bool> ExisteAsync(int id) =>
-            await _contexto.Exames.AnyAsync(e => e.IdExame == id);
+            await _contexto.Exame.AnyAsync(e => e.Id == id);
     }
 }

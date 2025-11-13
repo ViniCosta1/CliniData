@@ -1,144 +1,187 @@
-import { Ionicons } from '@expo/vector-icons';
+// Cole isso dentro de: app/(tabs)/home.tsx
+// (O nosso Dashboard Aprimorado)
+
 import React from 'react';
-import { FlatList, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-
-type Item = {
-  id: string;
-  title: string;
-  dateAndPlace: string;
-  address: string;
-};
-
-const DATA: Item[] = [
-  {
-    id: '1',
-    title: 'Exame de sangue',
-    dateAndPlace: '17/10/2025 - Laboratório sodré',
-    address: 'Rua tal tal - 123',
-  },
-  {
-    id: '2',
-    title: 'Raio X',
-    dateAndPlace: '20/10/2025 - São Lucas',
-    address: 'Rua tal tal - 123',
-  },
-  {
-    id: '3',
-    title: 'Ultrassonografia',
-    dateAndPlace: '17/11/2025 - São Lucas',
-    address: 'Rua tal tal - 123',
-  },
-];
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    SafeAreaView, 
+    TouchableOpacity,
+    Alert 
+} from 'react-native';
+import { router } from 'expo-router'; // Para navegação
+import { Ionicons } from '@expo/vector-icons'; // Para os ícones
 
 export default function HomeScreen() {
-  const renderItem = ({ item }: { item: Item }) => (
-    <View style={styles.card}>
-      <View style={styles.cardLeft}>
-        <View style={styles.infoIconWrap}>
-          <Ionicons name="information-circle-outline" size={20} color="#1976d2" />
-        </View>
-        <View style={styles.cardText}>
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.cardSub}>{item.dateAndPlace}</Text>
-          <Text style={styles.cardSub}>{item.address}</Text>
-        </View>
-      </View>
-      <Pressable style={styles.closeButton} onPress={() => { /* implementar remoção se desejar */ }}>
-        <Ionicons name="close" size={16} color="#333" />
-      </Pressable>
-    </View>
-  );
+    const userName = "Paciente"; 
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Home</Text>
-        <Text style={styles.subtitle}>Exames marcados</Text>
-      </View>
+    const handleAgendar = () => {
+        // Agora podemos habilitar isso!
+        router.push('/agendamento'); 
+        // Alert.alert("Em Breve", "A tela de agendamento ainda está em construção.");
+    };
 
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
-        showsVerticalScrollIndicator={false}
-      />
-    </SafeAreaView>
-  );
+    const handleMeusExames = () => {
+        router.push('/(tabs)/exames'); 
+    };
+
+    const handleLogout = () => {
+        Alert.alert(
+            "Sair", 
+            "Você tem certeza que deseja sair?",
+            [
+                { text: 'Cancelar', style: 'cancel' },
+                { text: 'Sair', onPress: () => router.replace('/') } 
+            ]
+        );
+    };
+
+    return (
+        <SafeAreaView style={styles.container}>
+            {/* 1. Saudação */}
+            <View style={styles.header}>
+                <Text style={styles.greetingText}>Olá, {userName}!</Text>
+                <Text style={styles.welcomeText}>Bem-vindo ao CliniData.</Text>
+            </View>
+
+            {/* 2. Card de Próximo Agendamento */}
+            <View style={styles.infoCard}>
+                <Ionicons name="calendar-outline" size={24} color="#007bff" />
+                <View style={styles.infoCardContent}>
+                    <Text style={styles.infoCardTitle}>Próximo Agendamento</Text>
+                    <Text style={styles.infoCardText}>Consulta com Dr. João - 15/11/2025 às 10:00</Text>
+                    <TouchableOpacity style={styles.viewDetailsButton}>
+                        <Text style={styles.viewDetailsButtonText}>Ver detalhes</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            {/* 3. Botões de Ação Rápida */}
+            <View style={styles.actionButtonsContainer}>
+                <TouchableOpacity style={styles.actionButton} onPress={handleAgendar}>
+                    <Ionicons name="clipboard-outline" size={30} color="#007bff" />
+                    <Text style={styles.actionButtonText}>Agendar Consulta</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.actionButton} onPress={handleMeusExames}>
+                    <Ionicons name="folder-open-outline" size={30} color="#007bff" />
+                    <Text style={styles.actionButtonText}>Meus Exames</Text>
+                </TouchableOpacity>
+            </View>
+            
+            {/* 4. Ação de Sair */}
+            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                <Ionicons name="log-out-outline" size={22} color="#d9534f" />
+                <Text style={styles.logoutButtonText}>Sair</Text>
+            </TouchableOpacity>
+
+        </SafeAreaView>
+    );
 }
 
+// Estilos para o novo Dashboard
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-  },
-  header: {
-    alignItems: 'center',
-    marginTop: 12,
-    marginBottom: 8,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '700',
-  },
-  subtitle: {
-    marginTop: 4,
-    color: '#777',
-  },
-  list: {
-    paddingTop: 8,
-    paddingBottom: 24,
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    marginVertical: 10,
-    backgroundColor: '#fff',
-    // shadow iOS
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    // elevation Android
-    elevation: 2,
-  },
-  cardLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  infoIconWrap: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-    backgroundColor: '#fff',
-  },
-  cardText: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontWeight: '600',
-    marginBottom: 6,
-  },
-  cardSub: {
-    color: '#555',
-    fontSize: 13,
-    lineHeight: 18,
-  },
-  closeButton: {
-    marginLeft: 12,
-    padding: 6,
-    borderRadius: 12,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#f0f2f5', 
+        alignItems: 'center',
+        paddingTop: 20, 
+    },
+    header: {
+        width: '90%',
+        marginBottom: 20,
+        alignItems: 'flex-start',
+    },
+    greetingText: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    welcomeText: {
+        fontSize: 16,
+        color: '#666',
+        marginTop: 5,
+    },
+    infoCard: {
+        width: '90%',
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginBottom: 20,
+    },
+    infoCardContent: {
+        marginLeft: 15,
+        flex: 1,
+    },
+    infoCardTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 5,
+    },
+    infoCardText: {
+        fontSize: 14,
+        color: '#666',
+    },
+    viewDetailsButton: {
+        marginTop: 10,
+        alignSelf: 'flex-start',
+    },
+    viewDetailsButtonText: {
+        color: '#007bff',
+        fontWeight: 'bold',
+        fontSize: 14,
+    },
+    actionButtonsContainer: {
+        width: '90%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 30,
+    },
+    actionButton: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '48%', 
+        height: 120, 
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    actionButtonText: {
+        marginTop: 10,
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center',
+    },
+    logoutButton: {
+        position: 'absolute',
+        bottom: 40,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        borderColor: '#d9534f',
+        borderWidth: 1,
+    },
+    logoutButtonText: {
+        color: '#d9534f',
+        marginLeft: 8,
+        fontWeight: 'bold',
+    }
 });

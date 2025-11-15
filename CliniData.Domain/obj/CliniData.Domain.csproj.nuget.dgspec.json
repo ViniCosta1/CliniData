@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {}
+    "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
+    "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
         "projectName": "CliniData.Domain",
-        "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
-        "packagesPath": "C:\\Users\\santo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\santo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -77,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

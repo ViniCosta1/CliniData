@@ -80,7 +80,7 @@ namespace CliniData.Api.Services
         // -------------------------------
         // MÉDICO
         // -------------------------------
-        public async Task<(bool Sucesso, string Mensagem)> RegisterMedicoAsync(CriarMedicoDto dto, string password)
+        public async Task<(bool Sucesso, string Mensagem)> RegisterMedicoAsync(CriarMedicoDto dto)
         {
             var user = new ApplicationUser
             {
@@ -89,7 +89,7 @@ namespace CliniData.Api.Services
                 UserRole = UserRole.Medico
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, dto.Passowrd);
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
@@ -113,7 +113,7 @@ namespace CliniData.Api.Services
         // -------------------------------
         // INSTITUIÇÃO
         // -------------------------------
-        public async Task<(bool Sucesso, string Mensagem)> RegisterInstituicaoAsync(CriarInstituicaoDto dto, string password)
+        public async Task<(bool Sucesso, string Mensagem)> RegisterInstituicaoAsync(CriarInstituicaoDto dto)
         {
             var user = new ApplicationUser
             {
@@ -122,7 +122,7 @@ namespace CliniData.Api.Services
                 UserRole = UserRole.Instituicao
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 

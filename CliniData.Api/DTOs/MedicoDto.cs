@@ -17,6 +17,9 @@ public class CriarMedicoDto
     public string Nome { get; set; }
 
     [Required]
+    public string Passowrd { get; set; }
+
+    [Required]
     public string CRM { get; set; }
 
     [Required]

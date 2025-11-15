@@ -21,6 +21,8 @@ namespace CliniData.Api.DTOs
         [Required]
         [StringLength(100)]
         public string Nome { get; set; }
+        [Required, StringLength(100)]
+        public string Password { get; set; }
 
         [Required]
         [StringLength(18)]

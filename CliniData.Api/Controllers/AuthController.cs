@@ -35,9 +35,9 @@ namespace CliniData.Api.Controllers
             return Ok(response);
         }
         [HttpPost("register/medico")]
-        public async Task<IActionResult> RegisterMedico([FromBody] CriarMedicoDto dto, [FromQuery] string password)
+        public async Task<IActionResult> RegisterMedico([FromBody] CriarMedicoDto dto)
         {
-            var result = await _authService.RegisterMedicoAsync(dto, password);
+            var result = await _authService.RegisterMedicoAsync(dto);
             if (!result.Sucesso)
                 return BadRequest(result.Mensagem);
 
@@ -45,9 +45,9 @@ namespace CliniData.Api.Controllers
         }
 
         [HttpPost("register/instituicao")]
-        public async Task<IActionResult> RegisterInstituicao([FromBody] CriarInstituicaoDto dto, [FromQuery] string password)
+        public async Task<IActionResult> RegisterInstituicao([FromBody] CriarInstituicaoDto dto)
         {
-            var result = await _authService.RegisterInstituicaoAsync(dto, password);
+            var result = await _authService.RegisterInstituicaoAsync(dto);
             if (!result.Sucesso)
                 return BadRequest(result.Mensagem);
 

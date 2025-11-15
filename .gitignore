@@ -1,13 +1,37 @@
-﻿# Node
+﻿# Node / React / React Native
 node_modules/
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 package-lock.json
-.vscode/
-.env
-/dist
-/build
+*.lock
+.expo/
+.expo-shared/
+dist/
+build/
+android/
+ios/
+*.apk
+*.aab
 
-# .NET
+# IDE / Sistema
+.vscode/
+.idea/
+.DS_Store
+*.log
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# .NET / Backend
 bin/
 obj/
+*.db
+*.mdf
+*.ldf
+
+# Database
+Database/**/*.bak
+Database/**/*.sqlproj.user

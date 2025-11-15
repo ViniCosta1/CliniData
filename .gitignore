@@ -35,3 +35,8 @@ obj/
 # Database
 Database/**/*.bak
 Database/**/*.sqlproj.user
+/.vs/CliniData/FileContentIndex
+/.vs/CliniData/CopilotIndices/17.14.1231.31060
+/.vs/CliniData
+/.vs/CliniData/DesignTimeBuild/.dtbcache.v2
+/.vs/ProjectEvaluation

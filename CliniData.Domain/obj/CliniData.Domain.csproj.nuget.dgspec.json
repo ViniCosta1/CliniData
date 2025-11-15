@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\User\\Desktop\\Clini_Data\\CliniData\\CliniData.Domain\\obj\\",
+=======
+    "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {}
+  },
+  "projects": {
+    "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+        "projectName": "CliniData.Domain",
+        "projectPath": "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+        "packagesPath": "C:\\Users\\santo\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\",
+>>>>>>> 76f9a5505ffda4ca4c2e3f03a0f8fda8901a10ed
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

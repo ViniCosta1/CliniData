@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CliniData.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class initialcreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -94,43 +94,19 @@ namespace CliniData.Infra.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tipoexame = table.Column<string>(type: "text", nullable: false),
+                    tipoexame = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     datahora = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     pacienteid = table.Column<int>(type: "integer", nullable: false),
-                    medicoid = table.Column<int>(type: "integer", nullable: false),
-                    instituicaoid = table.Column<int>(type: "integer", nullable: false),
-                    resultado = table.Column<string>(type: "text", nullable: true),
-                    observacao = table.Column<string>(type: "text", nullable: true),
+                    instituicao = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    resultado = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    observacao = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    documentoexame = table.Column<byte[]>(type: "bytea", nullable: true),
                     criadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     atualizadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_exame", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "instituicao",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    nome = table.Column<string>(type: "text", nullable: false),
-                    cnpj = table.Column<string>(type: "text", nullable: false),
-                    telefone = table.Column<string>(type: "text", nullable: false),
-                    rua = table.Column<string>(type: "text", nullable: false),
-                    numero = table.Column<string>(type: "text", nullable: false),
-                    bairro = table.Column<string>(type: "text", nullable: false),
-                    cidade = table.Column<string>(type: "text", nullable: false),
-                    estado = table.Column<string>(type: "text", nullable: false),
-                    cep = table.Column<string>(type: "text", nullable: false),
-                    userid = table.Column<int>(type: "integer", nullable: false),
-                    criadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    atualizadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_instituicao", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,6 +216,36 @@ namespace CliniData.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "instituicao",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    nome = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    cnpj = table.Column<string>(type: "character varying(18)", maxLength: 18, nullable: false),
+                    telefone = table.Column<string>(type: "text", nullable: false),
+                    rua = table.Column<string>(type: "text", nullable: false),
+                    numero = table.Column<string>(type: "text", nullable: false),
+                    bairro = table.Column<string>(type: "text", nullable: false),
+                    cidade = table.Column<string>(type: "text", nullable: false),
+                    estado = table.Column<string>(type: "text", nullable: false),
+                    cep = table.Column<string>(type: "text", nullable: false),
+                    userid = table.Column<int>(type: "integer", nullable: false),
+                    criadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    atualizadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_instituicao", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_instituicao_user",
+                        column: x => x.userid,
+                        principalTable: "aspnetusers",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "paciente",
                 columns: table => new
                 {
@@ -251,7 +257,6 @@ namespace CliniData.Infra.Migrations
                     cpf = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
                     telefone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    enderecoid = table.Column<int>(type: "integer", nullable: false),
                     userid = table.Column<int>(type: "integer", nullable: false),
                     criadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     atualizadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -278,7 +283,6 @@ namespace CliniData.Infra.Migrations
                     especialidade_id = table.Column<int>(type: "integer", nullable: false),
                     telefone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    instituicaoid = table.Column<int>(type: "integer", nullable: false),
                     userid = table.Column<int>(type: "integer", nullable: false),
                     criadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     atualizadoemutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -292,12 +296,6 @@ namespace CliniData.Infra.Migrations
                         principalTable: "especialidademedica",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "fk_medico_instituicao_instituicaoid",
-                        column: x => x.instituicaoid,
-                        principalTable: "instituicao",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_medico_user",
                         column: x => x.userid,
@@ -364,6 +362,30 @@ namespace CliniData.Infra.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "medico_instituicao",
+                columns: table => new
+                {
+                    instituicaoid = table.Column<int>(type: "integer", nullable: false),
+                    medicoid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_medico_instituicao", x => new { x.instituicaoid, x.medicoid });
+                    table.ForeignKey(
+                        name: "fk_medico_instituicao_instituicao",
+                        column: x => x.instituicaoid,
+                        principalTable: "instituicao",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_medico_instituicao_medico",
+                        column: x => x.medicoid,
+                        principalTable: "medico",
+                        principalColumn: "id_medico",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_aspnetroleclaims_roleid",
                 table: "aspnetroleclaims",
@@ -407,7 +429,7 @@ namespace CliniData.Infra.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_endereco_pacienteid",
+                name: "ix_endereco_pacienteid",
                 table: "endereco",
                 column: "pacienteid",
                 unique: true);
@@ -423,6 +445,11 @@ namespace CliniData.Infra.Migrations
                 column: "pacienteid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_instituicao_userid",
+                table: "instituicao",
+                column: "userid");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_medico_crm",
                 table: "medico",
                 column: "crm",
@@ -434,14 +461,14 @@ namespace CliniData.Infra.Migrations
                 column: "especialidade_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_medico_instituicaoid",
-                table: "medico",
-                column: "instituicaoid");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_medico_userid",
                 table: "medico",
                 column: "userid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_medico_instituicao_medicoid",
+                table: "medico_instituicao",
+                column: "medicoid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_paciente_cpf",
@@ -486,19 +513,22 @@ namespace CliniData.Infra.Migrations
                 name: "historicosmedico");
 
             migrationBuilder.DropTable(
-                name: "aspnetroles");
+                name: "medico_instituicao");
 
             migrationBuilder.DropTable(
-                name: "medico");
+                name: "aspnetroles");
 
             migrationBuilder.DropTable(
                 name: "paciente");
 
             migrationBuilder.DropTable(
-                name: "especialidademedica");
+                name: "instituicao");
 
             migrationBuilder.DropTable(
-                name: "instituicao");
+                name: "medico");
+
+            migrationBuilder.DropTable(
+                name: "especialidademedica");
 
             migrationBuilder.DropTable(
                 name: "aspnetusers");

@@ -48,12 +48,6 @@ namespace CliniData.Api.Services
             if (await _repositorio.CnpjExisteAsync(dto.CNPJ))
                 throw new Exception("Já existe instituição com este CNPJ");
 
-            // 🔐 Captura o ID do usuário logado
-            var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim is null)
-                throw new UnauthorizedAccessException("Usuário não autenticado.");
-
-            var userId = int.Parse(userIdClaim);
 
             var instituicao = new Instituicao(
                 nome: dto.Nome,
@@ -64,8 +58,7 @@ namespace CliniData.Api.Services
                 bairro: dto.Bairro,
                 cidade: dto.Cidade,
                 estado: dto.Estado,
-                cep: dto.CEP,
-                userId: userId
+                cep: dto.CEP
             );
 
             var criada = await _repositorio.CriarAsync(instituicao);

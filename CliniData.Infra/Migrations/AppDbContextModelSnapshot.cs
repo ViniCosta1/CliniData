@@ -114,16 +114,19 @@ namespace CliniData.Infra.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("datahora");
 
-                    b.Property<int>("InstituicaoId")
-                        .HasColumnType("integer")
-                        .HasColumnName("instituicaoid");
+                    b.Property<byte[]>("DocumentoExame")
+                        .HasColumnType("bytea")
+                        .HasColumnName("documentoexame");
 
-                    b.Property<int>("MedicoId")
-                        .HasColumnType("integer")
-                        .HasColumnName("medicoid");
+                    b.Property<string>("Instituicao")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("instituicao");
 
                     b.Property<string>("Observacao")
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("observacao");
 
                     b.Property<int>("PacienteId")
@@ -131,18 +134,20 @@ namespace CliniData.Infra.Migrations
                         .HasColumnName("pacienteid");
 
                     b.Property<string>("Resultado")
-                        .HasColumnType("text")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("resultado");
 
                     b.Property<string>("TipoExame")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("tipoexame");
 
                     b.HasKey("Id")
                         .HasName("pk_exame");
 
-                    b.ToTable("exame");
+                    b.ToTable("exame", (string)null);
                 });
 
             modelBuilder.Entity("CliniData.Domain.Entities.HistoricoMedico", b =>
@@ -221,7 +226,8 @@ namespace CliniData.Infra.Migrations
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(18)
+                        .HasColumnType("character varying(18)")
                         .HasColumnName("cnpj");
 
                     b.Property<DateTime>("CriadoEmUtc")
@@ -235,7 +241,8 @@ namespace CliniData.Infra.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("nome");
 
                     b.Property<string>("Numero")
@@ -260,7 +267,9 @@ namespace CliniData.Infra.Migrations
                     b.HasKey("Id")
                         .HasName("pk_instituicao");
 
-                    b.ToTable("instituicao");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("instituicao", (string)null);
                 });
 
             modelBuilder.Entity("CliniData.Domain.Entities.Medico", b =>
@@ -284,10 +293,6 @@ namespace CliniData.Infra.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("especialidade_id");
 
-                    b.Property<int>("InstituicaoId")
-                        .HasColumnType("integer")
-                        .HasColumnName("instituicaoid");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -309,9 +314,6 @@ namespace CliniData.Infra.Migrations
 
                     b.HasIndex("EspecialidadeMedicaId")
                         .HasDatabaseName("ix_medico_especialidademedicaid");
-
-                    b.HasIndex("InstituicaoId")
-                        .HasDatabaseName("ix_medico_instituicaoid");
 
                     b.HasIndex("UserId");
 
@@ -338,10 +340,6 @@ namespace CliniData.Infra.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_nascimento");
-
-                    b.Property<int>("EnderecoId")
-                        .HasColumnType("integer")
-                        .HasColumnName("enderecoid");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -528,7 +526,8 @@ namespace CliniData.Infra.Migrations
                         .HasName("pk_endereco");
 
                     b.HasIndex("PacienteId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("ix_endereco_pacienteid");
 
                     b.ToTable("endereco", (string)null);
                 });
@@ -697,6 +696,21 @@ namespace CliniData.Infra.Migrations
                     b.ToTable("aspnetusertokens", (string)null);
                 });
 
+            modelBuilder.Entity("medico_instituicao", b =>
+                {
+                    b.Property<int>("instituicaoid")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("medicoid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("instituicaoid", "medicoid");
+
+                    b.HasIndex("medicoid");
+
+                    b.ToTable("medico_instituicao");
+                });
+
             modelBuilder.Entity("CliniData.Domain.Entities.HistoricoMedico", b =>
                 {
                     b.HasOne("CliniData.Domain.Entities.Medico", "Medico")
@@ -718,6 +732,16 @@ namespace CliniData.Infra.Migrations
                     b.Navigation("Paciente");
                 });
 
+            modelBuilder.Entity("CliniData.Domain.Entities.Instituicao", b =>
+                {
+                    b.HasOne("CliniData.Infra.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_instituicao_user");
+                });
+
             modelBuilder.Entity("CliniData.Domain.Entities.Medico", b =>
                 {
                     b.HasOne("CliniData.Domain.Entities.EspecialidadeMedica", "EspecialidadeMedica")
@@ -726,13 +750,6 @@ namespace CliniData.Infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("fk_medico_especialidademedica_especialidademedicaid");
-
-                    b.HasOne("CliniData.Domain.Entities.Instituicao", "Instituicao")
-                        .WithMany("Medicos")
-                        .HasForeignKey("InstituicaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_medico_instituicao_instituicaoid");
 
                     b.HasOne("CliniData.Infra.Identity.ApplicationUser", null)
                         .WithMany()
@@ -792,8 +809,6 @@ namespace CliniData.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("EspecialidadeMedica");
-
-                    b.Navigation("Instituicao");
                 });
 
             modelBuilder.Entity("CliniData.Domain.Entities.Paciente", b =>
@@ -925,9 +940,21 @@ namespace CliniData.Infra.Migrations
                         .HasConstraintName("fk_aspnetusertokens_aspnetusers_userid");
                 });
 
-            modelBuilder.Entity("CliniData.Domain.Entities.Instituicao", b =>
+            modelBuilder.Entity("medico_instituicao", b =>
                 {
-                    b.Navigation("Medicos");
+                    b.HasOne("CliniData.Domain.Entities.Instituicao", null)
+                        .WithMany()
+                        .HasForeignKey("instituicaoid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_medico_instituicao_instituicao");
+
+                    b.HasOne("CliniData.Domain.Entities.Medico", null)
+                        .WithMany()
+                        .HasForeignKey("medicoid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_medico_instituicao_medico");
                 });
 
             modelBuilder.Entity("CliniData.Domain.Entities.Paciente", b =>

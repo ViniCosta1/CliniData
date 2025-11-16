@@ -3,44 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\phavl\\source\\repos\\CliniData\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\medicodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\medicodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\applicationuserconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\applicationuserconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\instituicaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\instituicaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\pacientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\pacientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\pacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\pacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\identity\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\identity\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\clinidata.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\clinidata.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\instituicaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\instituicaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\clinidata.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\clinidata.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\instituicaoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\instituicaoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\instituicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\instituicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\instituicaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\instituicaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\instituicaorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\repositories\\instituicaorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\clinidata.infra.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -51,6 +51,102 @@
       "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\enderecoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\enderecoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\pacienteconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\pacienteconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\medicoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\medicoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\valueobjects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\valueobjects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\cpf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\cpf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\endereco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\endereco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\medicodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\medicodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\crm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\crm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\medicoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\medicoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\medicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\medicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\medicoinstituicaoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\medicoinstituicaoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\exame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\exame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\especialidademedica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\especialidademedica.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\medico.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\medico.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\examedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\examedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\exameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\exameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\pacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\pacientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\exameconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\exameconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\pacientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\pacientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\clinidata.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\clinidata.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\clinidata.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\clinidata.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
@@ -58,44 +154,8 @@
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\instituicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\instituicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\medico.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\medico.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\medicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\medicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\medicoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\medicoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\pacienteconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\pacienteconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\cpf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\cpf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\crm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\crm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\extensions\\dbsetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -108,10 +168,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\enums\\sexo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\enums\\sexo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\applicationuserconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\applicationuserconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\consultarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -128,10 +184,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\ipacienterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\repositories\\ipacienterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\iconsultarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -154,24 +206,12 @@
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\pacienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\medicoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\medicoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\valueobjects\\ivalueobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\valueobjects\\ivalueobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\instituicaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\instituicaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\noopemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\noopemailsender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\exameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\services\\exameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\services\\ipacienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -186,24 +226,12 @@
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\dtos\\historicomedicodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\exame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\exame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\historicomedico.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\historicomedico.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\examerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\repositories\\examerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.domain\\entities\\endereco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D428EB0A-C8F4-4FB6-B827-76F34299371A}|CliniData.Domain\\CliniData.Domain.csproj|solutionrelative:clinidata.domain\\entities\\endereco.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\instituicaorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\repositories\\instituicaorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\repositories\\historicomedicorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -228,10 +256,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\controllers\\consultascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|solutionrelative:clinidata.api\\controllers\\consultascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.infra\\persistence\\configuration\\enderecoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6980BA99-BF94-417E-802D-A10F8D7921AD}|CliniData.Infra\\CliniData.Infra.csproj|solutionrelative:clinidata.infra\\persistence\\configuration\\enderecoconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9100F25-E5F3-4BD2-A158-4A61A068D7ED}|CliniData.Api\\CliniData.Api.csproj|c:\\users\\phavl\\source\\repos\\clinidata\\clinidata.api\\models\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -269,8 +293,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\AuthService.cs",
+              "RelativeToolTip": "CliniData.Api\\Services\\AuthService.cs",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAgwL8AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T22:17:45.542Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -279,113 +316,113 @@
               "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\InstituicaoDto.cs",
               "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\InstituicaoDto.cs",
               "RelativeToolTip": "CliniData.Api\\DTOs\\InstituicaoDto.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAUwAgAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAkwDYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-11T19:10:41.186Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Program.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Program.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Program.cs",
-              "RelativeToolTip": "CliniData.Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T01:20:11.094Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\AuthController.cs",
               "RelativeToolTip": "CliniData.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAACsAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-09T14:12:18.777Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PacientesController.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\PacientesController.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
-              "RelativeToolTip": "CliniData.Api\\Controllers\\PacientesController.cs",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAqwM0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T19:11:04.704Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PacienteDto.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\PacienteDto.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\PacienteDto.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\PacienteDto.cs",
-              "RelativeToolTip": "CliniData.Api\\DTOs\\PacienteDto.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAUwDMAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T14:33:15.431Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MedicoDto.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\MedicoDto.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\MedicoDto.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\MedicoDto.cs",
-              "RelativeToolTip": "CliniData.Api\\DTOs\\MedicoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T00:50:00.526Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\AuthService.cs",
-              "RelativeToolTip": "CliniData.Api\\Services\\AuthService.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAApwFwAAAAiAAAAAAAAAA==",
+              "Title": "ApplicationUserConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T22:17:45.542Z",
+              "WhenOpened": "2025-09-25T16:44:41.202Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "ApplicationUser.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Identity\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "CliniData.Infra\\Identity\\ApplicationUser.cs",
               "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Identity\\ApplicationUser.cs",
               "RelativeToolTip": "CliniData.Infra\\Identity\\ApplicationUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-24T18:03:49.29Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\AppDbContext.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\AppDbContext.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAgwFwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T20:01:57.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InstituicaoConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\InstituicaoConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\InstituicaoConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\InstituicaoConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\InstituicaoConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T13:42:34.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Instituicao.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Instituicao.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Instituicao.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Instituicao.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Instituicao.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAkwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T00:26:53.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "InstituicaoRepository.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\InstituicaoRepository.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\InstituicaoRepository.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\InstituicaoRepository.cs",
+              "RelativeToolTip": "CliniData.Api\\Repositories\\InstituicaoRepository.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAUwDwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T08:20:37.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "CliniData.Api.csproj",
-              "DocumentMoniker": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
-              "RelativeDocumentMoniker": "CliniData.Api\\CliniData.Api.csproj",
-              "ToolTip": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
-              "RelativeToolTip": "CliniData.Api\\CliniData.Api.csproj",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-07T18:23:02.443Z",
+              "Title": "InstituicaoService.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\InstituicaoService.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Services\\InstituicaoService.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\InstituicaoService.cs",
+              "RelativeToolTip": "CliniData.Api\\Services\\InstituicaoService.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAmwDwAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T00:49:23.684Z",
               "EditorCaption": ""
             },
             {
@@ -396,9 +433,48 @@
               "RelativeDocumentMoniker": "CliniData.Infra\\CliniData.Infra.csproj",
               "ToolTip": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Infra\\CliniData.Infra.csproj",
               "RelativeToolTip": "CliniData.Infra\\CliniData.Infra.csproj",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAswA4AAABAAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAswBQAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-09-23T19:06:03.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "EnderecoConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAmwC4AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T17:54:42.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MedicoConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAswEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T17:29:28.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PacienteConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAmwEoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T18:38:42.26Z",
               "EditorCaption": ""
             },
             {
@@ -409,79 +485,92 @@
               "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Paciente.cs",
               "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Paciente.cs",
               "RelativeToolTip": "CliniData.Domain\\Entities\\Paciente.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAIwDkAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-09T13:37:52.221Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "CliniData.Domain.csproj",
-              "DocumentMoniker": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
-              "RelativeDocumentMoniker": "CliniData.Domain\\CliniData.Domain.csproj",
-              "ToolTip": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
-              "RelativeToolTip": "CliniData.Domain\\CliniData.Domain.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-10T02:03:08.161Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Microsoft.PackageDependencyResolution.targets",
-              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
-              "ViewState": "AgIAAAIBAAAAAAAAAAAvwAkBAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-11-11T18:05:05.568Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "CliniData.Api\\appsettings.json",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\appsettings.json",
-              "RelativeToolTip": "CliniData.Api\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-16T01:08:59.59Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Instituicao.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Instituicao.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Instituicao.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Instituicao.cs",
-              "RelativeToolTip": "CliniData.Domain\\Entities\\Instituicao.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwDQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T00:26:53.926Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "Medico.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Medico.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Medico.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Medico.cs",
-              "RelativeToolTip": "CliniData.Domain\\Entities\\Medico.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAwDAAAAAAAAAAAAAAAA==",
+              "Title": "ValueObjects.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\ValueObjects.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\ValueObjects.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\ValueObjects.cs",
+              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\ValueObjects.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAwwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-09T13:42:49.337Z",
+              "WhenOpened": "2025-11-16T13:14:14.242Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Endereco.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Endereco.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Endereco.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Endereco.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Endereco.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAUwBEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T08:28:55.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MedicoDto.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\MedicoDto.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\MedicoDto.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\MedicoDto.cs",
+              "RelativeToolTip": "CliniData.Api\\DTOs\\MedicoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T00:50:00.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "CPF.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CPF.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\CPF.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CPF.cs",
+              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\CPF.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAcwEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T02:06:08.877Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
+              "Title": "Email.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\Email.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\Email.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\Email.cs",
+              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\Email.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAA0wEQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T02:06:20.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MedicoService.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\MedicoService.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Services\\MedicoService.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\MedicoService.cs",
+              "RelativeToolTip": "CliniData.Api\\Services\\MedicoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T23:23:30.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
               "Title": "MedicosController.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\MedicosController.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\MedicosController.cs",
@@ -494,7 +583,215 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
+              "Title": "MedicoInstituicaoConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\MedicoInstituicaoConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\MedicoInstituicaoConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\MedicoInstituicaoConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\MedicoInstituicaoConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T19:35:38.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CRM.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CRM.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\CRM.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CRM.cs",
+              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\CRM.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T02:04:46.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Exame.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Exame.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Exame.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Exame.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Exame.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAkwAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T00:26:44.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "EspecialidadeMedica.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\EspecialidadeMedica.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\EspecialidadeMedica.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\EspecialidadeMedica.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\EspecialidadeMedica.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T12:41:10.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Consulta.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Consulta.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Consulta.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Consulta.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Consulta.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAuwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T00:25:48.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Medico.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Medico.cs",
+              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Medico.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Medico.cs",
+              "RelativeToolTip": "CliniData.Domain\\Entities\\Medico.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAACwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T13:42:49.337Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ExameDto.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\ExameDto.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\ExameDto.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\ExameDto.cs",
+              "RelativeToolTip": "CliniData.Api\\DTOs\\ExameDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T12:23:11.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ExameService.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\ExameService.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Services\\ExameService.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\ExameService.cs",
+              "RelativeToolTip": "CliniData.Api\\Services\\ExameService.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAgwEsAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T23:13:43.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "PacientesController.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\PacientesController.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\PacientesController.cs",
+              "RelativeToolTip": "CliniData.Api\\Controllers\\PacientesController.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAvwGgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-19T19:11:04.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ExameConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\ExameConfiguration.cs",
+              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\ExameConfiguration.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\ExameConfiguration.cs",
+              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\ExameConfiguration.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwBQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-15T19:25:26.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "PacienteDto.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\PacienteDto.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\PacienteDto.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\PacienteDto.cs",
+              "RelativeToolTip": "CliniData.Api\\DTOs\\PacienteDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwDMAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-09T14:33:15.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Program.cs",
+              "RelativeDocumentMoniker": "CliniData.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Program.cs",
+              "RelativeToolTip": "CliniData.Api\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T01:20:11.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "CliniData.Api.csproj",
+              "DocumentMoniker": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+              "RelativeDocumentMoniker": "CliniData.Api\\CliniData.Api.csproj",
+              "ToolTip": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Api\\CliniData.Api.csproj",
+              "RelativeToolTip": "CliniData.Api\\CliniData.Api.csproj",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-07T18:23:02.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "CliniData.Domain.csproj",
+              "DocumentMoniker": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+              "RelativeDocumentMoniker": "CliniData.Domain\\CliniData.Domain.csproj",
+              "ToolTip": "C:\\Users\\phavl\\Source\\Repos\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+              "RelativeToolTip": "CliniData.Domain\\CliniData.Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-10T02:03:08.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Microsoft.PackageDependencyResolution.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "ViewState": "AgIAAAIBAAAAAAAAAAAvwAkBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-11-11T18:05:05.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "CliniData.Api\\appsettings.json",
+              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\appsettings.json",
+              "RelativeToolTip": "CliniData.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-16T01:08:59.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
               "Title": "AuthDto.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\AuthDto.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\AuthDto.cs",
@@ -507,85 +804,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "PacienteConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
-              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
-              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\PacienteConfiguration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T18:38:42.26Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MedicoConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
-              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
-              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\MedicoConfiguration.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAkwEAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T17:29:28.05Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "CPF.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CPF.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\CPF.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CPF.cs",
-              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\CPF.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T02:06:08.877Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\AppDbContext.cs",
-              "RelativeToolTip": "CliniData.Infra\\Persistence\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T20:01:57.473Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CRM.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CRM.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\CRM.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\CRM.cs",
-              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\CRM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T02:04:46.778Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Email.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\Email.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\Email.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\Email.cs",
-              "RelativeToolTip": "CliniData.Domain\\ValueObjects\\Email.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T02:06:20.442Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 39,
               "Title": "DbSetExtensions.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Extensions\\DbSetExtensions.cs",
               "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Extensions\\DbSetExtensions.cs",
@@ -598,7 +817,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 40,
               "Title": "UserRole.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Enums\\UserRole.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\UserRole.cs",
@@ -611,7 +830,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 41,
               "Title": "Sexo.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Enums\\Sexo.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\Sexo.cs",
@@ -624,20 +843,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "ApplicationUserConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
-              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
-              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\ApplicationUserConfiguration.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAIwA0AAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-25T16:44:41.202Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 42,
               "Title": "ConsultaRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\ConsultaRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\ConsultaRepository.cs",
@@ -650,7 +856,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 46,
               "Title": "IConsultaRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\IConsultaRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\IConsultaRepository.cs",
@@ -663,20 +869,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "Consulta.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Consulta.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Consulta.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Consulta.cs",
-              "RelativeToolTip": "CliniData.Domain\\Entities\\Consulta.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T00:25:48.447Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 44,
               "Title": "ConsultaService.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\ConsultaService.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Services\\ConsultaService.cs",
@@ -689,7 +882,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 47,
               "Title": "IMedicoRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\IMedicoRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\IMedicoRepository.cs",
@@ -702,7 +895,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 43,
               "Title": "ConsultaDto.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\ConsultaDto.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\ConsultaDto.cs",
@@ -715,7 +908,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 45,
               "Title": "IPacienteRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\IPacienteRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\IPacienteRepository.cs",
@@ -728,7 +921,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 48,
               "Title": "MedicoRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\MedicoRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\MedicoRepository.cs",
@@ -741,7 +934,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 49,
               "Title": "PacienteRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\PacienteRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\PacienteRepository.cs",
@@ -754,7 +947,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 50,
               "Title": "PacienteService.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\PacienteService.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Services\\PacienteService.cs",
@@ -767,20 +960,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "MedicoService.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\MedicoService.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Services\\MedicoService.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\MedicoService.cs",
-              "RelativeToolTip": "CliniData.Api\\Services\\MedicoService.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAQwFkAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T23:23:30.868Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 51,
               "Title": "IValueObject.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\ValueObjects\\IValueObject.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\ValueObjects\\IValueObject.cs",
@@ -793,20 +973,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "InstituicaoService.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\InstituicaoService.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Services\\InstituicaoService.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\InstituicaoService.cs",
-              "RelativeToolTip": "CliniData.Api\\Services\\InstituicaoService.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAmwHcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-11T00:49:23.684Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 52,
               "Title": "NoOpEmailSender.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\NoOpEmailSender.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Services\\NoOpEmailSender.cs",
@@ -819,20 +986,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "ExameService.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\ExameService.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Services\\ExameService.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\ExameService.cs",
-              "RelativeToolTip": "CliniData.Api\\Services\\ExameService.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAuwEMAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T23:13:43.648Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 53,
               "Title": "IPacienteService.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\IPacienteService.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Services\\IPacienteService.cs",
@@ -845,7 +999,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 54,
               "Title": "HistoricoMedicoService.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Services\\HistoricoMedicoService.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Services\\HistoricoMedicoService.cs",
@@ -858,7 +1012,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 55,
               "Title": "HistoricoMedicoDto.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\DTOs\\HistoricoMedicoDto.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\DTOs\\HistoricoMedicoDto.cs",
@@ -871,20 +1025,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "Exame.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Exame.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Exame.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Exame.cs",
-              "RelativeToolTip": "CliniData.Domain\\Entities\\Exame.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwC8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T00:26:44.148Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 57,
               "Title": "ExameRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\ExameRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\ExameRepository.cs",
@@ -897,7 +1038,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 56,
               "Title": "HistoricoMedico.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\HistoricoMedico.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\HistoricoMedico.cs",
@@ -910,33 +1051,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "Endereco.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Endereco.cs",
-              "RelativeDocumentMoniker": "CliniData.Domain\\Entities\\Endereco.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Entities\\Endereco.cs",
-              "RelativeToolTip": "CliniData.Domain\\Entities\\Endereco.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAA7wBEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T08:28:55.023Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "InstituicaoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\InstituicaoRepository.cs",
-              "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\InstituicaoRepository.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\InstituicaoRepository.cs",
-              "RelativeToolTip": "CliniData.Api\\Repositories\\InstituicaoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T08:20:37.511Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 58,
               "Title": "HistoricoMedicoRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\HistoricoMedicoRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\HistoricoMedicoRepository.cs",
@@ -949,7 +1064,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 59,
               "Title": "IInstituicaoRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\IInstituicaoRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\IInstituicaoRepository.cs",
@@ -962,7 +1077,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 60,
               "Title": "IHistoricoMedicoRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\IHistoricoMedicoRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\IHistoricoMedicoRepository.cs",
@@ -975,7 +1090,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 61,
               "Title": "IExameRepository.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Repositories\\IExameRepository.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Repositories\\IExameRepository.cs",
@@ -988,7 +1103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 62,
               "Title": "Exame.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Models\\Exame.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Models\\Exame.cs",
@@ -1001,7 +1116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 63,
               "Title": "ConsultasController.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Controllers\\ConsultasController.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Controllers\\ConsultasController.cs",
@@ -1014,20 +1129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
-              "Title": "EnderecoConfiguration.cs",
-              "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
-              "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
-              "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
-              "RelativeToolTip": "CliniData.Infra\\Persistence\\Configuration\\EnderecoConfiguration.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAuwDQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T17:54:42.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 64,
               "Title": "Paciente.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Models\\Paciente.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Models\\Paciente.cs",
@@ -1040,7 +1142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 65,
               "Title": "AppDbContextFactory.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Infra\\Persistence\\AppDbContextFactory.cs",
               "RelativeDocumentMoniker": "CliniData.Infra\\Persistence\\AppDbContextFactory.cs",
@@ -1053,7 +1155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 66,
               "Title": "HistoricoMedico.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\Models\\HistoricoMedico.cs",
               "RelativeDocumentMoniker": "CliniData.Api\\Models\\HistoricoMedico.cs",
@@ -1066,7 +1168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 67,
               "Title": "CliniData.Api.http",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\CliniData.Api.http",
               "RelativeDocumentMoniker": "CliniData.Api\\CliniData.Api.http",
@@ -1079,7 +1181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 68,
               "Title": "AppointmentStatus.cs",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Domain\\Enums\\AppointmentStatus.cs",
               "RelativeDocumentMoniker": "CliniData.Domain\\Enums\\AppointmentStatus.cs",
@@ -1092,20 +1194,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 69,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
               "ToolTip": "C:\\Users\\phavl\\source\\repos\\CliniData\\.gitignore",
               "RelativeToolTip": ".gitignore",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAiwCYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAiwBkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-11-07T16:37:22.712Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 70,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\phavl\\source\\repos\\CliniData\\CliniData.Api\\README.md",
               "RelativeDocumentMoniker": "CliniData.Api\\README.md",

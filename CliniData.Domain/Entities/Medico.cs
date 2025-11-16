@@ -13,27 +13,26 @@ namespace CliniData.Domain.Entities
         public EspecialidadeMedica EspecialidadeMedica { get; private set; } // 🔹 Navegação
         public string Telefone { get; private set; }
         public Email Email { get; private set; }
-        public int InstituicaoId { get; private set; }
+        public ICollection<Instituicao> Instituicoes { get; private set; } = new List<Instituicao>();
+
         public int UserId { get; private set; }
 
-        // Navegação
-        public Instituicao? Instituicao { get; private set; }
+
 
         protected Medico() { } // EF Core
 
-        private Medico(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email, int instituicaoId)
+        private Medico(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email)
         {
             Nome = nome;
             CRM = crm;
             EspecialidadeMedicaId = especialidadeMedicaId;
             Telefone = telefone;
             Email = email;
-            InstituicaoId = instituicaoId;
         }
 
-        public static Medico Criar(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email, int instituicaoId)
+        public static Medico Criar(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email)
         {
-            return new Medico(nome, crm, especialidadeMedicaId, telefone, email, instituicaoId);
+            return new Medico(nome, crm, especialidadeMedicaId, telefone, email);
         }
 
         public void Atualizar(string nome, CRM crm, int especialidadeMedicaId, string telefone, Email email)

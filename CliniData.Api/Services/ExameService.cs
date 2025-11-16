@@ -57,8 +57,7 @@ namespace CliniData.Api.Services
             TipoExame = e.TipoExame,
             DataHora = e.DataHora,
             PacienteId = e.PacienteId,
-            MedicoId = e.MedicoId,
-            InstituicaoId = e.InstituicaoId,
+            Instituicao = e.Instituicao,
             Resultado = e.Resultado,
             Observacao = e.Observacao
         };
@@ -68,8 +67,7 @@ namespace CliniData.Api.Services
                 tipoExame: dto.TipoExame,
                 dataHora: dto.DataHora,
                 pacienteId: dto.PacienteId,
-                medicoId: dto.MedicoId,
-                instituicaoId: dto.InstituicaoId,
+                instituicao: dto.Instituicao,
                 resultado: dto.Resultado,
                 observacao: dto.Observacao
             );
@@ -81,10 +79,10 @@ namespace CliniData.Api.Services
                 tipoExame: dto.TipoExame,
                 dataHora: dto.DataHora,
                 pacienteId: dto.PacienteId,
-                medicoId: dto.MedicoId,
-                instituicaoId: dto.InstituicaoId,
+                instituicao: dto.Instituicao,
                 resultado: dto.Resultado,
-                observacao: dto.Observacao
+                observacao: dto.Observacao,
+                documentoExame: dto.DocumentoExame
             );
         }
 

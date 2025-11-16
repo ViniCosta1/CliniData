@@ -69,6 +69,7 @@ namespace CliniData.Api.Services
                 endereco: endereco
             );
 
+            // SETA O USERID
             typeof(Paciente).GetProperty("UserId")!.SetValue(paciente, user.Id);
 
             _context.Paciente.Add(paciente);
@@ -98,10 +99,10 @@ namespace CliniData.Api.Services
                 crm: new CRM(dto.CRM),
                 especialidadeMedicaId: dto.EspecialidadeMedicaId,
                 telefone: dto.Telefone,
-                email: new Email(dto.Email),
-                instituicaoId: dto.InstituicaoId
+                email: new Email(dto.Email)
             );
 
+            // SETA O USERID
             typeof(Medico).GetProperty("UserId")!.SetValue(medico, user.Id);
 
             _context.Medico.Add(medico);
@@ -117,8 +118,8 @@ namespace CliniData.Api.Services
         {
             var user = new ApplicationUser
             {
-                UserName = dto.CNPJ,
-                Email = dto.CNPJ, // caso não tenha email próprio
+                UserName = dto.Email,
+                Email = dto.Email,
                 UserRole = UserRole.Instituicao
             };
 
@@ -135,9 +136,12 @@ namespace CliniData.Api.Services
                 bairro: dto.Bairro,
                 cidade: dto.Cidade,
                 estado: dto.Estado,
-                cep: dto.CEP,
-                userId: user.Id
+                cep: dto.CEP
             );
+
+            // *** AQUI ESTAVA O ERRO ***
+            // SETAR O USERID
+            typeof(Instituicao).GetProperty("UserId")!.SetValue(instituicao, user.Id);
 
             _context.Instituicao.Add(instituicao);
             await _context.SaveChangesAsync();

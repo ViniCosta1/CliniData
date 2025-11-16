@@ -1,4 +1,5 @@
-﻿using CliniData.Api.DTOs;
+﻿using CliniData.Api.Controllers;
+using CliniData.Api.DTOs;
 using CliniData.Api.Repositories;
 using CliniData.Domain.Entities;
 using CliniData.Domain.ValueObjects;
@@ -47,9 +48,8 @@ namespace CliniData.Api.Services
                 crm: new CRM(dto.CRM),
                 especialidadeMedicaId: dto.EspecialidadeMedicaId,
                 telefone: dto.Telefone,
-                email: new Email(dto.Email),
-                instituicaoId: dto.InstituicaoId
-            );
+                email: new Email(dto.Email)
+                );
 
             var criado = await _repositorio.CriarAsync(medico);
             return ConverterParaDto(criado);
@@ -90,8 +90,7 @@ namespace CliniData.Api.Services
             CRM = medico.CRM.Valor,
             EspecialidadeMedicaId = medico.EspecialidadeMedicaId,
             Telefone = medico.Telefone,
-            Email = medico.Email.Valor,
-            InstituicaoId = medico.InstituicaoId
+            Email = medico.Email.Valor
         };
     }
 }

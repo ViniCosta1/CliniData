@@ -38,3 +38,15 @@ namespace CliniData.Api.DTOs
         public byte[] DocumentoExame { get; set; }
     }
 }
+public class CriarExameFormDto
+{
+    public string TipoExame { get; set; }
+    public DateTime DataHora { get; set; }
+    public int PacienteId { get; set; }
+    public string Instituicao { get; set; }
+    public string? Resultado { get; set; }
+    public string? Observacao { get; set; }
+
+    // ARQUIVO
+    public IFormFile? Documento { get; set; }
+}

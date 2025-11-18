@@ -1,20 +1,19 @@
-// Cole isso dentro de: app/index.tsx
-// (Versão FINAL - Foco no E-mail/Senha e API)
-
 import React, { useState } from 'react';
 import { 
     View, Text, TextInput, TouchableOpacity, 
     StyleSheet, Image, SafeAreaView, Alert
 } from 'react-native';
-import { Link, router } from 'expo-router'; 
-import api from './services/api'; // Nosso arquivo de API
+import { Link, router } from 'expo-router';
 
-const logo = require('../assets/images/logoreal.png'); // Seu logo
+// 👉 Caminho correto
+import api from './services/api';
+
+const logo = require('../assets/images/logoreal.png');
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [isLoading, setIsLoading] = useState(false); 
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async () => {
         if (isLoading) return;
@@ -27,40 +26,56 @@ export default function LoginScreen() {
         }
 
         try {
-            // Código real da API (sem "hack")
-            // (Verifique com seu amigo se o endpoint é /Login)
-            const response = await api.post('/Login', { 
-                email: email, 
-                senha: senha 
+            // 👉 ROTA exata da sua API
+            const response = await api.post('/Auth/login', {
+                email: email,
+                password: senha
             });
 
-            // A API (feita pelo seu amigo) deve retornar um "token"
-            const token = response.data.token; 
+            console.log("Resposta da API:", response.data);
+
+            // 👉 Captura token em qualquer formato possível
+            const token =
+                response.data?.token ??
+                response.data?.Token ??
+                response.data?.access_token;
 
             if (token) {
-                // TODO: Salvar o token no celular (próximo passo)
                 console.log('Token recebido:', token);
-                
-                // Se o login deu certo, VAI PARA A HOME
+
+                // 👉 Redireciona para a home
                 router.replace('/(tabs)/home');
+
             } else {
-                Alert.alert('Erro', 'Login bem-sucedido, mas nenhum token foi recebido.');
+                Alert.alert('Erro', 'Nenhum token foi recebido da API.');
             }
 
         } catch (error: any) {
             console.error('Erro na chamada da API:', error);
+
             let mensagemErro = 'Não foi possível fazer o login.';
-            if (error.response && error.response.status === 401) {
-                mensagemErro = 'E-mail ou senha inválidos.';
-            } else if (error.request) {
+
+            if (error.response) {
+                console.log('Status da API:', error.response.status);
+                console.log('Data da API:', error.response.data);
+
+                if (error.response.status === 401)
+                    mensagemErro = 'E-mail ou senha inválidos.';
+
+                if (error.response.status === 400)
+                    mensagemErro = 'Requisição inválida. Verifique Email e Password.';
+            } 
+            else if (error.request) {
                 mensagemErro = 'Não foi possível conectar ao servidor. Verifique sua rede.';
             }
-            Alert.alert('Erro no Login', mensagemErro);
+
+            Alert.alert('Erro', mensagemErro);
+
         } finally {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.formContainer}>
@@ -70,25 +85,26 @@ export default function LoginScreen() {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="E-mail" 
-                    placeholderTextColor="#aaa" // Cor discreta
+                    placeholder="E-mail"
+                    placeholderTextColor="#aaa"
                     value={email}
                     onChangeText={setEmail}
                     autoCapitalize="none"
                     keyboardType="email-address"
                     editable={!isLoading}
                 />
+
                 <TextInput
                     style={styles.input}
-                    placeholder="Senha" 
-                    placeholderTextColor="#aaa" // Cor discreta
+                    placeholder="Senha"
+                    placeholderTextColor="#aaa"
                     value={senha}
                     onChangeText={setSenha}
                     secureTextEntry
                     editable={!isLoading}
                 />
 
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={[styles.button, isLoading && styles.buttonDisabled]}
                     onPress={handleLogin}
                     disabled={isLoading}
@@ -100,22 +116,23 @@ export default function LoginScreen() {
 
                 <Link href="/register" asChild>
                     <TouchableOpacity style={styles.linkButton} disabled={isLoading}>
-                        <Text style={styles.linkText}>Não possui uma conta? Cadastre-se</Text> 
+                        <Text style={styles.linkText}>
+                            Não possui uma conta? Cadastre-se
+                        </Text>
                     </TouchableOpacity>
                 </Link>
 
-                <Link href="/password-recovery" asChild> 
+                <Link href="/password-recovery" asChild>
                     <TouchableOpacity style={styles.linkButton} disabled={isLoading}>
                         <Text style={styles.linkText}>Esqueci a senha</Text>
                     </TouchableOpacity>
                 </Link>
-                
+
             </View>
         </SafeAreaView>
     );
 }
 
-// Estilos
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#f7f7f7', justifyContent: 'center', alignItems: 'center' },
     formContainer: { width: '90%', padding: 20, backgroundColor: '#fff', borderRadius: 10, alignItems: 'center', shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.23, shadowRadius: 2.62, elevation: 4 },

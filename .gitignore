@@ -1,4 +1,6 @@
-﻿# Node / React / React Native
+﻿#############################################
+# Node / React / React Native
+#############################################
 node_modules/
 npm-debug.log*
 yarn-debug.log*
@@ -14,30 +16,51 @@ ios/
 *.apk
 *.aab
 
+#############################################
 # IDE / Sistema
+#############################################
 .vscode/
 .idea/
 .DS_Store
 *.log
 
+#############################################
 # Ambiente
+#############################################
 .env
 .env.local
 .env.*.local
 
+#############################################
 # .NET / Backend
+#############################################
 bin/
 obj/
 *.db
 *.mdf
 *.ldf
 
+#############################################
 # Database
+#############################################
 Database/**/*.bak
 Database/**/*.sqlproj.user
-/.vs/CliniData/FileContentIndex
-/.vs/CliniData/CopilotIndices/17.14.1231.31060
-/.vs/CliniData
-/.vs/CliniData/DesignTimeBuild/.dtbcache.v2
-/.vs/ProjectEvaluation
-/.vs/CliniData/v17/.suo
+
+#############################################
+# Visual Studio
+#############################################
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+#############################################
+# NuGet
+#############################################
+*.nupkg
+*.nuget.cache
+*.nuget.props
+*.nuget.dgspec.json
+project.assets.json
+project.nuget.cache

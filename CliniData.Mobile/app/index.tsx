@@ -34,7 +34,6 @@ export default function LoginScreen() {
 
             console.log("Resposta da API:", response.data);
 
-            // 👉 Captura token em qualquer formato possível
             const token =
                 response.data?.token ??
                 response.data?.Token ??
@@ -43,7 +42,6 @@ export default function LoginScreen() {
             if (token) {
                 console.log('Token recebido:', token);
 
-                // 👉 Redireciona para a home
                 router.replace('/(tabs)/home');
 
             } else {

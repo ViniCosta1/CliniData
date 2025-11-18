@@ -8,7 +8,6 @@ using System.Reflection;
 
 namespace CliniData.Infra.Persistence
 {
-    // Corrigido para usar <int>
     public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -26,10 +25,7 @@ namespace CliniData.Infra.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
-            // (O resto do seu código OnModelCreating que você já tinha...)
-            // ...
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            // ... (Suas relações de Medico, Paciente, Endereco, etc.)
         }
     }
 }

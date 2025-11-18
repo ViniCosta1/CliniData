@@ -1,19 +1,17 @@
-import React from 'react';
-import './Header.css';
+export default function Header() {
+  return (
+    <header className="h-16 bg-white shadow flex items-center justify-between px-6">
+      <h2 className="text-lg font-semibold">Painel da Instituição</h2>
 
-
-export default function Header({children}){
-return (
-<header className="cd-header">
-<div className="cd-container">
-<div className="cd-left">
-<img src="/src/assets/logo.png" alt="CliniData" className="cd-logo" />
-<h3>CliniData</h3>
-</div>
-<nav className="cd-right">
-{children}
-</nav>
-</div>
-</header>
-);
+      <button
+        className="bg-red-600 text-white px-4 py-2 rounded-lg"
+        onClick={() => {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }}
+      >
+        Sair
+      </button>
+    </header>
+  );
 }

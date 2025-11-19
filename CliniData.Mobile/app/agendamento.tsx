@@ -70,7 +70,7 @@ export default function AgendamentoScreen() {
             "Sucesso", 
             "Seu agendamento foi solicitado! Você será redirecionado para a Home.",
             [
-                { text: 'OK', onPress: () => router.push('/(tabs)/home') }
+                { text: 'OK', onPress: () => router.push('/tabs/home') }
             ]
         );
     };

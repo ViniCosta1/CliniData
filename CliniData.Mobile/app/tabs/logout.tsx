@@ -1,11 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const LogoutScreen: React.FC = () => {
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation();
 
     const handleSignOut = () => {
         Alert.alert(
@@ -28,12 +27,7 @@ const LogoutScreen: React.FC = () => {
             // await api.post('/logout');
 
             // Redireciona para a tela de login, substituindo o histórico de navegação
-            navigation.dispatch(
-                CommonActions.reset({
-                    index: 0,
-                    routes: [{ name: 'Login' }],
-                })
-            );
+            router.replace('/');
         } catch (error) {
             console.error('Logout error', error);
             Alert.alert('Erro', 'Não foi possível encerrar a sessão. Tente novamente.');

@@ -8,7 +8,7 @@ namespace CliniData.Api.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly AuthService _authService;
+        private readonly AuthService _authService;  
 
         public AuthController(AuthService authService)
         {

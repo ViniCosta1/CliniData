@@ -57,8 +57,7 @@ namespace CliniData.Api.Services
             TipoExame = e.TipoExame,
             DataHora = e.DataHora,
             PacienteId = e.PacienteId,
-            MedicoId = e.MedicoId,
-            InstituicaoId = e.InstituicaoId,
+            Instituicao = e.Instituicao,
             Resultado = e.Resultado,
             Observacao = e.Observacao
         };
@@ -68,8 +67,7 @@ namespace CliniData.Api.Services
                 tipoExame: dto.TipoExame,
                 dataHora: dto.DataHora,
                 pacienteId: dto.PacienteId,
-                medicoId: dto.MedicoId,
-                instituicaoId: dto.InstituicaoId,
+                instituicao: dto.Instituicao,
                 resultado: dto.Resultado,
                 observacao: dto.Observacao
             );
@@ -81,12 +79,68 @@ namespace CliniData.Api.Services
                 tipoExame: dto.TipoExame,
                 dataHora: dto.DataHora,
                 pacienteId: dto.PacienteId,
-                medicoId: dto.MedicoId,
-                instituicaoId: dto.InstituicaoId,
+                instituicao: dto.Instituicao,
                 resultado: dto.Resultado,
-                observacao: dto.Observacao
+                observacao: dto.Observacao,
+                documentoExame: dto.DocumentoExame
             );
         }
 
+        public async Task<ExameDto> CriarComArquivoAsync(CriarExameFormDto dto)
+        {
+            byte[]? documentoBytes = null;
+
+            if (dto.Documento != null)
+            {
+                using var ms = new MemoryStream();
+                await dto.Documento.CopyToAsync(ms);
+                documentoBytes = ms.ToArray();
+            }
+
+            var exame = Exame.Criar(
+                tipoExame: dto.TipoExame,
+                dataHora: dto.DataHora,
+                pacienteId: dto.PacienteId,
+                instituicao: dto.Instituicao,
+                resultado: dto.Resultado,
+                observacao: dto.Observacao,
+                documentoExame: documentoBytes
+            );
+
+            var criado = await _repositorio.CriarAsync(exame);
+            return ConverterParaDto(criado);
+        }
+
+        public async Task<ExameDto> AtualizarComArquivoAsync(int id, CriarExameFormDto dto)
+        {
+            var existente = await _repositorio.BuscarPorIdAsync(id)
+                           ?? throw new Exception($"Exame {id} não encontrado");
+
+            byte[]? documentoBytes = existente.DocumentoExame; // mantém o anterior se vier null
+
+            if (dto.Documento != null)
+            {
+                using var ms = new MemoryStream();
+                await dto.Documento.CopyToAsync(ms);
+                documentoBytes = ms.ToArray();
+            }
+
+            existente.Atualizar(
+                tipoExame: dto.TipoExame,
+                dataHora: dto.DataHora,
+                pacienteId: dto.PacienteId,
+                instituicao: dto.Instituicao,
+                resultado: dto.Resultado,
+                observacao: dto.Observacao,
+                documentoExame: documentoBytes
+            );
+
+            await _repositorio.AtualizarAsync(existente);
+
+            return ConverterParaDto(existente);
+        }
+
     }
+
+
 }

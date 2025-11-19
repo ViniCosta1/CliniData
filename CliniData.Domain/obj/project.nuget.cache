@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wob2il6Ia9U=",
+  "dgSpecHash": "rp1FsBhHyBQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
   "expectedPackageFiles": [
@@ -45,5 +45,15 @@
     "C:\\Users\\santo\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\santo\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problem reading the cache file C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

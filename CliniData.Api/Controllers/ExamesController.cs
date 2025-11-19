@@ -39,13 +39,35 @@ namespace CliniData.Api.Controllers
             }
         }
 
+        [HttpGet("{id}/arquivo")]
+        public async Task<IActionResult> BaixarArquivo(int id)
+        {
+            var exame = await _service.BuscarPorIdAsync(id);
+
+            if (exame == null)
+                return NotFound("Exame não encontrado.");
+
+            if (exame.DocumentoExame == null || exame.DocumentoExame.Length == 0)
+                return NotFound("Este exame não possui arquivo anexado.");
+
+            // Definir tipo genérico (se quiser detectar por extensão depois, posso ajustar)
+            var contentType = "application/octet-stream";
+
+            // Nome sugerido para o arquivo baixado
+            var fileName = $"exame_{exame.IdExame}.pdf";
+
+            return File(exame.DocumentoExame, contentType, fileName);
+        }
+
+
         [HttpPost]
-        public async Task<ActionResult<ExameDto>> Criar([FromBody] CriarExameDto dto)
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult<ExameDto>> Criar([FromForm] CriarExameFormDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
-                var exame = await _service.CriarAsync(dto);
+                var exame = await _service.CriarComArquivoAsync(dto);
                 return CreatedAtAction(nameof(BuscarPorId), new { id = exame.IdExame }, exame);
             }
             catch (Exception ex)

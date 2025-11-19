@@ -6,6 +6,7 @@ namespace CliniData.Api.DTOs
     {
         public int IdInstituicao { get; set; }
         public string Nome { get; set; }
+        public string Email { get; set; }
         public string CNPJ { get; set; }
         public string Telefone { get; set; }
         public string Rua { get; set; }
@@ -21,6 +22,10 @@ namespace CliniData.Api.DTOs
         [Required]
         [StringLength(100)]
         public string Nome { get; set; }
+        [Required, StringLength(100)]
+        public string Password { get; set; }
+        [Required, EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(18)]

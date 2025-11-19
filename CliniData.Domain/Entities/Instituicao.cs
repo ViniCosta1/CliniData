@@ -16,14 +16,15 @@ namespace CliniData.Domain.Entities
         public string Cidade { get; private set; }
         public string Estado { get; private set; }
         public string Cep { get; private set; }
-        public int UserId { get; private set; }
 
         // Navegação
         public ICollection<Medico>? Medicos { get; private set; }
+        public int UserId { get; private set; }
 
         protected Instituicao() { }
 
-        public Instituicao(string nome, string cnpj, string telefone, string rua, string numero, string bairro, string cidade, string estado, string cep, int userId)
+        public Instituicao(string nome, string cnpj, string telefone, string rua, string numero,
+            string bairro, string cidade, string estado, string cep)
         {
             Nome = nome;
             Cnpj = cnpj;
@@ -34,10 +35,10 @@ namespace CliniData.Domain.Entities
             Cidade = cidade;
             Estado = estado;
             Cep = cep;
-            UserId = userId;
         }
 
-        public void Atualizar(string nome, string telefone, string rua, string numero, string bairro, string cidade, string estado, string cep)
+        public void Atualizar(string nome, string telefone, string rua, string numero, string bairro,
+            string cidade, string estado, string cep)
         {
             Nome = nome;
             Telefone = telefone;

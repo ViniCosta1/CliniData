@@ -31,7 +31,8 @@
       "Microsoft.CodeAnalysis.Analyzers/3.3.3": {
         "type": "package",
         "build": {
-          "build/_._": {}
+          "build/Microsoft.CodeAnalysis.Analyzers.props": {},
+          "build/Microsoft.CodeAnalysis.Analyzers.targets": {}
         }
       },
       "Microsoft.CodeAnalysis.Common/4.5.0": {
@@ -2252,6 +2253,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Microsoft.CodeAnalysis.Analyzers >= 3.3.3",
+      "Microsoft.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0"
     ]
@@ -2263,11 +2266,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
       "projectName": "CliniData.Domain",
-      "projectPath": "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
+      "projectPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\CliniData.Domain.csproj",
       "packagesPath": "C:\\Users\\santo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\",
+      "outputPath": "C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2306,6 +2309,16 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Microsoft.CodeAnalysis.Analyzers": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[3.3.3, )"
+          },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[8.0.0, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
@@ -2336,5 +2349,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\santo\\Documents\\CliniData\\CliniData.Domain\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0."
+    }
+  ]
 }

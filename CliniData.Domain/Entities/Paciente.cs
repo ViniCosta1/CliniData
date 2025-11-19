@@ -26,14 +26,13 @@ namespace CliniData.Domain.Entities
 
         public Email Email { get; private set; }
 
-        // Endereço agora é entidade separada
+        // Endereço como navegação (1:1)
         public Endereco Endereco { get; private set; }
-        public int EnderecoId { get; private set; }
 
+        // manter UserId, mas NÃO no construtor/factory
         public int UserId { get; private set; }
 
-
-        protected Paciente() { } // EF Core precisa disso
+        protected Paciente() { } // EF Core
 
         private Paciente(
             string nome,
@@ -82,6 +81,11 @@ namespace CliniData.Domain.Entities
             Email = email;
             Endereco = endereco;
         }
-    }
 
+        // método explícito para vincular o usuário Identity (chame do AuthService)
+        public void VincularUsuario(int userId)
+        {
+            UserId = userId;
+        }
+    }
 }

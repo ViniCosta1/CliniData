@@ -1,0 +1,4 @@
+.cd-header{background:#fff;border-bottom:1px solid #eef2ff;position:sticky;top:0;z-index:40}
+.cd-container{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.cd-logo{height:40px;margin-right:8px}
+.cd-left{display:flex;align-items:center;gap:8px}

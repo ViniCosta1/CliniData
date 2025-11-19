@@ -70,6 +70,7 @@ namespace CliniData.Api.Services
                 endereco: endereco
             );
 
+            // SETA O USERID
             typeof(Paciente).GetProperty("UserId")!.SetValue(paciente, user.Id);
 
             _context.Paciente.Add(paciente);
@@ -81,7 +82,7 @@ namespace CliniData.Api.Services
         // -------------------------------
         // MÉDICO
         // -------------------------------
-        public async Task<(bool Sucesso, string Mensagem)> RegisterMedicoAsync(CriarMedicoDto dto, string password)
+        public async Task<(bool Sucesso, string Mensagem)> RegisterMedicoAsync(CriarMedicoDto dto)
         {
             var user = new ApplicationUser
             {
@@ -90,7 +91,7 @@ namespace CliniData.Api.Services
                 UserRole = UserRole.Medico
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, dto.Passowrd);
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
@@ -99,10 +100,10 @@ namespace CliniData.Api.Services
                 crm: new CRM(dto.CRM),
                 especialidadeMedicaId: dto.EspecialidadeMedicaId,
                 telefone: dto.Telefone,
-                email: new Email(dto.Email),
-                instituicaoId: dto.InstituicaoId
+                email: new Email(dto.Email)
             );
 
+            // SETA O USERID
             typeof(Medico).GetProperty("UserId")!.SetValue(medico, user.Id);
 
             _context.Medico.Add(medico);
@@ -114,16 +115,16 @@ namespace CliniData.Api.Services
         // -------------------------------
         // INSTITUIÇÃO
         // -------------------------------
-        public async Task<(bool Sucesso, string Mensagem)> RegisterInstituicaoAsync(CriarInstituicaoDto dto, string password)
+        public async Task<(bool Sucesso, string Mensagem)> RegisterInstituicaoAsync(CriarInstituicaoDto dto)
         {
             var user = new ApplicationUser
             {
-                UserName = dto.CNPJ,
-                Email = dto.CNPJ, // caso não tenha email próprio
+                UserName = dto.Email,
+                Email = dto.Email,
                 UserRole = UserRole.Instituicao
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
@@ -136,9 +137,12 @@ namespace CliniData.Api.Services
                 bairro: dto.Bairro,
                 cidade: dto.Cidade,
                 estado: dto.Estado,
-                cep: dto.CEP,
-                userId: user.Id
+                cep: dto.CEP
             );
+
+            // *** AQUI ESTAVA O ERRO ***
+            // SETAR O USERID
+            typeof(Instituicao).GetProperty("UserId")!.SetValue(instituicao, user.Id);
 
             _context.Instituicao.Add(instituicao);
             await _context.SaveChangesAsync();

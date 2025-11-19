@@ -17,21 +17,12 @@ export default function LoginScreen() {
     const [isLoading, setIsLoading] = useState(false); 
 
     const handleLogin = async () => {
-        if (isLoading) return;
-        setIsLoading(true);
-
-        if (!email.includes('@')) {
-            Alert.alert('Erro', 'Por favor, insira um e-mail válido.');
-            setIsLoading(false);
-            return;
-        }
+        console.log("clicou");
 
         try {
-            // Código real da API (sem "hack")
-            // (Verifique com seu amigo se o endpoint é /Login)
-            const response = await api.post('/Login', { 
+            const response = await api.post('/api/Auth/login', { 
                 email: email, 
-                senha: senha 
+                password: senha 
             });
 
             // A API (feita pelo seu amigo) deve retornar um "token"
@@ -42,7 +33,7 @@ export default function LoginScreen() {
                 console.log('Token recebido:', token);
                 
                 // Se o login deu certo, VAI PARA A HOME
-                router.replace('/(tabs)/home');
+                router.replace('/tabs/home');
             } else {
                 Alert.alert('Erro', 'Login bem-sucedido, mas nenhum token foi recebido.');
             }
@@ -91,7 +82,7 @@ export default function LoginScreen() {
                 <TouchableOpacity 
                     style={[styles.button, isLoading && styles.buttonDisabled]}
                     onPress={handleLogin}
-                    disabled={isLoading}
+                    //disabled={isLoading}
                 >
                     <Text style={styles.buttonText}>
                         {isLoading ? 'Entrando...' : 'Entrar'}

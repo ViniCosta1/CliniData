@@ -23,7 +23,7 @@ export default function HomeScreen() {
     };
 
     const handleMeusExames = () => {
-        router.push('/(tabs)/exames'); 
+        router.push('/tabs/exames'); 
     };
 
     const handleLogout = () => {

@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const IP_DA_SUA_API = '192.168.15.8'; 
+const IP_DA_SUA_API = 'localhost'; 
 
-const PORTA_DA_SUA_API = '7172'; 
+const PORTA_DA_SUA_API = '5274'; 
 
-const PROTOCOLO = 'https'; 
+const PROTOCOLO = 'http'; 
 
 const api = axios.create({
-    baseURL: `${PROTOCOLO}://${IP_DA_SUA_API}:${PORTA_DA_SUA_API}/api`
+    baseURL: `${PROTOCOLO}://${IP_DA_SUA_API}:${PORTA_DA_SUA_API}`
 });
 
 export default api;

@@ -2,10 +2,8 @@ using CliniData.Api.Repositories;
 using CliniData.Api.Services;
 using CliniData.Infra.Identity;
 using CliniData.Infra.Persistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
@@ -13,7 +11,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // --------------------------------------------------
-// 🔹 CONFIGURAÇÃO DO BANCO (PostgreSQL)
+// 🔹 BANCO DE DADOS (PostgreSQL)
 // --------------------------------------------------
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' não encontrada.");
@@ -26,7 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 // --------------------------------------------------
-// 🔹 CONFIGURAÇÃO DO IDENTITY (CORRETO AGORA COM ROLES)
+// 🔹 IDENTITY + ROLES + EF CORE
 // --------------------------------------------------
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
@@ -40,37 +38,24 @@ builder.Services
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-
+// Email fake
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, NoOpEmailSender>();
 
-// --------------------------------------------------
-// 🔹 CONFIGURAÇÃO DO JWT
-// --------------------------------------------------
-var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("Jwt:Key não encontrada no appsettings.json");
 
-var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "CliniDataAPI";
-
+// --------------------------------------------------
+// 🔹 AUTENTICAÇÃO COM IDENTITY BEARER TOKEN
+// --------------------------------------------------
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    .AddAuthentication(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtIssuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+        options.DefaultAuthenticateScheme = IdentityConstants.BearerScheme;
+        options.DefaultChallengeScheme = IdentityConstants.BearerScheme;
+    })
+    .AddBearerToken(IdentityConstants.BearerScheme); // ESSENCIAL
 
-            // 👇 ESSENCIAL para Roles funcionarem
-            RoleClaimType = ClaimTypes.Role,
-        };
-    });
 
 // --------------------------------------------------
-// 🔹 AUTORIZAÇÃO E CORS
+// 🔹 AUTORIZAÇÃO + CORS
 // --------------------------------------------------
 builder.Services.AddAuthorization();
 
@@ -108,7 +93,7 @@ builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
 builder.Services.AddScoped<AuthService>();
 
 // --------------------------------------------------
-// 🔹 CONTROLLERS E SWAGGER
+// 🔹 CONTROLLERS + SWAGGER
 // --------------------------------------------------
 builder.Services.AddControllers();
 
@@ -122,15 +107,16 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API para gerenciamento de pacientes do sistema CliniData"
     });
 
+    // Comentários XML
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
         c.IncludeXmlComments(xmlPath);
 
-    // 🔐 Adiciona JWT no Swagger
+    // JWT no Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
-        Description = "Inserir token JWT no formato: Bearer {token}",
+        Description = "Token JWT (Identity API): Bearer {token}",
         Name = "Authorization",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
@@ -175,6 +161,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// 🔥 Identity API (login, logout, refresh token)
 app.MapIdentityApi<ApplicationUser>();
 
 // Endpoint simples de teste

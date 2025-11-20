@@ -42,6 +42,7 @@ namespace CliniData.Api.Controllers
         // Admin pode ver tudo
         // ============================================================
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ConsultaDto>>> BuscarTodasConsultas()
         {
             try
@@ -91,7 +92,7 @@ namespace CliniData.Api.Controllers
 
   
         [HttpPost]
-        [Authorize(Roles = "Medico,Admin")]
+        [Authorize]
         public async Task<ActionResult<ConsultaDto>> Criar([FromBody] CriarConsultaDto dto)
         {
             if (!ModelState.IsValid)
@@ -111,7 +112,7 @@ namespace CliniData.Api.Controllers
 
         
         [HttpPut("{id}")]
-        [Authorize(Roles = "Medico,Admin")]
+        [Authorize]
         public async Task<ActionResult<ConsultaDto>> Atualizar(int id, [FromBody] CriarConsultaDto dto)
         {
             if (!ModelState.IsValid)
@@ -135,7 +136,7 @@ namespace CliniData.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Medico,Admin")]
+        [Authorize]
         public async Task<ActionResult> Remover(int id)
         {
             try

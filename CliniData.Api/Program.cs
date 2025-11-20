@@ -29,7 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // 🔹 CONFIGURAÇÃO DO IDENTITY (CORRETO AGORA COM ROLES)
 // --------------------------------------------------
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>(options =>
+    .AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
     {
         options.User.RequireUniqueEmail = true;
         options.Password.RequireDigit = false;
@@ -39,6 +39,7 @@ builder.Services
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, NoOpEmailSender>();
 
@@ -174,7 +175,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// ❗ IMPORTANTE: Removido MapIdentityApi<ApplicationUser>() pois conflita com seu AuthController.
+app.MapIdentityApi<ApplicationUser>();
 
 // Endpoint simples de teste
 app.MapGet("/health", () =>

@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "../components/ui/Sidebar"; 
-import HeaderInstituicao from "../components/ui/HeaderInstituicao";
+import Sidebar from "../components/Sidebar"; 
+import HeaderInstituicao from "../components/HeaderInstituicao";
 
 export default function InstituicaoLayout({ children }) {
   return (

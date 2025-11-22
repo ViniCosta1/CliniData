@@ -1,28 +1,25 @@
-/* base styles */
-:root{
---primary: #0b6cff; /* azul */
---bg: #ffffff;
---muted: #6b7280;
+/* global background */
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg,#0a57ff,#56a7ff); /* degrade azul */
+  color: #0f172a;
 }
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{
-margin:0;
-font-family: Inter, Roboto, Arial, sans-serif;
-background:var(--bg);
-color:#0f172a;
+
+/* Login background holder (evita que o card fique transparente demais) */
+.login-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-a{color:var(--primary);text-decoration:none}
-.container{max-width:1200px;margin:0 auto;padding:24px}
 
-
-/* simple utility */
-.row{display:flex;gap:16px;align-items:center}
-.card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);padding:16px}
-
-
-/* small helpers */
-.h1{font-size:20px;margin:0 0 8px}
-.p-muted{color:var(--muted)}
-
-  ss
+/* Card central */
+.login-card {
+  width: 420px;
+  background: rgba(250, 252, 255, 0.95); /* quase branco com leve tom azulado */
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(8, 30, 80, 0.18);
+}

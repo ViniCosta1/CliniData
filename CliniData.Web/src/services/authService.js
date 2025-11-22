@@ -1,48 +1,59 @@
 import api from "./api";
 
-
+// LOGIN
 export async function login(email, password) {
-try {
-const res = await api.post('/auth/login', { email, password });
-return res.data;
-} catch (err) {
-// retorne erro detalhado quando precisar
-return null;
+  try {
+    const res = await api.post("/login", { email, password });
+    return res.data;
+  } catch (err) {
+    console.error("Erro no login:", err);
+    return null;
+  }
 }
+
+// LISTAR ESPECIALIDADES
+export async function getEspecialidades() {
+  try {
+    const res = await api.get("/especialidade");
+    return res.data;
+  } catch (err) {
+    console.error("Erro ao buscar especialidades:", err);
+    return [];
+  }
 }
 
 
+// SALVAR AUTENTICAÇÃO
 export function saveAuth(token, role) {
-localStorage.setItem('token', token);
-localStorage.setItem('role', role);
+  localStorage.setItem("token", token);
+  localStorage.setItem("role", role);
 }
-
 
 export function logout() {
-localStorage.removeItem('token');
-localStorage.removeItem('role');
+  localStorage.removeItem("token");
+  localStorage.removeItem("role");
 }
-
 
 export function getRole() {
-return localStorage.getItem('role');
+  return localStorage.getItem("role");
 }
 
-export async function registerInstituicao(dto, password) {
-  return api.post("/auth/register/instituicao", { ...dto, password })
+// CADASTRAR INSTITUIÇÃO
+export function registerInstituicao(dto) {
+  return api.post("/instituicao", dto)
     .then(r => r.data)
-    .catch(() => null);
+    .catch((err) => {
+      console.error("Erro no cadastro instituicao:", err);
+      return null;
+    });
 }
 
-export async function registerMedico(dto, password) {
-  return api.post("/auth/register/medico", { ...dto, password })
+// CADASTRAR MÉDICO
+export function registerMedico(dto) {
+  return api.post("/medico", dto)
     .then(r => r.data)
-    .catch(() => null);
+    .catch((err) => {
+      console.error("Erro no cadastro medico:", err);
+      return null;
+    });
 }
-
-export async function getEspecialidades() {
-  return api.get("/especialidade")
-    .then(r => r.data)
-    .catch(() => []);
-}
-   s

@@ -11,3 +11,6 @@ export default function ProtectedRoute({ children }) {
   // ✅ Logado → libera acesso
   return children;
 }
+
+
+  //ss

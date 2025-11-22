@@ -1,4 +1,5 @@
 ﻿using CliniData.Api.DTOs;
+using CliniData.Domain.Entities;
 
 public interface IExameService
 {
@@ -13,4 +14,8 @@ public interface IExameService
 
     // 🔥 ADICIONADO
     Task<IEnumerable<ExameDto>> BuscarDoPacienteAtualAsync();
+    Task<IEnumerable<Exame>> ObterPorPacienteAsync(int pacienteId);
+    Task<Exame?> ObterPorIdAsync(int exameId);
+    Task<bool> VerificarPropriedadeDoExameAsync(int exameId, int userId);
+
 }

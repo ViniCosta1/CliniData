@@ -1,10 +1,12 @@
 ﻿using CliniData.Api.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize("Paciente")] // 🔒 Agora só o paciente acessa esse controller inteiro
     public class ExameController : ControllerBase
     {
         private readonly IExameService _exameService;
@@ -62,5 +64,32 @@ namespace CliniData.Api.Controllers
             await _exameService.RemoverAsync(id);
             return NoContent();
         }
+
+        // ------------------------------------------------------------
+        // 🔽 NOVO ENDPOINT: Paciente baixa o próprio exame
+        // ------------------------------------------------------------
+        [HttpGet("{exameId}/arquivo")]
+        public async Task<IActionResult> BaixarArquivo(int exameId)
+        {
+            var exame = await _exameService.ObterPorIdAsync(exameId);
+
+            if (exame == null || exame.DocumentoExame == null)
+                return NotFound("Exame não encontrado ou sem arquivo.");
+
+            // Agora funciona com cookie auth (Identity)
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+                ?? throw new Exception("Usuário não identificado.");
+
+            var pertenceAoPaciente = await _exameService.VerificarPropriedadeDoExameAsync(exameId, int.Parse(userId));
+
+            if (!pertenceAoPaciente)
+                return Forbid("Você não tem permissão para acessar este exame.");
+
+            string contentType = "application/octet-stream";
+            string fileName = $"exame_{exame.Id}";
+
+            return File(exame.DocumentoExame, contentType, fileName);
+        }
+
     }
 }

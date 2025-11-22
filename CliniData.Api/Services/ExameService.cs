@@ -2,6 +2,7 @@
 using CliniData.Api.Repositories;
 using CliniData.Api.Services;
 using CliniData.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class ExameService : IExameService
 {
@@ -66,6 +67,10 @@ public class ExameService : IExameService
 
     public async Task<ExameDto> CriarComArquivoAsync(CriarExameFormDto dto)
     {
+
+        Console.WriteLine($"Arquivo recebido? {dto.DocumentoExame != null}");
+        Console.WriteLine($"Nome: {dto.DocumentoExame?.FileName}");
+        Console.WriteLine($"Tamanho: {dto.DocumentoExame?.Length}");
         var userId = _userAtualService.ObterUsuarioId();
         var paciente = await _pacienteRepository.FindByUserIdAsync(int.Parse(userId))
                       ?? throw new Exception("Paciente não encontrado.");
@@ -144,4 +149,25 @@ public class ExameService : IExameService
     {
         await _exameRepository.RemoverAsync(id);
     }
+    public async Task<IEnumerable<Exame>> ObterPorPacienteAsync(int pacienteId)
+    {
+        return await _exameRepository.BuscarPorPacienteIdAsync(pacienteId);
+    }
+
+    public async Task<Exame?> ObterPorIdAsync(int exameId)
+    {
+        return await _exameRepository.BuscarPorIdAsync(exameId);
+    }
+    public async Task<bool> VerificarPropriedadeDoExameAsync(int exameId, int userId)
+    {
+        var paciente = await _pacienteRepository.FindByUserIdAsync(userId);
+        if (paciente == null) return false;
+
+        var exame = await _exameRepository.BuscarPorIdAsync(exameId);
+        if (exame == null) return false;
+
+        return exame.PacienteId == paciente.Id;
+    }
+
+
 }

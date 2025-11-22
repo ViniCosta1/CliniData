@@ -10,14 +10,14 @@ public class ConsultaService : IConsultaService
     private readonly IMedicoRepository _medicoRepository;
     private readonly IPacienteRepository _pacienteRepository;
     private readonly ILogger<ConsultaService> _logger;
-    private readonly UsuarioAtualService _usuarioAtual;
+    private readonly IUsuarioAtualService _usuarioAtual;
 
     public ConsultaService(
         IConsultaRepository repositorio,
         IMedicoRepository medicoRepository,
         IPacienteRepository pacienteRepository,
         ILogger<ConsultaService> logger,
-        UsuarioAtualService usuarioAtual)
+        IUsuarioAtualService usuarioAtual)
     {
         _repositorio = repositorio;
         _medicoRepository = medicoRepository;

@@ -12,12 +12,12 @@ namespace CliniData.Api.Controllers
     public class ConsultasController : ControllerBase
     {
         private readonly IConsultaService _service;
-        private readonly UsuarioAtualService _usuarioAtual;
+        private readonly IUsuarioAtualService _usuarioAtual;
         private readonly ILogger<ConsultasController> _logger;
 
         public ConsultasController(
             IConsultaService service,
-            UsuarioAtualService usuarioAtual,
+            IUsuarioAtualService usuarioAtual,
             ILogger<ConsultasController> logger)
         {
             _service = service;

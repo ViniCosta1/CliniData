@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // =============================================
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+Console.WriteLine($"CONEXÃO LIDA: {connectionString}");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -82,8 +84,8 @@ builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
 builder.Services.AddScoped<IInstituicaoService, InstituicaoService>();
 builder.Services.AddScoped<IHistoricoMedicoRepository, HistoricoMedicoRepository>();
 builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
+builder.Services.AddScoped<IUsuarioAtualService, UsuarioAtualService>();
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<UsuarioAtualService>();
 
 
 builder.Services.AddControllers();

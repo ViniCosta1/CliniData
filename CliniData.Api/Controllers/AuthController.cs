@@ -1,6 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
 using CliniData.Api.DTOs;
 using CliniData.Api.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CliniData.Api.Controllers
 {
@@ -15,6 +18,16 @@ namespace CliniData.Api.Controllers
             _authService = authService;
         }
 
+        // ?? Logout usando o cookie do Identity — não precisa de SignInManager aqui
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            // Desloga do esquema de autenticação do Identity (cookie)
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return Ok(new { message = "Logout realizado com sucesso." });
+        }
+
         [HttpPost("register/paciente")]
         public async Task<IActionResult> RegisterPaciente([FromBody] CriarPacienteDto dto)
         {
@@ -25,15 +38,7 @@ namespace CliniData.Api.Controllers
             return Ok(new { message = result.Mensagem });
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto dto)
-        {
-            var response = await _authService.LoginAsync(dto);
-            if (response == null)
-                return Unauthorized("Email ou senha inválidos");
-
-            return Ok(response);
-        }
+        
         [HttpPost("register/medico")]
         public async Task<IActionResult> RegisterMedico([FromBody] CriarMedicoDto dto)
         {

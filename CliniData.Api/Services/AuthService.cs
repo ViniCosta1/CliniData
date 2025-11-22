@@ -16,18 +16,15 @@ namespace CliniData.Api.Services
     public class AuthService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             AppDbContext context,
             IConfiguration config)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
             _config = config;
         }
@@ -47,6 +44,8 @@ namespace CliniData.Api.Services
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            await _userManager.AddToRoleAsync(user, "Paciente");
 
             var endereco = new Endereco
             {
@@ -94,6 +93,8 @@ namespace CliniData.Api.Services
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
+            await _userManager.AddToRoleAsync(user, "Medico");  // 🔥 IMPORTANTE
+
             var medico = Medico.Criar(
                 nome: dto.Nome,
                 crm: new CRM(dto.CRM),
@@ -127,6 +128,9 @@ namespace CliniData.Api.Services
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
+            await _userManager.AddToRoleAsync(user, "Instituicao");
+
+
             var instituicao = new Instituicao(
                 nome: dto.Nome,
                 cnpj: dto.CNPJ,
@@ -147,56 +151,6 @@ namespace CliniData.Api.Services
             await _context.SaveChangesAsync();
 
             return (true, "Instituição cadastrada com sucesso!");
-        }
-
-        // -------------------------------
-        // LOGIN
-        // -------------------------------
-        public async Task<AuthResponseDto?> LoginAsync(LoginDto dto)
-        {
-            var user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null)
-                return null;
-
-            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if (!result.Succeeded)
-                return null;
-
-            var token = GenerateJwtToken(user);
-
-            return new AuthResponseDto
-            {
-                Token = token,
-                Email = user.Email!,
-                Role = user.UserRole.ToString()
-            };
-        }
-
-        // -------------------------------
-        // TOKEN JWT
-        // -------------------------------
-        private string GenerateJwtToken(ApplicationUser user)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.UserRole.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
-                new Claim("userId", user.Id.ToString())
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: null,
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(2),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

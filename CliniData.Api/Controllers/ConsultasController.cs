@@ -8,96 +8,70 @@ namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // Protege todos os endpoints
+    [Authorize]
     public class ConsultasController : ControllerBase
     {
         private readonly IConsultaService _service;
+        private readonly UsuarioAtualService _usuarioAtual;
         private readonly ILogger<ConsultasController> _logger;
 
-        public ConsultasController(IConsultaService service, ILogger<ConsultasController> logger)
+        public ConsultasController(
+            IConsultaService service,
+            UsuarioAtualService usuarioAtual,
+            ILogger<ConsultasController> logger)
         {
             _service = service;
+            _usuarioAtual = usuarioAtual;
             _logger = logger;
         }
 
-        private int GetUserId() =>
-            int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-        private string? GetUserRole() =>
+        private string? GetRole() =>
             User.FindFirstValue(ClaimTypes.Role);
 
-        private bool UsuarioEhAdmin() =>
-            GetUserRole() == "Admin";
-
-        private bool UsuarioEhPaciente() =>
-            GetUserRole() == "Paciente";
-
-        private bool UsuarioEhMedico() =>
-            GetUserRole() == "Medico";
-
         // ============================================================
-        // GET: Buscar todas as consultas
-        // Médicos podem ver tudo
-        // Pacientes só podem ver as próprias
-        // Admin pode ver tudo
+        // GET → Buscar todas
         // ============================================================
         [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<ConsultaDto>>> BuscarTodasConsultas()
+        public async Task<ActionResult<IEnumerable<ConsultaDto>>> BuscarTodas()
         {
             try
             {
-                var role = GetUserRole();
-                var userId = GetUserId();
+                var role = GetRole();
 
-                var consultas = await _service.BuscarTodasAsync();
-                if (UsuarioEhMedico())
+                return role switch
                 {
-                    consultas = consultas.Where(c => c.MedicoId == userId);
-                }
-                if (UsuarioEhPaciente())
-                {
-                    consultas = consultas.Where(c => c.PacienteId == userId);
-                }
-
-                return Ok(consultas);
+                    "Medico" => Ok(await _service.BuscarTodasDoMedicoAtualAsync()),
+                    "Paciente" => Ok(await _service.BuscarTodasDoPacienteAtualAsync()),
+                    _ => Unauthorized("Papel desconhecido.")
+                };
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao buscar consultas");
-                return StatusCode(500, "Erro interno ao buscar consultas");
+                return StatusCode(500, "Erro ao buscar consultas.");
             }
         }
 
-      
+        // ============================================================
+        // GET → Buscar por ID
+        // ============================================================
         [HttpGet("{id}")]
         public async Task<ActionResult<ConsultaDto>> BuscarPorId(int id)
         {
-            try
-            {
-                var consulta = await _service.BuscarPorIdAsync(id);
-                var userId = GetUserId();
+            var consulta = await _service.BuscarPorIdAsync(id);
+            if (consulta == null)
+                return NotFound("Consulta não encontrada.");
 
-                if (UsuarioEhPaciente() && consulta.PacienteId != userId)
-                    return Forbid("Você não tem permissão para ver esta consulta.");
-
-                return Ok(consulta);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao buscar consulta por ID");
-                return NotFound(ex.Message);
-            }
+            return Ok(consulta);
         }
 
-  
+        // ============================================================
+        // POST → Criar
+        // ============================================================
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Medico")]
         public async Task<ActionResult<ConsultaDto>> Criar([FromBody] CriarConsultaDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
                 var consulta = await _service.CriarAsync(dto);
@@ -105,38 +79,33 @@ namespace CliniData.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao criar consulta");
                 return BadRequest(ex.Message);
             }
         }
 
-        
+        // ============================================================
+        // PUT → Atualizar
+        // ============================================================
         [HttpPut("{id}")]
-        [Authorize]
-        public async Task<ActionResult<ConsultaDto>> Atualizar(int id, [FromBody] CriarConsultaDto dto)
+        [Authorize(Roles = "Medico")]
+        public async Task<ActionResult<ConsultaDto>> Atualizar(int id, [FromBody] EditarConsultaDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
-                var consulta = await _service.BuscarPorIdAsync(id);
-
-                if (consulta == null)
-                    return NotFound("Consulta não encontrada.");
-
                 var result = await _service.AtualizarAsync(id, dto);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao atualizar consulta");
                 return BadRequest(ex.Message);
             }
         }
 
+        // ============================================================
+        // DELETE → Remover
+        // ============================================================
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Medico")]
         public async Task<ActionResult> Remover(int id)
         {
             try
@@ -146,9 +115,17 @@ namespace CliniData.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao remover consulta");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
+        }
+
+        // ============================================================
+        // DEBUG ENDPOINTS
+        // ============================================================
+        [HttpGet("claims")]
+        public IActionResult Claims()
+        {
+            return Ok(User.Claims.Select(c => new { c.Type, c.Value }));
         }
     }
 }

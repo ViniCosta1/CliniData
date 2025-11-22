@@ -12,4 +12,5 @@ public interface IMedicoRepository
     Task RemoverAsync(int id);
     Task<bool> ExisteAsync(int id);
     Task<bool> CrmExisteAsync(string crm, int? excluirId = null); // string na interface
+    Task<Medico?> FindByUserIdAsync(int userId); 
 }

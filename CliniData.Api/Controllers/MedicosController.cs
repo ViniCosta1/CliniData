@@ -100,5 +100,7 @@ namespace CliniData.Api.Controllers
                 return NotFound(ex.Message);
             }
         }
+        
     }
+
 }

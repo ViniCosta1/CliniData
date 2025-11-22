@@ -1,14 +1,23 @@
 import React from "react";
-import HeaderInstituicao from "../components/HeaderInstituicao";
+import Sidebar from "../components/ui/Sidebar"; 
+import HeaderInstituicao from "../components/ui/HeaderInstituicao";
 
 export default function InstituicaoLayout({ children }) {
   return (
-    <div className="layout-container">
-      <HeaderInstituicao />
+    <div className="flex h-screen bg-gray-100">
+      {/* SIDEBAR FIXA */}
+      <div className="w-64 bg-white shadow-lg">
+        <Sidebar />
+      </div>
 
-      <main className="layout-main" style={{ padding: 24 }}>
-        {children}
-      </main>
+      {/* CONTEÚDO */}
+      <div className="flex flex-col flex-1">
+        <HeaderInstituicao />
+
+        <main className="p-6 overflow-y-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,18 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./HeaderInstituicao.css";
-
 export default function HeaderInstituicao() {
   return (
-    <header className="inst-header">
-      <div className="inst-logo">CliniData</div>
+    <header className="h-16 bg-white shadow flex items-center justify-between px-6">
+      <h1 className="text-xl font-semibold">Painel da Instituição</h1>
 
-      <nav className="inst-nav">
-        <Link to="/instituicao/dashboard">Dashboard</Link>
-        <Link to="/instituicao/cadastrar-medico">Cadastrar Médico</Link>
-        <Link to="/instituicao/cadastrar-paciente">Cadastrar Paciente</Link>
-        <Link to="/instituicao/relatorios">Relatórios</Link>
-      </nav>
+      <button
+        onClick={() => {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }}
+        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+      >
+        Sair
+      </button>
     </header>
   );
 }
+ 
+
+ //ss

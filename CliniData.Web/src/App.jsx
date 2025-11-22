@@ -1,12 +1,31 @@
-import React from "react";
-import AppRoutes from "./routes/AppRoutes";
+import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+
+import Login from "./pages/Login/Login";
+
+import InstituicaoLayout from "./Layouts/InstituicaoLayout";
+import DashboardInstituicao from "./pages/Instituicao/DashboardInstituicao";
+import Medicos from "./pages/Instituicao/Medicos";
+
+export default function App() {
   return (
-    <div>
-      <AppRoutes />
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+
+      <Route
+        path="/instituicao"
+        element={
+          <ProtectedRoute>
+            <InstituicaoLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<DashboardInstituicao />} />
+        <Route path="medicos" element={<Medicos />} />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
+   s

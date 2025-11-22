@@ -31,3 +31,4 @@ export async function cadastrarMedico(data) {
     // idem para médico
     return api.post(`/api/Auth/register/medico?password=${data.senha}`, payload);
 }
+  s

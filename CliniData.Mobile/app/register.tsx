@@ -109,8 +109,8 @@ export default function RegisterScreen() {
             cep: cep.replace(/\D/g, ''), 
         };
         try {
-            await api.post('/Register', dto); 
-            displayAlert(
+                await api.post('/api/Auth/register/paciente', dto); 
+                 displayAlert(
                 'Sucesso!', 
                 'Usuário cadastrado com sucesso. Você será enviado para a tela de Login.',
             );

@@ -1,7 +1,6 @@
-using CliniData.Api.Repositories;
 using CliniData.Api.Services;
-using CliniData.Infra.Identity;
 using CliniData.Infra.Persistence;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -59,39 +58,52 @@ builder.Services
 // --------------------------------------------------
 builder.Services.AddAuthorization();
 
+=======
+using CliniData.Infra.Identity;
+using Microsoft.AspNetCore.Identity;
+
+var builder = WebApplication.CreateBuilder(args);
+
+>>>>>>> 62bebe413d3486efe138443236ddbe963d5caeae
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
         policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
+<<<<<<< HEAD
 // --------------------------------------------------
 // 🔹 DEPENDENCY INJECTION
 // --------------------------------------------------
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IPacienteService, PacienteService>();
+=======
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+>>>>>>> 62bebe413d3486efe138443236ddbe963d5caeae
 
-builder.Services.AddScoped<IMedicoRepository, MedicoRepository>();
-builder.Services.AddScoped<IMedicoService, MedicoService>();
+builder.WebHost.UseUrls(
+    "http://localhost:5274",
+    "http://192.168.15.8:5274"
+);
 
-builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
-builder.Services.AddScoped<IConsultaService, ConsultaService>();
+// --- Banco + Identity ---
+builder.Services.AddDbContext<AppDbContext>();
 
-builder.Services.AddScoped<IExameRepository, ExameRepository>();
-builder.Services.AddScoped<IExameService, ExameService>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
-builder.Services.AddScoped<IInstituicaoService, InstituicaoService>();
-
-builder.Services.AddScoped<IHistoricoMedicoRepository, HistoricoMedicoRepository>();
-builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
+builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<AuthService>();
 
+<<<<<<< HEAD
 // --------------------------------------------------
 // 🔹 CONTROLLERS + SWAGGER
 // --------------------------------------------------
@@ -141,20 +153,21 @@ builder.Services.AddSwaggerGen(c =>
 // --------------------------------------------------
 // 🔹 PIPELINE
 // --------------------------------------------------
+=======
+// --- Build ---
+>>>>>>> 62bebe413d3486efe138443236ddbe963d5caeae
 var app = builder.Build();
 
+// --- Pipeline ---
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "CliniData API v1");
-        c.RoutePrefix = string.Empty;
-    });
+    app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// --- ATIVA O CORS (antes dos controllers) ---
 app.UseCors("AllowAll");
+<<<<<<< HEAD
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -172,5 +185,11 @@ app.MapGet("/health", () =>
         Timestamp = DateTime.UtcNow
     })
 );
+=======
+
+app.MapControllers();
+
+app.MapGet("/health", () => Results.Ok(new { Status = "Saudavel", Timestamp = DateTime.UtcNow }));
+>>>>>>> 62bebe413d3486efe138443236ddbe963d5caeae
 
 app.Run();

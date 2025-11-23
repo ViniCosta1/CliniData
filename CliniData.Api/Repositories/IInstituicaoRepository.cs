@@ -12,5 +12,7 @@ namespace CliniData.Api.Repositories
         Task RemoverAsync(int id);
         Task<bool> ExisteAsync(int id);
         Task<bool> CnpjExisteAsync(string cnpj, int? excluirId = null);
+        Task<Instituicao?> BuscarPorUserIdAsync(int userId);
+
     }
 }

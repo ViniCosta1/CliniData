@@ -124,6 +124,9 @@ builder.Services.AddScoped<IInstituicaoService, InstituicaoService>();
 builder.Services.AddScoped<IHistoricoMedicoRepository, HistoricoMedicoRepository>();
 builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
 builder.Services.AddScoped<IUsuarioAtualService, UsuarioAtualService>();
+builder.Services.AddScoped<IMedicoInstituicaoService, MedicoInstituicaoService>();
+builder.Services.AddScoped<IMedicoInstituicaoRepository, MedicoInstituicaoRepository>();
+
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddControllers();
@@ -157,6 +160,7 @@ app.MapGet("/health", () => Results.Ok(new { status = "OK" }));
 // ==============================
 // 🔹 SEED DE ROLES
 // ==============================
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();

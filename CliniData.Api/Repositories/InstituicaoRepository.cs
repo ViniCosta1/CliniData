@@ -57,5 +57,8 @@ namespace CliniData.Api.Repositories
                 query = query.Where(i => i.Id != excluirId.Value);
             return await query.AnyAsync();
         }
+        public async Task<Instituicao?> BuscarPorUserIdAsync(int userId) =>
+    await _contexto.Instituicao.FirstOrDefaultAsync(i => i.UserId == userId);
+
     }
 }

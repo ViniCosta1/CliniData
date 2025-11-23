@@ -4,7 +4,8 @@ using CliniData.Api.Services;
 
 [ApiController]
 [Route("api/medicos/exames")]
-[Authorize(Roles = "Medico")]
+[Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Medico")]// ?? Agora só o paciente acessa esse controller inteiro
+
 public class ExamesMedicoController : ControllerBase
 {
     private readonly IExameService _exameService;

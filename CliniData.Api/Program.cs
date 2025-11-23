@@ -1,12 +1,13 @@
-using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using CliniData.Api.Repositories;
 using CliniData.Api.Services;
 using CliniData.Infra.Identity;
 using CliniData.Infra.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,14 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+// configurando email
+// logo após configurar Identity:
+builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection("Smtp"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+
+
 
 // ==============================
 // 🔹 IDENTITY
@@ -80,10 +89,10 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("Admin"));
 });
 
-// ==============================
-// 🔹 EMAIL FAKE
-// ==============================
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, NoOpEmailSender>();
+
+
+
+
 
 // ==============================
 // 🔹 CORS

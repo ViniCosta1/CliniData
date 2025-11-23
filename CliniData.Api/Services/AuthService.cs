@@ -1,16 +1,17 @@
 ﻿using CliniData.Api.DTOs;
+using CliniData.Domain.Abstractions;
 using CliniData.Domain.Entities;
 using CliniData.Domain.Enums;
 using CliniData.Domain.ValueObjects;
 using CliniData.Infra.Identity;
 using CliniData.Infra.Persistence;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CliniData.Domain.Abstractions;
 
 namespace CliniData.Api.Services
 {
@@ -19,15 +20,18 @@ namespace CliniData.Api.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IEmailSender _emailSender;
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
             AppDbContext context,
-            IConfiguration config)
+            IConfiguration config,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _context = context;
             _config = config;
+            _emailSender = emailSender;
         }
 
         // -------------------------------
@@ -153,6 +157,43 @@ namespace CliniData.Api.Services
 
             return (true, "Instituição cadastrada com sucesso!");
         }
+
+
+        public async Task ForgotPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            // Mesmo comportamento → retornar "OK" sempre
+            if (user == null)
+                return;
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var body = $@"
+            <p>Seu token de redefinição de senha é:</p>
+            <p><strong>{token}</strong></p>
+            <p>Copie este token e cole no aplicativo ou site.</p>
+        ";
+
+            await _emailSender.SendEmailAsync(email, "Redefinir senha", body);
+        }
+
+        // =============================
+        // 🔹 RESET SENHA
+        // =============================
+        public async Task<IdentityResult> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Description = "Usuário não encontrado."
+                });
+
+            return await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+
 
         public async Task<LoginResponseDto?> LoginJwtAsync(LoginDto dto)
         {

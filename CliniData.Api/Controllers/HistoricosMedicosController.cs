@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
+[Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Medico")]// 🔒 Agora só o paciente acessa esse controller inteiro
+
 public class HistoricosMedicosController : ControllerBase
 {
     private readonly IHistoricoMedicoService _service;

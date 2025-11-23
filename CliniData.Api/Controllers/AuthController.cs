@@ -3,6 +3,7 @@ using CliniData.Api.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CliniData.Api.Controllers
@@ -20,7 +21,7 @@ namespace CliniData.Api.Controllers
 
         // ?? Logout usando o cookie do Identity — não precisa de SignInManager aqui
         [HttpPost("logout")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Identity.Application, Bearer")]
         public async Task<IActionResult> Logout()
         {
             // Desloga do esquema de autenticação do Identity (cookie)
@@ -70,5 +71,35 @@ namespace CliniData.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto dto)
+        {
+            await _authService.ForgotPasswordAsync(dto.Email);
+
+            return Ok(new
+            {
+                message = "Se o e-mail existir, enviaremos um token para redefinição."
+            });
+        }
+
+        // =====================================
+        // ?? 2) RESET PASSWORD
+        // =====================================
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto dto)
+        {
+            var result = await _authService.ResetPasswordAsync(dto.Email, dto.Token, dto.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new
+                {
+                    error = "Erro ao redefinir senha.",
+                    details = result.Errors.Select(e => e.Description)
+                });
+            }
+
+            return Ok(new { message = "Senha redefinida com sucesso." });
+        }
     }
 }

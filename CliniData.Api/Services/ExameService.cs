@@ -67,18 +67,17 @@ public class ExameService : IExameService
 
     public async Task<ExameDto> CriarComArquivoAsync(CriarExameFormDto dto)
     {
-
-        Console.WriteLine($"Arquivo recebido? {dto.DocumentoExame != null}");
-        Console.WriteLine($"Nome: {dto.DocumentoExame?.FileName}");
-        Console.WriteLine($"Tamanho: {dto.DocumentoExame?.Length}");
         var userId = _userAtualService.ObterUsuarioId();
         var paciente = await _pacienteRepository.FindByUserIdAsync(int.Parse(userId))
                       ?? throw new Exception("Paciente não encontrado.");
 
         byte[]? fileBytes = null;
+        string? extensao = null;
 
         if (dto.DocumentoExame != null)
         {
+            extensao = Path.GetExtension(dto.DocumentoExame.FileName);
+
             using var ms = new MemoryStream();
             await dto.DocumentoExame.CopyToAsync(ms);
             fileBytes = ms.ToArray();
@@ -91,12 +90,14 @@ public class ExameService : IExameService
             dto.Instituicao,
             dto.Resultado,
             dto.Observacao,
-            fileBytes
+            fileBytes,
+            extensao
         );
 
         var criado = await _exameRepository.CriarAsync(exame);
         return ExameDto.FromEntity(criado);
     }
+
 
     public async Task<ExameDto> AtualizarAsync(int id, CriarExameDto dto)
     {
@@ -110,7 +111,8 @@ public class ExameService : IExameService
             dto.Instituicao,
             dto.Resultado,
             dto.Observacao,
-            exame.DocumentoExame
+            exame.DocumentoExame,
+            exame.Extensao
         );
 
         var atualizado = await _exameRepository.AtualizarAsync(exame);
@@ -123,9 +125,12 @@ public class ExameService : IExameService
                     ?? throw new Exception("Exame não encontrado.");
 
         byte[]? fileBytes = exame.DocumentoExame;
+        string? extensao = exame.Extensao;
 
         if (dto.DocumentoExame != null)
         {
+            extensao = Path.GetExtension(dto.DocumentoExame.FileName);
+
             using var ms = new MemoryStream();
             await dto.DocumentoExame.CopyToAsync(ms);
             fileBytes = ms.ToArray();
@@ -138,12 +143,14 @@ public class ExameService : IExameService
             dto.Instituicao,
             dto.Resultado,
             dto.Observacao,
-            fileBytes
+            fileBytes,
+            extensao
         );
 
         var atualizado = await _exameRepository.AtualizarAsync(exame);
         return ExameDto.FromEntity(atualizado);
     }
+
 
     public async Task RemoverAsync(int id)
     {

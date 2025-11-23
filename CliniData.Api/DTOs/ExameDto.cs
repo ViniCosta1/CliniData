@@ -13,6 +13,7 @@ namespace CliniData.Api.DTOs
         public string Resultado { get; set; }
         public string Observacao { get; set; }
         public byte[] DocumentoExame { get; set; }
+        public string Extensao { get; set; }
 
         public static ExameDto FromEntity(Exame e)
         {
@@ -25,7 +26,8 @@ namespace CliniData.Api.DTOs
                 Instituicao = e.Instituicao,
                 Resultado = e.Resultado,
                 Observacao = e.Observacao,
-                DocumentoExame = e.DocumentoExame
+                DocumentoExame = e.DocumentoExame,
+                Extensao = e.Extensao
             };
         }
     }

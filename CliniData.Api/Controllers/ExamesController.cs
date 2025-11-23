@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using CliniData.Api.Utils;
 
 namespace CliniData.Api.Controllers
 {
@@ -79,7 +80,6 @@ namespace CliniData.Api.Controllers
             if (exame == null || exame.DocumentoExame == null)
                 return NotFound("Exame não encontrado ou sem arquivo.");
 
-            // Agora funciona com cookie auth (Identity)
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
                 ?? throw new Exception("Usuário não identificado.");
 
@@ -88,11 +88,13 @@ namespace CliniData.Api.Controllers
             if (!pertenceAoPaciente)
                 return Forbid("Você não tem permissão para acessar este exame.");
 
-            string contentType = "application/octet-stream";
-            string fileName = $"exame_{exame.Id}";
+            string extensao = exame.Extensao ?? "";
+            string fileName = $"exame_{exame.Id}{extensao}";
+            string contentType = MimeTypes.GetMimeType(fileName);
 
             return File(exame.DocumentoExame, contentType, fileName);
         }
+
 
     }
 }

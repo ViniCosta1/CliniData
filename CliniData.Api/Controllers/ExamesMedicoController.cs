@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CliniData.Api.Services;
+using CliniData.Api.Utils;
 
 [ApiController]
 [Route("api/medicos/exames")]
@@ -44,10 +45,11 @@ public class ExamesMedicoController : ControllerBase
         if (exame == null || exame.DocumentoExame == null)
             return NotFound("Exame não encontrado ou sem arquivo.");
 
-        // Define content type dinamicamente (jpg, png, pdf etc)
-        string contentType = "application/octet-stream";
-        string fileName = $"exame_{exame.Id}";
+        string extensao = exame.Extensao ?? "";
+        string fileName = $"exame_{exame.Id}{extensao}";
+        string contentType = MimeTypes.GetMimeType(fileName);
 
         return File(exame.DocumentoExame, contentType, fileName);
     }
+
 }

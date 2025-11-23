@@ -77,8 +77,14 @@ export default function HomeScreen() {
                 const future = withMs.filter((c) => c.displayMs >= now);
                 setNextConsulta(future.length > 0 ? future[0] : null);
     
-                // limita a exibição às primeiras 5 consultas (ordenadas)
-                setConsultas(withMs.slice(0, 5));
+                // Exibir 5 a partir da próxima consulta não passada (mais próxima de hoje).
+                const startIndex = withMs.findIndex((c) => c.displayMs >= now);
+                if (startIndex >= 0) {
+                    setConsultas(withMs.slice(startIndex, startIndex + 5));
+                } else {
+                    // sem futuras: mostrar as últimas 5 consultas (mais recentes do passado)
+                    setConsultas(withMs.slice(-5));
+                }
             } catch (err) {
                 console.warn("Erro ao buscar consultas:", err);
                 setConsultas([]);

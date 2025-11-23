@@ -18,7 +18,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // --- Componente de Card ---
 const ExameCard = ({ item, onDelete }: { item: any; onDelete: (id: number) => void }) => {
   const handlePress = () => {
-    router.push(`/exames/${item.idExame}`);
+    // navega para a tela de detalhes passando id como query param
+    router.push(`/exames/detalhes?id=${item.idExame}`);
   };
 
   return (

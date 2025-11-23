@@ -1,12 +1,15 @@
 ﻿using CliniData.Api.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize("Paciente")] // 🔒 Agora só o paciente acessa esse controller inteiro
+
+    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Paciente")]// 🔒 Agora só o paciente acessa esse controller inteiro
     public class ExameController : ControllerBase
     {
         private readonly IExameService _exameService;

@@ -14,6 +14,8 @@ import {
 } from "react-native";
 import { Link, router } from "expo-router";
 import api from "./services/api"; // Nosso arquivo de API
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const logo = require("../assets/images/logoreal.png"); // Seu logo
 
@@ -23,11 +25,10 @@ export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
-    setIsLoading(true);
     console.log("clicou");
 
     try {
-      const response = await api.post("/login", {
+      const response = await api.post("/api/Auth/login-mobile", {
         email: email,
         password: senha,
       });
@@ -38,7 +39,7 @@ export default function LoginScreen() {
         console.log("Token recebido:", accessToken);
 
         // 👉 Aqui você deve salvar o token no AsyncStorage
-        // await AsyncStorage.setItem("token", accessToken);
+        await AsyncStorage.setItem("token", accessToken);
 
         router.replace("/tabs/home");
       } else {

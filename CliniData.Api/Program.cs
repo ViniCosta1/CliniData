@@ -1,77 +1,107 @@
+using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using CliniData.Api.Repositories;
 using CliniData.Api.Services;
 using CliniData.Infra.Identity;
 using CliniData.Infra.Persistence;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// =============================================
+// ==============================
 // 🔹 BANCO DE DADOS
-// =============================================
+// ==============================
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-Console.WriteLine($"CONEXÃO LIDA: {connectionString}");
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// =============================================
-// 🔹 AUTHENTICATION COOKIE (AGORA O LOGIN FUNCIONA)
-// =============================================
+// ==============================
+// 🔹 IDENTITY
+// ==============================
 builder.Services
     .AddIdentityCore<ApplicationUser>(options =>
     {
         options.User.RequireUniqueEmail = true;
-        options.Password.RequireDigit = false;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequiredLength = 6;
     })
     .AddRoles<IdentityRole<int>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddApiEndpoints();
 
-// 🔥 HABILITA AUTENTICAÇÃO POR COOKIE DO IDENTITY
+// ==============================
+// 🔹 AUTENTICAÇÃO
+//     Cookies → navegador / Swagger
+//     JWT "Bearer" → mobile
+// ==============================
+var jwtKey = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]);
+
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+    // ⚠️ Nenhum esquema padrão → explicitamente escolher no [Authorize]
 })
-.AddCookie(IdentityConstants.ApplicationScheme);
+.AddCookie(IdentityConstants.ApplicationScheme)
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(jwtKey)
+    };
 
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var auth = context.Request.Headers["Authorization"].FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(auth) && auth.StartsWith("Bearer "))
+            {
+                context.Token = auth.Substring("Bearer ".Length);
+            }
+            return Task.CompletedTask;
+        }
+    };
+});
+
+// ==============================
+// 🔹 AUTORIZAÇÃO
+// ==============================
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Paciente", p => p.RequireRole("Paciente"));
-    options.AddPolicy("Medico", p => p.RequireRole("Medico"));
-    options.AddPolicy("Instituicao", p => p.RequireRole("Instituicao"));
+    options.AddPolicy("Paciente", policy =>
+        policy.RequireRole("Paciente"));
+    options.AddPolicy("Medico", policy =>
+        policy.RequireRole("Medico"));
+    options.AddPolicy("Instituicao", policy =>
+        policy.RequireRole("Instituicao"));
+    options.AddPolicy("Admin", policy =>
+        policy.RequireRole("Admin"));
 });
 
-
-// =============================================
-// 🔹 EMAIL FAKE (OBRIGATÓRIO PARA MapIdentityApi)
-// =============================================
+// ==============================
+// 🔹 EMAIL FAKE
+// ==============================
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, NoOpEmailSender>();
 
-// =============================================
+// ==============================
 // 🔹 CORS
-// =============================================
+// ==============================
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
+    options.AddPolicy("AllowAll", p => p
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
 });
 
-// =============================================
-// 🔹 DI
-// =============================================
+// ==============================
+// 🔹 DEPENDÊNCIAS
+// ==============================
 builder.Services.AddHttpContextAccessor();
+
+// Repositórios e Services
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IPacienteService, PacienteService>();
 builder.Services.AddScoped<IMedicoRepository, MedicoRepository>();
@@ -87,14 +117,13 @@ builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
 builder.Services.AddScoped<IUsuarioAtualService, UsuarioAtualService>();
 builder.Services.AddScoped<AuthService>();
 
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// =============================================
+// ==============================
 // 🔹 PIPELINE
-// =============================================
+// ==============================
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -106,32 +135,26 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-// 🔥 MUITO IMPORTANTE — DEPOIS DO CORS
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-// 🔥 Identity Endpoints (login, logout, register)
+// Endpoints do Identity (usando cookies)
 app.MapIdentityApi<ApplicationUser>();
 
-// Healthcheck
 app.MapGet("/health", () => Results.Ok(new { status = "OK" }));
 
-// =============================================
+// ==============================
 // 🔹 SEED DE ROLES
-// =============================================
+// ==============================
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
-    string[] roles = { "Admin", "Instituicao", "Medico", "Paciente" };
-
-    foreach (var role in roles)
-    {
+    foreach (var role in new[] { "Admin", "Instituicao", "Medico", "Paciente" })
         if (!await roleManager.RoleExistsAsync(role))
             await roleManager.CreateAsync(new IdentityRole<int>(role));
-    }
 }
 
 app.Run();

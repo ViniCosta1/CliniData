@@ -59,5 +59,16 @@ namespace CliniData.Api.Controllers
             return Ok(new { message = result.Mensagem });
         }
 
+        [HttpPost("login-mobile")]
+        public async Task<IActionResult> LoginMobile([FromBody] LoginDto dto)
+        {
+            var result = await _authService.LoginJwtAsync(dto);
+
+            if (result == null)
+                return Unauthorized(new { message = "E-mail ou senha incorretos" });
+
+            return Ok(result);
+        }
+
     }
 }

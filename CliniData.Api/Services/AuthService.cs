@@ -153,5 +153,49 @@ namespace CliniData.Api.Services
 
             return (true, "Instituição cadastrada com sucesso!");
         }
+
+        public async Task<LoginResponseDto?> LoginJwtAsync(LoginDto dto)
+        {
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+            if (user == null)
+                return null;
+
+            var senhaOk = await _userManager.CheckPasswordAsync(user, dto.Password);
+            if (!senhaOk)
+                return null;
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            // CRIA CLAIMS DO TOKEN
+            var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email!),
+        new Claim("role", roles.FirstOrDefault() ?? "")
+    };
+
+            // CHAVE SECRETA DO APPSETTINGS
+            var secret = _config["Jwt:Secret"];
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(7),
+                signingCredentials: creds
+            );
+
+            return new LoginResponseDto
+            {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                TokenType = "Bearer",
+                Role = roles.FirstOrDefault() ?? ""
+            };
+        }
+
     }
 }

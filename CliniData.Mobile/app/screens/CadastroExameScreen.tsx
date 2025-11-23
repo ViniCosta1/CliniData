@@ -1,73 +1,142 @@
-import * as DocumentPicker from 'expo-document-picker';
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
+import * as DocumentPicker from "expo-document-picker";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+} from "react-native";
+import api from "../services/api"; // seu axios configurado
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CadastroExameScreen() {
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [data, setData] = useState('');
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [tipoExame, setTipoExame] = useState("");
+  const [instituicao, setInstituicao] = useState("");
+  const [resultado, setResultado] = useState("");
+  const [observacao, setObservacao] = useState("");
+  const [data, setData] = useState("");
+  const [file, setFile] = useState<any>(null);
 
   const handleFilePick = async () => {
     const result = await DocumentPicker.getDocumentAsync({
-      type: '*/*',
+      type: "*/*",
       copyToCacheDirectory: true,
-      multiple: false,
     });
-    if (result.assets && result.assets.length > 0) {
-      setFileName(result.assets[0].name);
-      // Você pode salvar o arquivo ou enviar para o backend aqui
+
+    if (!result.canceled && result.assets?.length > 0) {
+      setFile(result.assets[0]);
+    }
+  };
+
+  const salvarExame = async () => {
+    if (!tipoExame || !data) {
+      Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      const formData = new FormData();
+
+      formData.append("TipoExame", tipoExame);
+      formData.append("DataHora", new Date(data).toISOString());
+      formData.append("Instituicao", instituicao);
+      formData.append("Resultado", resultado);
+      formData.append("Observacao", observacao);
+
+      if (file) {
+        formData.append("DocumentoExame", {
+          uri: file.uri,
+          name: file.name,
+          type: file.mimeType || "application/octet-stream",
+        } as any);
+      }
+
+      const response = await api.post("/api/exame", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      Alert.alert("Sucesso", "Exame cadastrado!");
+    } catch (error: any) {
+      console.log("Erro ao salvar exame:", error.response?.data || error);
+      Alert.alert("Erro", "Não foi possível salvar o exame.");
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
+        
         <View style={styles.field}>
-          <Text style={styles.label}>Título</Text>
+          <Text style={styles.label}>Tipo do Exame</Text>
           <TextInput
             style={styles.input}
-            placeholder="Digite o título do exame"
-            value={titulo}
-            onChangeText={setTitulo}
+            value={tipoExame}
+            onChangeText={setTipoExame}
           />
         </View>
-        <View style={styles.field}>
-          <Text style={styles.label}>Descrição</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite uma descrição"
-            value={descricao}
-            onChangeText={setDescricao}
-          />
-        </View>
+
         <View style={styles.field}>
           <Text style={styles.label}>Data</Text>
           <TextInput
             style={styles.input}
-            placeholder="Informe a data do exame"
             value={data}
+            placeholder="2025-11-23"
             onChangeText={setData}
           />
         </View>
+
         <View style={styles.field}>
-          <Text style={styles.label}>Arquivo do exame</Text>
+          <Text style={styles.label}>Instituição</Text>
+          <TextInput
+            style={styles.input}
+            value={instituicao}
+            onChangeText={setInstituicao}
+          />
+        </View>
+
+        <View style={styles.field}>
+          <Text style={styles.label}>Resultado</Text>
+          <TextInput
+            style={styles.input}
+            value={resultado}
+            onChangeText={setResultado}
+          />
+        </View>
+
+        <View style={styles.field}>
+          <Text style={styles.label}>Observação</Text>
+          <TextInput
+            style={styles.input}
+            value={observacao}
+            onChangeText={setObservacao}
+          />
+        </View>
+
+        <View style={styles.field}>
           <TouchableOpacity style={styles.uploadButton} onPress={handleFilePick}>
             <Text style={styles.uploadButtonText}>
-              {fileName ? `Selecionado: ${fileName}` : 'Selecionar arquivo'}
+              {file ? `Selecionado: ${file.name}` : "Selecionar arquivo"}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
+
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity style={styles.saveButton} onPress={salvarExame}>
           <Text style={styles.saveButtonText}>Salvar</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

@@ -8,7 +8,7 @@ namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer")]
     public class ConsultasController : ControllerBase
     {
         private readonly IConsultaService _service;

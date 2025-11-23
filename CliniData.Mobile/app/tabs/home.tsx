@@ -1,20 +1,92 @@
 // Cole isso dentro de: app/(tabs)/home.tsx
 // (O nosso Dashboard Aprimorado)
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
     View, 
     Text, 
     StyleSheet, 
     SafeAreaView, 
     TouchableOpacity,
-    Alert 
+    Alert,
+    FlatList,
+    ScrollView, // <- adicionado
 } from 'react-native';
 import { router } from 'expo-router'; // Para navegação
 import { Ionicons } from '@expo/vector-icons'; // Para os ícones
+import api from '@/services/api';
 
 export default function HomeScreen() {
     const userName = "Paciente"; 
+    const [nextConsulta, setNextConsulta] = useState<any | null>(null);
+    const [consultas, setConsultas] = useState<any[]>([]);
+
+    // Formata a string ISO mantendo a hora/data UTC (não converte para o fuso local)
+    function fmtDateIsoToPtBr(iso?: string) {
+        if (!iso) return "";
+        const d = new Date(iso);
+        const pad = (n: number) => (n < 10 ? "0" + n : String(n));
+        // usa getters UTC para evitar ajuste de timezone local
+        const day = pad(d.getUTCDate());
+        const month = pad(d.getUTCMonth() + 1);
+        const year = d.getUTCFullYear();
+        const hours = pad(d.getUTCHours());
+        const minutes = pad(d.getUTCMinutes());
+        return `${day}/${month}/${year}, ${hours}:${minutes}`;
+    }
+
+    useEffect(() => {
+        const fetchConsultas = async () => {
+            try {
+                const resp = await api.get("/api/Consultas");
+                const list: any[] = resp.data ?? [];
+                // normaliza e adiciona:
+                // - dateMs: epoch baseado na ISO parse (UTC)
+                // - displayMs: epoch interpretando os componentes da ISO como hora local (para comparação visual)
+                // - dataHoraIso: iso normalizada para exibição
+                const withMs = list.map((c) => {
+                    const dtUtc = new Date(c.dataHora);
+                    // tenta extrair componentes da ISO e criar Date local com esses componentes
+                    let displayMs = dtUtc.getTime();
+                    try {
+                        const m = String(c.dataHora).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):?(\d{2})?/);
+                        if (m) {
+                            const y = Number(m[1]);
+                            const mo = Number(m[2]) - 1;
+                            const d = Number(m[3]);
+                            const hh = Number(m[4]);
+                            const mm = Number(m[5]);
+                            const ss = Number(m[6] || "0");
+                            // interpreta como horário local (sem ajuste de timezone)
+                            displayMs = new Date(y, mo, d, hh, mm, ss).getTime();
+                        }
+                    } catch {}
+    
+                    return {
+                        ...c,
+                        dateMs: dtUtc.getTime(),
+                        displayMs,
+                        dataHoraIso: dtUtc.toISOString(),
+                    };
+                });
+                // ordenar por displayMs para refletir ordem vista pelo usuário
+                withMs.sort((a, b) => a.displayMs - b.displayMs);
+                
+                // determina próximo agendamento futuro com base na lista completa (displayMs)
+                const now = Date.now();
+                const future = withMs.filter((c) => c.displayMs >= now);
+                setNextConsulta(future.length > 0 ? future[0] : null);
+    
+                // limita a exibição às primeiras 5 consultas (ordenadas)
+                setConsultas(withMs.slice(0, 5));
+            } catch (err) {
+                console.warn("Erro ao buscar consultas:", err);
+                setConsultas([]);
+                setNextConsulta(null);
+            }
+        };
+        fetchConsultas();
+    }, []);
 
     const handleAgendar = () => {
         // Agora podemos habilitar isso!
@@ -39,43 +111,118 @@ export default function HomeScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* 1. Saudação */}
-            <View style={styles.header}>
-                <Text style={styles.greetingText}>Olá, {userName}!</Text>
-                <Text style={styles.welcomeText}>Bem-vindo ao CliniData.</Text>
-            </View>
+            {/* Envolve o conteúdo em um ScrollView para permitir rolagem até o botão */}
+            <ScrollView
+                style={{ width: '100%' }}
+                contentContainerStyle={{ alignItems: 'center', paddingBottom: 140 }} // espaço para o botão
+            >
+                {/* 1. Saudação */}
+                <View style={styles.header}>
+                    <Text style={styles.greetingText}>Olá, {userName}!</Text>
+                    <Text style={styles.welcomeText}>Bem-vindo ao CliniData.</Text>
+                </View>
 
-            {/* 2. Card de Próximo Agendamento */}
-            <View style={styles.infoCard}>
-                <Ionicons name="calendar-outline" size={24} color="#007bff" />
-                <View style={styles.infoCardContent}>
-                    <Text style={styles.infoCardTitle}>Próximo Agendamento</Text>
-                    <Text style={styles.infoCardText}>Consulta com Dr. João - 15/11/2025 às 10:00</Text>
-                    <TouchableOpacity style={styles.viewDetailsButton}>
-                        <Text style={styles.viewDetailsButtonText}>Ver detalhes</Text>
+                {/* 2. Card de Próximo Agendamento */}
+                <View style={styles.infoCard}>
+                    <Ionicons name="calendar-outline" size={24} color="#007bff" />
+                    <View style={styles.infoCardContent}>
+                        <Text style={styles.infoCardTitle}>Próximo Agendamento</Text>
+                        {nextConsulta ? (
+                            <>
+                                <Text style={styles.infoCardText}>
+                                    {fmtDateIsoToPtBr(nextConsulta.dataHoraIso)}
+                                </Text>
+                                {nextConsulta.observacao ? (
+                                    <Text style={styles.infoCardText}>{nextConsulta.observacao}</Text>
+                                ) : null}
+                            </>
+                        ) : (
+                            <Text style={styles.infoCardText}>Nenhum agendamento encontrado</Text>
+                        )}
+                    </View>
+                </View>
+
+                {/* Lista de todas as consultas (passadas em vermelho) */}
+                <View style={{ width: '90%', marginBottom: 20 }}>
+                    <Text style={{ fontWeight: '700', marginBottom: 8 }}>Todas as Consultas</Text>
+                    <FlatList
+                        data={consultas}
+                        keyExtractor={(item) => item.idConsulta?.toString() ?? String(item.displayMs ?? item.dateMs)}
+                        renderItem={({ item }) => {
+                            const compareMs = item.displayMs ?? item.dateMs;
+                            const now = new Date();
+
+                            // início do dia atual (local)
+                            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+                            // início do dia da consulta (local, construída a partir de compareMs)
+                            const d = new Date(compareMs);
+                            const startOfItemDay = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+
+                            let isPast = false;
+                            let isFuture = false;
+
+                            if (startOfItemDay > startOfToday) {
+                                // data estritamente depois de hoje -> futuro
+                                isFuture = true;
+                            } else if (startOfItemDay < startOfToday) {
+                                // dia antes de hoje -> passado
+                                isPast = true;
+                            } else {
+                                // mesmo dia: comparar horário exato
+                                if (compareMs < Date.now()) isPast = true;
+                                else if (compareMs > Date.now()) isFuture = true;
+                            }
+
+                            return (
+                                <View
+                                    style={[
+                                        styles.consultaItem,
+                                        isPast && styles.consultaItemPast,
+                                        isFuture && styles.consultaItemNext,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.consultaDate,
+                                            isPast && styles.pastText,
+                                            isFuture && styles.nextText,
+                                        ]}
+                                    >
+                                        {fmtDateIsoToPtBr(item.dataHoraIso)}
+                                    </Text>
+                                    {item.observacao ? (
+                                        <Text
+                                            style={[
+                                                styles.consultaObs,
+                                                isPast && styles.pastText,
+                                                isFuture && styles.nextText,
+                                            ]}
+                                        >
+                                            {item.observacao}
+                                        </Text>
+                                    ) : null}
+                                </View>
+                            );
+                        }}
+                        ListEmptyComponent={<Text style={{ color: '#666' }}>Nenhuma consulta encontrada.</Text>}
+                    />
+                </View>
+
+                {/* 3. Botões de Ação Rápida */}
+                <View style={styles.actionButtonsContainer}>
+                    <TouchableOpacity style={styles.actionButton} onPress={handleMeusExames}>
+                        <Ionicons name="folder-open-outline" size={30} color="#007bff" />
+                        <Text style={styles.actionButtonText}>Meus Exames</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
 
-            {/* 3. Botões de Ação Rápida */}
-            <View style={styles.actionButtonsContainer}>
-                <TouchableOpacity style={styles.actionButton} onPress={handleAgendar}>
-                    <Ionicons name="clipboard-outline" size={30} color="#007bff" />
-                    <Text style={styles.actionButtonText}>Agendar Consulta</Text>
+                {/* 4. Ação de Sair - MOVIDO para dentro do ScrollView para ser alcançável */}
+                <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                    <Ionicons name="log-out-outline" size={22} color="#d9534f" />
+                    <Text style={styles.logoutButtonText}>Sair</Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={styles.actionButton} onPress={handleMeusExames}>
-                    <Ionicons name="folder-open-outline" size={30} color="#007bff" />
-                    <Text style={styles.actionButtonText}>Meus Exames</Text>
-                </TouchableOpacity>
-            </View>
-            
-            {/* 4. Ação de Sair */}
-            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                <Ionicons name="log-out-outline" size={22} color="#d9534f" />
-                <Text style={styles.logoutButtonText}>Sair</Text>
-            </TouchableOpacity>
-
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -88,6 +235,35 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 20, 
     },
+    consultaItem: {
+        backgroundColor: '#fff',
+        padding: 12,
+        borderRadius: 8,
+        marginBottom: 8,
+    },
+    consultaItemPast: {
+        backgroundColor: '#fff6f6',
+    },
+    // destaque para o próximo agendamento (azul claro)
+    consultaItemNext: {
+        backgroundColor: '#e8f4ff',
+    },
+     consultaDate: {
+         fontSize: 14,
+         fontWeight: '600',
+         color: '#333',
+     },
+     consultaObs: {
+         fontSize: 13,
+         color: '#555',
+         marginTop: 4,
+     },
+     pastText: {
+         color: '#e3342f',
+     },
+     nextText: {
+         color: '#0b76ff',
+     },
     header: {
         width: '90%',
         marginBottom: 20,
@@ -168,8 +344,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     logoutButton: {
-        position: 'absolute',
-        bottom: 40,
+        // removido position: 'absolute' e bottom para permitir rolagem
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -178,6 +353,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderColor: '#d9534f',
         borderWidth: 1,
+        marginTop: 10, // espaço acima do botão
+        alignSelf: 'center', // centraliza no container
     },
     logoutButtonText: {
         color: '#d9534f',

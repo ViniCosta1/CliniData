@@ -1,96 +1,85 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CliniData.Api.DTOs;
-using CliniData.Api.Services;
+﻿using CliniData.Api.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace CliniData.Api.Controllers
+[ApiController]
+[Route("api/[controller]")]
+[Authorize]
+public class HistoricosMedicosController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class HistoricosMedicosController : ControllerBase
+    private readonly IHistoricoMedicoService _service;
+
+    public HistoricosMedicosController(IHistoricoMedicoService service)
     {
-        private readonly IHistoricoMedicoService _service;
-        private readonly ILogger<HistoricosMedicosController> _logger;
+        _service = service;
+    }
 
-        public HistoricosMedicosController(IHistoricoMedicoService service, ILogger<HistoricosMedicosController> logger)
-        {
-            _service = service;
-            _logger = logger;
-        }
+    // ================================
+    // PACIENTE: todos dele mesmo
+    // ================================
+    [HttpGet("paciente")]
+    public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarDoPacienteAtual()
+    {
+        return Ok(await _service.BuscarTodosDoPacienteAtualAsync());
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarTodos()
-        {
-            var historicos = await _service.BuscarTodosAsync();
-            return Ok(historicos);
-        }
+    // ================================
+    // MÉDICO: todos que ele criou
+    // ================================
+    [HttpGet("medico")]
+    [Authorize(Roles = "Medico")]
+    public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarDoMedicoAtual()
+    {
+        return Ok(await _service.BuscarTodosDoMedicoAtualAsync());
+    }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HistoricoMedicoDto>> BuscarPorId(int id)
-        {
-            try
-            {
-                var historico = await _service.BuscarPorIdAsync(id);
-                return Ok(historico);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao buscar histórico médico por ID");
-                return NotFound(ex.Message);
-            }
-        }
+    // ================================
+    // Buscar por paciente específico (médico pode usar)
+    // ================================
+    [HttpGet("paciente/{pacienteId}")]
+    public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarPorPaciente(int pacienteId)
+    {
+        return Ok(await _service.BuscarPorPacienteAsync(pacienteId));
+    }
 
-        [HttpGet("paciente/{pacienteId}")]
-        public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarPorPaciente(int pacienteId)
-        {
-            var historicos = await _service.BuscarPorPacienteAsync(pacienteId);
-            return Ok(historicos);
-        }
+    // ================================
+    // Buscar por ID
+    // ================================
+    [HttpGet("{id}")]
+    public async Task<ActionResult<HistoricoMedicoDto>> BuscarPorId(int id)
+    {
+        return Ok(await _service.BuscarPorIdAsync(id));
+    }
 
-        [HttpPost]
-        public async Task<ActionResult<HistoricoMedicoDto>> Criar([FromBody] CriarHistoricoMedicoDto dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            try
-            {
-                var historico = await _service.CriarAsync(dto);
-                return CreatedAtAction(nameof(BuscarPorId), new { id = historico.IdHistorico }, historico);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao criar histórico médico");
-                return BadRequest(ex.Message);
-            }
-        }
+    // ================================
+    // Criar
+    // ================================
+    [HttpPost]
+    [Authorize(Roles = "Medico")]
+    public async Task<ActionResult> Criar(CriarHistoricoMedicoDto dto)
+    {
+        var criado = await _service.CriarAsync(dto);
+        return CreatedAtAction(nameof(BuscarPorId), new { id = criado.IdHistorico }, criado);
+    }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<HistoricoMedicoDto>> Atualizar(int id, [FromBody] CriarHistoricoMedicoDto dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            try
-            {
-                var historico = await _service.AtualizarAsync(id, dto);
-                return Ok(historico);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao atualizar histórico médico");
-                return BadRequest(ex.Message);
-            }
-        }
+    // ================================
+    // Atualizar
+    // ================================
+    [HttpPut("{id}")]
+    [Authorize(Roles = "Medico")]
+    public async Task<ActionResult> Atualizar(int id, EditarHistoricoMedicoDto dto)
+    {
+        return Ok(await _service.AtualizarAsync(id, dto));
+    }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Remover(int id)
-        {
-            try
-            {
-                await _service.RemoverAsync(id);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao remover histórico médico");
-                return NotFound(ex.Message);
-            }
-        }
+    // ================================
+    // Remover
+    // ================================
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "Medico")]
+    public async Task<ActionResult> Remover(int id)
+    {
+        await _service.RemoverAsync(id);
+        return NoContent();
     }
 }

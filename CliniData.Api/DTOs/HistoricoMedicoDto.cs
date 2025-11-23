@@ -17,10 +17,14 @@ namespace CliniData.Api.DTOs
         public int PacienteId { get; set; }
 
         [Required]
-        public int MedicoId { get; set; }
+        [StringLength(500)]
+        public string Descricao { get; set; }
+    }
 
-        public DateTime DataRegistro { get; set; } = DateTime.Now;
 
+    public class EditarHistoricoMedicoDto
+    {
+        [Required]
         [StringLength(500)]
         public string Descricao { get; set; }
     }

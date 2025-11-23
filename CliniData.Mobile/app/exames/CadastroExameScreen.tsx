@@ -1,6 +1,8 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Alert, TextInput, ScrollView } from "react-native";
+import { ActivityIndicator } from "react-native";
+import { router } from 'expo-router';
 import api from "@/services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -35,6 +37,34 @@ const fileButtonStyle: any = {
 };
 
 export default function CadastroExameScreen() {
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  useEffect(() => {
+    const check = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (!token) {
+          router.replace('/');
+          return;
+        }
+      } catch (e) {
+        console.warn('Erro ao verificar token:', e);
+        router.replace('/');
+        return;
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+    check();
+  }, []);
+
+  if (checkingAuth) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#2ea7ff" />
+      </View>
+    );
+  }
+
   const [tipoExame, setTipoExame] = useState("");
   const [instituicao, setInstituicao] = useState("");
   const [resultado, setResultado] = useState("");

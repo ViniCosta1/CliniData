@@ -5,11 +5,13 @@ import api from '@/services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams } from 'expo-router';
 import * as FileSystem from 'expo-file-system/legacy';
+import { router } from 'expo-router';
 
 export default function ExameDetailsScreen({ route, navigation }: any) {
   // não definir fallback aqui — queremos saber se exame foi passado ou não
   const paramExame = route?.params?.exame ?? null;
   const searchParams = useLocalSearchParams();
+  const [checkingAuth, setCheckingAuth] = useState(true);
  
   // Detecta id vindo de várias formas (route param, idExame, objeto exame, querystring)
   const getRouteId = () => {
@@ -30,12 +32,37 @@ export default function ExameDetailsScreen({ route, navigation }: any) {
        setLoading(false);
        return;
      }
-
+ 
      if (!routeId) {
        setLoading(false);
        return;
      }
+ 
+    // checagem de autenticação separada (executa antes do fetchExame se ainda checando)
+    const checkAuth = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (!token) {
+          router.replace('/');
+          return false;
+        }
+        return true;
+      } catch (e) {
+        console.warn('Erro ao verificar token:', e);
+        router.replace('/');
+        return false;
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
 
+    // se ainda checando, aguardar verificação antes de buscar
+    (async () => {
+      const ok = await checkAuth();
+      if (!ok) return;
+      // existente: fetchExame executará abaixo (mantive fluxo)
+    })();
+ 
      const fetchExame = async () => {
        setLoading(true);
        try {
@@ -52,9 +79,19 @@ export default function ExameDetailsScreen({ route, navigation }: any) {
          setLoading(false);
        }
      };
-
+ 
      fetchExame();
    }, [routeId, paramExame]);
+ 
+   if (checkingAuth) {
+     return (
+       <SafeAreaView style={styles.safe}>
+         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+           <ActivityIndicator size="large" color="#2ea7ff" />
+         </View>
+       </SafeAreaView>
+     );
+   }
  
    // helper para formatar datas ISO para exibição
    const formatDate = (iso?: string) => {

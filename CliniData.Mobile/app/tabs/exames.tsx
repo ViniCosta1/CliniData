@@ -47,9 +47,29 @@ const ExameCard = ({ item, onDelete }: { item: any; onDelete: (id: number) => vo
 // --- Tela Principal ---
 export default function ExamesScreen() {
   const [exames, setExames] = useState<any[]>([]);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedExameId, setSelectedExameId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const check = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (!token) {
+          router.replace("/");
+          return;
+        }
+      } catch (e) {
+        console.warn("Erro ao verificar token:", e);
+        router.replace("/");
+        return;
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+    check();
+  }, []);
 
   useEffect(() => {
     const fetchExames = async () => {
@@ -95,6 +115,16 @@ export default function ExamesScreen() {
       setIsDeleting(false);
     }
   };
+
+  if (checkingAuth) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator size="large" color="#2ea7ff" />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
 using CliniData.Api.DTOs;
 using CliniData.Api.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CliniData.Api.Controllers
 {
@@ -15,6 +19,16 @@ namespace CliniData.Api.Controllers
             _authService = authService;
         }
 
+        // ?? Logout usando o cookie do Identity — não precisa de SignInManager aqui
+        [HttpPost("logout")]
+        [Authorize(AuthenticationSchemes = "Identity.Application, Bearer")]
+        public async Task<IActionResult> Logout()
+        {
+            // Desloga do esquema de autenticação do Identity (cookie)
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return Ok(new { message = "Logout realizado com sucesso." });
+        }
+
         [HttpPost("register/paciente")]
         public async Task<IActionResult> RegisterPaciente([FromBody] CriarPacienteDto dto)
         {
@@ -25,15 +39,7 @@ namespace CliniData.Api.Controllers
             return Ok(new { message = result.Mensagem });
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto dto)
-        {
-            var response = await _authService.LoginAsync(dto);
-            if (response == null)
-                return Unauthorized("Email ou senha inválidos");
-
-            return Ok(response);
-        }
+        
         [HttpPost("register/medico")]
         public async Task<IActionResult> RegisterMedico([FromBody] CriarMedicoDto dto)
         {
@@ -54,5 +60,46 @@ namespace CliniData.Api.Controllers
             return Ok(new { message = result.Mensagem });
         }
 
+        [HttpPost("login-mobile")]
+        public async Task<IActionResult> LoginMobile([FromBody] LoginDto dto)
+        {
+            var result = await _authService.LoginJwtAsync(dto);
+
+            if (result == null)
+                return Unauthorized(new { message = "E-mail ou senha incorretos" });
+
+            return Ok(result);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto dto)
+        {
+            await _authService.ForgotPasswordAsync(dto.Email);
+
+            return Ok(new
+            {
+                message = "Se o e-mail existir, enviaremos um token para redefinição."
+            });
+        }
+
+        // =====================================
+        // ?? 2) RESET PASSWORD
+        // =====================================
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto dto)
+        {
+            var result = await _authService.ResetPasswordAsync(dto.Email, dto.Token, dto.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new
+                {
+                    error = "Erro ao redefinir senha.",
+                    details = result.Errors.Select(e => e.Description)
+                });
+            }
+
+            return Ok(new { message = "Senha redefinida com sucesso." });
+        }
     }
 }

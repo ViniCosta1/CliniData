@@ -1,36 +1,37 @@
 ﻿using CliniData.Api.DTOs;
+using CliniData.Domain.Abstractions;
 using CliniData.Domain.Entities;
 using CliniData.Domain.Enums;
 using CliniData.Domain.ValueObjects;
 using CliniData.Infra.Identity;
 using CliniData.Infra.Persistence;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CliniData.Domain.Abstractions;
 
 namespace CliniData.Api.Services
 {
     public class AuthService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IEmailSender _emailSender;
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             AppDbContext context,
-            IConfiguration config)
+            IConfiguration config,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
             _config = config;
+            _emailSender = emailSender;
         }
 
         // -------------------------------
@@ -48,6 +49,8 @@ namespace CliniData.Api.Services
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            await _userManager.AddToRoleAsync(user, "Paciente");
 
             var endereco = new Endereco
             {
@@ -95,6 +98,8 @@ namespace CliniData.Api.Services
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
+            await _userManager.AddToRoleAsync(user, "Medico");  // 🔥 IMPORTANTE
+
             var medico = Medico.Criar(
                 nome: dto.Nome,
                 crm: new CRM(dto.CRM),
@@ -128,6 +133,9 @@ namespace CliniData.Api.Services
             if (!result.Succeeded)
                 return (false, string.Join(", ", result.Errors.Select(e => e.Description)));
 
+            await _userManager.AddToRoleAsync(user, "Instituicao");
+
+
             var instituicao = new Instituicao(
                 nome: dto.Nome,
                 cnpj: dto.CNPJ,
@@ -150,54 +158,85 @@ namespace CliniData.Api.Services
             return (true, "Instituição cadastrada com sucesso!");
         }
 
-        // -------------------------------
-        // LOGIN
-        // -------------------------------
-        public async Task<AuthResponseDto?> LoginAsync(LoginDto dto)
+
+        public async Task ForgotPasswordAsync(string email)
         {
-            var user = await _userManager.FindByEmailAsync(dto.Email);
+            var user = await _userManager.FindByEmailAsync(email);
+
+            // Mesmo comportamento → retornar "OK" sempre
+            if (user == null)
+                return;
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var body = $@"
+            <p>Seu token de redefinição de senha é:</p>
+            <p><strong>{token}</strong></p>
+            <p>Copie este token e cole no aplicativo ou site.</p>
+        ";
+
+            await _emailSender.SendEmailAsync(email, "Redefinir senha", body);
+        }
+
+        // =============================
+        // 🔹 RESET SENHA
+        // =============================
+        public async Task<IdentityResult> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Description = "Usuário não encontrado."
+                });
+
+            return await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+
+
+        public async Task<LoginResponseDto?> LoginJwtAsync(LoginDto dto)
+        {
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(u => u.Email == dto.Email);
+
             if (user == null)
                 return null;
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if (!result.Succeeded)
+            var senhaOk = await _userManager.CheckPasswordAsync(user, dto.Password);
+            if (!senhaOk)
                 return null;
 
-            var token = GenerateJwtToken(user);
+            var roles = await _userManager.GetRolesAsync(user);
 
-            return new AuthResponseDto
-            {
-                Token = token,
-                Email = user.Email!,
-                Role = user.UserRole.ToString()
-            };
-        }
+            // CRIA CLAIMS DO TOKEN
+            var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email!),
+        new Claim("role", roles.FirstOrDefault() ?? "")
+    };
 
-        // -------------------------------
-        // TOKEN JWT
-        // -------------------------------
-        private string GenerateJwtToken(ApplicationUser user)
-        {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            // CHAVE SECRETA DO APPSETTINGS
+            var secret = _config["Jwt:Secret"];
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.UserRole.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
-                new Claim("userId", user.Id.ToString())
-            };
 
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
-                audience: null,
+                audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(2),
+                expires: DateTime.UtcNow.AddDays(7),
                 signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new LoginResponseDto
+            {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                TokenType = "Bearer",
+                Role = roles.FirstOrDefault() ?? ""
+            };
         }
+
     }
 }

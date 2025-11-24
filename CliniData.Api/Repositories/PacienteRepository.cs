@@ -82,4 +82,12 @@ public class PacienteRepository : IPacienteRepository
 
         return await query.AnyAsync();
     }
+
+    public async Task<Paciente?> FindByUserIdAsync(int userId)
+    {
+        return await _context.Paciente
+            .Include(p => p.Endereco)
+            .FirstOrDefaultAsync(p => p.UserId == userId);
+    }
+
 }

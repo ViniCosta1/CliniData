@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CliniData.Domain.Entities;
+﻿using CliniData.Domain.Entities;
 using CliniData.Infra.Persistence;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CliniData.Api.Repositories;
 
 public class ConsultaRepository : IConsultaRepository
 {
     private readonly AppDbContext _contexto;
-
+    
     public ConsultaRepository(AppDbContext contexto)
     {
         _contexto = contexto;
+    
+
     }
 
     public async Task<IEnumerable<Consulta>> BuscarTodasAsync() =>
@@ -46,4 +49,23 @@ public class ConsultaRepository : IConsultaRepository
 
     public async Task<bool> ExisteAsync(int id) =>
         await _contexto.Consulta.AnyAsync(c => c.Id == id);
+
+    public async Task<IEnumerable<Consulta>> BuscarPorMedicoIdAsync(int medicoId)
+    {
+        return await _contexto.Consulta
+            .Where(c => c.MedicoId == medicoId)
+            .OrderBy(c => c.DataHora)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Consulta>> BuscarPorPacienteIdAsync(int pacienteId)
+    {
+        return await _contexto.Consulta
+            .Where(c => c.PacienteId == pacienteId)
+            .OrderBy(c => c.DataHora)
+            .ToListAsync();
+    }
+
+
+
 }

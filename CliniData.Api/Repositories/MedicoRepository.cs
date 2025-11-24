@@ -2,6 +2,7 @@
 using CliniData.Domain.ValueObjects;
 using CliniData.Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CliniData.Api.Repositories;
 
@@ -76,4 +77,12 @@ public class MedicoRepository : IMedicoRepository
 
         return await query.AnyAsync();
     }
+
+    public async Task<Medico> FindByUserIdAsync(int userId)
+    {
+        return await _context.Medico
+            .FirstOrDefaultAsync(m => m.UserId == userId);
+    }
+
+
 }

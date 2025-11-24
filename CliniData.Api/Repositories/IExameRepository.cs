@@ -10,5 +10,8 @@ namespace CliniData.Api.Repositories
         Task<Exame> AtualizarAsync(Exame exame);
         Task RemoverAsync(int id);
         Task<bool> ExisteAsync(int id);
+
+        // 🔥 ADICIONADO
+        Task<IEnumerable<Exame>> BuscarPorPacienteIdAsync(int pacienteId);
     }
 }

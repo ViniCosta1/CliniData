@@ -12,4 +12,6 @@ public interface IPacienteRepository
     Task RemoverAsync(int id);
     Task<bool> ExisteAsync(int id);
     Task<bool> CpfExisteAsync(string cpf, int? excluirId = null); // string na interface
+    Task<Paciente?> FindByUserIdAsync(int userId);
+
 }

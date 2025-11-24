@@ -5,7 +5,7 @@ import {
     ScrollView, Platform  
 } from 'react-native';
 import { Link, router } from 'expo-router'; 
-import api from './services/api'; 
+import api from '@/services/api'; 
 import DateTimePicker from '@react-native-community/datetimepicker'; 
 import axios from 'axios'; 
 
@@ -101,30 +101,39 @@ export default function RegisterScreen() {
             return;
         }
         setIsLoading(true);
-        const dto = {
-            nome, dataNascimento, sexo,
-            cpf: cpf.replace(/\D/g, ''), 
-            telefone: telefone.replace(/\D/g, ''), 
-            email, password, rua, numero, complemento, bairro, cidade, estado,
-            cep: cep.replace(/\D/g, ''), 
+
+        // montar payload conforme especificado pela API (dataNascimento = ISO string)
+        const payload = {
+            nome,
+            dataNascimento: (dataNascimento instanceof Date) ? dataNascimento.toISOString() : new Date(dataNascimento).toISOString(),
+            sexo,
+            cpf: cpf.replace(/\D/g, ''),
+            telefone: telefone.replace(/\D/g, ''),
+            email,
+            password,
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            cep: cep.replace(/\D/g, ''),
         };
+
         try {
-                await api.post('/api/Auth/register/paciente', dto); 
-                 displayAlert(
-                'Sucesso!', 
-                'Usuário cadastrado com sucesso. Você será enviado para a tela de Login.',
-            );
+            await api.post('/api/Auth/register/paciente', payload);
+            displayAlert('Sucesso!', 'Usuário cadastrado com sucesso. Você será enviado para a tela de Login.');
             router.replace('/'); // Volta para o Login
         } catch (error: any) {
             let msg = 'Não foi possível fazer o cadastro.';
-            if (error.response && error.response.data) {
-                msg = error.response.data.message || 'Erro nos dados. Verifique se o CPF/Email já existe.';
-            } else if (error.request) {
+            if (error?.response?.data) {
+                msg = error.response.data.message || msg;
+            } else if (error?.request) {
                 msg = 'Não foi possível conectar ao servidor.';
             }
             displayAlert('Erro no Cadastro', msg);
         } finally {
-            setIsLoading(false); 
+            setIsLoading(false);
         }
     };
     
@@ -186,12 +195,6 @@ export default function RegisterScreen() {
                             onPress={() => setSexo('Feminino')}
                         >
                             <Text style={[styles.sexoButtonText, sexo === 'Feminino' && styles.sexoButtonTextActive]}>Feminino</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity 
-                            style={[styles.sexoButton, sexo === 'Outro' && styles.sexoButtonActive]}
-                            onPress={() => setSexo('Outro')}
-                        >
-                            <Text style={[styles.sexoButtonText, sexo === 'Outro' && styles.sexoButtonTextActive]}>Outro</Text>
                         </TouchableOpacity>
                     </View>
                     

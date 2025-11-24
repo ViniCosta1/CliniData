@@ -1,145 +1,179 @@
 ﻿using CliniData.Api.DTOs;
-using CliniData.Domain.Entities;
 using CliniData.Api.Repositories;
+using CliniData.Api.Services;
+using CliniData.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace CliniData.Api.Services
+public class ExameService : IExameService
 {
-    public class ExameService : IExameService
+    private readonly IExameRepository _exameRepository;
+    private readonly IPacienteRepository _pacienteRepository;
+    private readonly IUsuarioAtualService _userAtualService;
+
+    public ExameService(
+        IExameRepository exameRepository,
+        IPacienteRepository pacienteRepository,
+        IUsuarioAtualService userAtualService)
     {
-        private readonly IExameRepository _repositorio;
-        private readonly ILogger<ExameService> _logger;
+        _exameRepository = exameRepository;
+        _pacienteRepository = pacienteRepository;
+        _userAtualService = userAtualService;
+    }
 
-        public ExameService(IExameRepository repositorio, ILogger<ExameService> logger)
+    public async Task<IEnumerable<ExameDto>> BuscarTodosAsync()
+    {
+        var exames = await _exameRepository.BuscarTodosAsync();
+        return exames.Select(ExameDto.FromEntity);
+    }
+
+    public async Task<ExameDto> BuscarPorIdAsync(int id)
+    {
+        var exame = await _exameRepository.BuscarPorIdAsync(id)
+                    ?? throw new Exception("Exame não encontrado.");
+
+        return ExameDto.FromEntity(exame);
+    }
+
+    public async Task<IEnumerable<ExameDto>> BuscarDoPacienteAtualAsync()
+    {
+        var userId = _userAtualService.ObterUsuarioId();
+        var paciente = await _pacienteRepository.FindByUserIdAsync(int.Parse(userId))
+                      ?? throw new Exception("Paciente não encontrado para este usuário.");
+
+        var exames = await _exameRepository.BuscarPorPacienteIdAsync(paciente.Id);
+
+        return exames.Select(ExameDto.FromEntity);
+    }
+
+    public async Task<ExameDto> CriarAsync(CriarExameDto dto)
+    {
+        var userId = _userAtualService.ObterUsuarioId();
+        var paciente = await _pacienteRepository.FindByUserIdAsync(int.Parse(userId))
+                      ?? throw new Exception("Paciente não encontrado.");
+
+        var exame = Exame.Criar(
+            dto.TipoExame,
+            dto.DataHora,
+            paciente.Id,
+            dto.Instituicao,
+            dto.Resultado,
+            dto.Observacao,
+            null
+        );
+
+        var criado = await _exameRepository.CriarAsync(exame);
+        return ExameDto.FromEntity(criado);
+    }
+
+    public async Task<ExameDto> CriarComArquivoAsync(CriarExameFormDto dto)
+    {
+        var userId = _userAtualService.ObterUsuarioId();
+        var paciente = await _pacienteRepository.FindByUserIdAsync(int.Parse(userId))
+                      ?? throw new Exception("Paciente não encontrado.");
+
+        byte[]? fileBytes = null;
+        string? extensao = null;
+
+        if (dto.DocumentoExame != null)
         {
-            _repositorio = repositorio;
-            _logger = logger;
+            extensao = Path.GetExtension(dto.DocumentoExame.FileName);
+
+            using var ms = new MemoryStream();
+            await dto.DocumentoExame.CopyToAsync(ms);
+            fileBytes = ms.ToArray();
         }
 
-        public async Task<IEnumerable<ExameDto>> BuscarTodosAsync()
+        var exame = Exame.Criar(
+            dto.TipoExame,
+            dto.DataHora,
+            paciente.Id,
+            dto.Instituicao,
+            dto.Resultado,
+            dto.Observacao,
+            fileBytes,
+            extensao
+        );
+
+        var criado = await _exameRepository.CriarAsync(exame);
+        return ExameDto.FromEntity(criado);
+    }
+
+
+    public async Task<ExameDto> AtualizarAsync(int id, CriarExameDto dto)
+    {
+        var exame = await _exameRepository.BuscarPorIdAsync(id)
+                    ?? throw new Exception("Exame não encontrado.");
+
+        exame.Atualizar(
+            dto.TipoExame,
+            dto.DataHora,
+            exame.PacienteId,
+            dto.Instituicao,
+            dto.Resultado,
+            dto.Observacao,
+            exame.DocumentoExame,
+            exame.Extensao
+        );
+
+        var atualizado = await _exameRepository.AtualizarAsync(exame);
+        return ExameDto.FromEntity(atualizado);
+    }
+
+    public async Task<ExameDto> AtualizarComArquivoAsync(int id, CriarExameFormDto dto)
+    {
+        var exame = await _exameRepository.BuscarPorIdAsync(id)
+                    ?? throw new Exception("Exame não encontrado.");
+
+        byte[]? fileBytes = exame.DocumentoExame;
+        string? extensao = exame.Extensao;
+
+        if (dto.DocumentoExame != null)
         {
-            var exames = await _repositorio.BuscarTodosAsync();
-            return exames.Select(ConverterParaDto);
+            extensao = Path.GetExtension(dto.DocumentoExame.FileName);
+
+            using var ms = new MemoryStream();
+            await dto.DocumentoExame.CopyToAsync(ms);
+            fileBytes = ms.ToArray();
         }
 
-        public async Task<ExameDto> BuscarPorIdAsync(int id)
-        {
-            var exame = await _repositorio.BuscarPorIdAsync(id)
-                         ?? throw new Exception($"Exame com ID {id} não encontrado");
-            return ConverterParaDto(exame);
-        }
+        exame.Atualizar(
+            dto.TipoExame,
+            dto.DataHora,
+            exame.PacienteId,
+            dto.Instituicao,
+            dto.Resultado,
+            dto.Observacao,
+            fileBytes,
+            extensao
+        );
 
-        public async Task<ExameDto> CriarAsync(CriarExameDto dto)
-        {
-            var exame = ConverterParaEntidade(dto);
-            var criado = await _repositorio.CriarAsync(exame);
-            return ConverterParaDto(criado);
-        }
+        var atualizado = await _exameRepository.AtualizarAsync(exame);
+        return ExameDto.FromEntity(atualizado);
+    }
 
-        public async Task<ExameDto> AtualizarAsync(int id, CriarExameDto dto)
-        {
-            var existente = await _repositorio.BuscarPorIdAsync(id)
-                           ?? throw new Exception($"Exame com ID {id} não encontrado");
-            AtualizarEntidadeDoDto(existente, dto);
-            var atualizado = await _repositorio.AtualizarAsync(existente);
-            return ConverterParaDto(atualizado);
-        }
 
-        public async Task RemoverAsync(int id)
-        {
-            if (!await _repositorio.ExisteAsync(id))
-                throw new Exception($"Exame com ID {id} não encontrado");
-            await _repositorio.RemoverAsync(id);
-        }
+    public async Task RemoverAsync(int id)
+    {
+        await _exameRepository.RemoverAsync(id);
+    }
+    public async Task<IEnumerable<Exame>> ObterPorPacienteAsync(int pacienteId)
+    {
+        return await _exameRepository.BuscarPorPacienteIdAsync(pacienteId);
+    }
 
-        private static ExameDto ConverterParaDto(Exame e) => new()
-        {
-            IdExame = e.Id,
-            TipoExame = e.TipoExame,
-            DataHora = e.DataHora,
-            PacienteId = e.PacienteId,
-            Instituicao = e.Instituicao,
-            Resultado = e.Resultado,
-            Observacao = e.Observacao
-        };
-        private static Exame ConverterParaEntidade(CriarExameDto dto)
-        {
-            return Exame.Criar(
-                tipoExame: dto.TipoExame,
-                dataHora: dto.DataHora,
-                pacienteId: dto.PacienteId,
-                instituicao: dto.Instituicao,
-                resultado: dto.Resultado,
-                observacao: dto.Observacao
-            );
-        }
+    public async Task<Exame?> ObterPorIdAsync(int exameId)
+    {
+        return await _exameRepository.BuscarPorIdAsync(exameId);
+    }
+    public async Task<bool> VerificarPropriedadeDoExameAsync(int exameId, int userId)
+    {
+        var paciente = await _pacienteRepository.FindByUserIdAsync(userId);
+        if (paciente == null) return false;
 
-        private static void AtualizarEntidadeDoDto(Exame e, CriarExameDto dto)
-        {
-            e.Atualizar(
-                tipoExame: dto.TipoExame,
-                dataHora: dto.DataHora,
-                pacienteId: dto.PacienteId,
-                instituicao: dto.Instituicao,
-                resultado: dto.Resultado,
-                observacao: dto.Observacao,
-                documentoExame: dto.DocumentoExame
-            );
-        }
+        var exame = await _exameRepository.BuscarPorIdAsync(exameId);
+        if (exame == null) return false;
 
-        public async Task<ExameDto> CriarComArquivoAsync(CriarExameFormDto dto)
-        {
-            byte[]? documentoBytes = null;
-
-            if (dto.Documento != null)
-            {
-                using var ms = new MemoryStream();
-                await dto.Documento.CopyToAsync(ms);
-                documentoBytes = ms.ToArray();
-            }
-
-            var exame = Exame.Criar(
-                tipoExame: dto.TipoExame,
-                dataHora: dto.DataHora,
-                pacienteId: dto.PacienteId,
-                instituicao: dto.Instituicao,
-                resultado: dto.Resultado,
-                observacao: dto.Observacao,
-                documentoExame: documentoBytes
-            );
-
-            var criado = await _repositorio.CriarAsync(exame);
-            return ConverterParaDto(criado);
-        }
-
-        public async Task<ExameDto> AtualizarComArquivoAsync(int id, CriarExameFormDto dto)
-        {
-            var existente = await _repositorio.BuscarPorIdAsync(id)
-                           ?? throw new Exception($"Exame {id} não encontrado");
-
-            byte[]? documentoBytes = existente.DocumentoExame; // mantém o anterior se vier null
-
-            if (dto.Documento != null)
-            {
-                using var ms = new MemoryStream();
-                await dto.Documento.CopyToAsync(ms);
-                documentoBytes = ms.ToArray();
-            }
-
-            existente.Atualizar(
-                tipoExame: dto.TipoExame,
-                dataHora: dto.DataHora,
-                pacienteId: dto.PacienteId,
-                instituicao: dto.Instituicao,
-                resultado: dto.Resultado,
-                observacao: dto.Observacao,
-                documentoExame: documentoBytes
-            );
-
-            await _repositorio.AtualizarAsync(existente);
-
-            return ConverterParaDto(existente);
-        }
-
+        return exame.PacienteId == paciente.Id;
     }
 
 

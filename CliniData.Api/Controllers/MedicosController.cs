@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CliniData.Api.DTOs;
+﻿using CliniData.Api.DTOs;
 using CliniData.Api.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Medico")]// 🔒 Agora só o paciente acessa esse controller inteiro
+
     public class MedicosController : ControllerBase
     {
         private readonly IMedicoService _service;
@@ -100,5 +103,7 @@ namespace CliniData.Api.Controllers
                 return NotFound(ex.Message);
             }
         }
+        
     }
+
 }

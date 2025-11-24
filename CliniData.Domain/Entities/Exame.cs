@@ -11,6 +11,8 @@ namespace CliniData.Domain.Entities
         public string? Resultado { get; private set; }
         public string? Observacao { get; private set; }
         public byte[]? DocumentoExame { get; private set; }
+        public string? Extensao { get; private set; }
+
 
         protected Exame() { }
 
@@ -21,7 +23,8 @@ namespace CliniData.Domain.Entities
             string instituicao,
             string? resultado = null,
             string? observacao = null,
-            byte[]? documentoExame = null
+            byte[]? documentoExame = null,
+            string? extensao = null
         )
         {
             TipoExame = tipoExame;
@@ -31,6 +34,7 @@ namespace CliniData.Domain.Entities
             Resultado = resultado;
             Observacao = observacao;
             DocumentoExame = documentoExame;
+            Extensao = extensao;
         }
 
         public static Exame Criar(
@@ -40,10 +44,11 @@ namespace CliniData.Domain.Entities
             string instituicao,
             string? resultado = null,
             string? observacao = null,
-            byte[]? documentoExame = null
+            byte[]? documentoExame = null,
+            string? extensao = null
         )
         {
-            return new Exame(tipoExame, dataHora, pacienteId, instituicao, resultado, observacao, documentoExame);
+            return new Exame(tipoExame, dataHora, pacienteId, instituicao, resultado, observacao, documentoExame, extensao);
         }
 
         public void Atualizar(
@@ -53,7 +58,8 @@ namespace CliniData.Domain.Entities
             string instituicao,
             string? resultado,
             string? observacao,
-            byte[]? documentoExame
+            byte[]? documentoExame,
+            string? extensao
         )
         {
             TipoExame = tipoExame;
@@ -63,6 +69,7 @@ namespace CliniData.Domain.Entities
             Resultado = resultado;
             Observacao = observacao;
             DocumentoExame = documentoExame;
+            Extensao = extensao;
         }
     }
 }

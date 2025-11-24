@@ -7,68 +7,148 @@ namespace CliniData.Api.Services;
 public class ConsultaService : IConsultaService
 {
     private readonly IConsultaRepository _repositorio;
+    private readonly IMedicoRepository _medicoRepository;
+    private readonly IPacienteRepository _pacienteRepository;
     private readonly ILogger<ConsultaService> _logger;
+    private readonly IUsuarioAtualService _usuarioAtual;
 
-    public ConsultaService(IConsultaRepository repositorio, ILogger<ConsultaService> logger)
+    public ConsultaService(
+        IConsultaRepository repositorio,
+        IMedicoRepository medicoRepository,
+        IPacienteRepository pacienteRepository,
+        ILogger<ConsultaService> logger,
+        IUsuarioAtualService usuarioAtual)
     {
         _repositorio = repositorio;
+        _medicoRepository = medicoRepository;
+        _pacienteRepository = pacienteRepository;
         _logger = logger;
+        _usuarioAtual = usuarioAtual;
     }
 
-    public async Task<IEnumerable<ConsultaDto>> BuscarTodasAsync()
+    // ===============================================================
+    // MÉDICO → BUSCAR TODAS
+    // ===============================================================
+    public async Task<IEnumerable<ConsultaDto>> BuscarTodasDoMedicoAtualAsync()
     {
-        var consultas = await _repositorio.BuscarTodasAsync();
+        var userIdString = _usuarioAtual.ObterUsuarioId();
+        if (!int.TryParse(userIdString, out int userId))
+            return Enumerable.Empty<ConsultaDto>();
+
+        var medico = await _medicoRepository.FindByUserIdAsync(userId);
+        if (medico == null)
+            return Enumerable.Empty<ConsultaDto>();
+
+        var consultas = await _repositorio.BuscarPorMedicoIdAsync(medico.Id);
         return consultas.Select(ConverterParaDto);
     }
 
-    public async Task<ConsultaDto> BuscarPorIdAsync(int id)
+    // ===============================================================
+    // PACIENTE → BUSCAR TODAS
+    // ===============================================================
+    public async Task<IEnumerable<ConsultaDto>> BuscarTodasDoPacienteAtualAsync()
     {
-        var consulta = await _repositorio.BuscarPorIdAsync(id)
-                       ?? throw new Exception($"Consulta com ID {id} não encontrada");
-        return ConverterParaDto(consulta);
+        var userIdString = _usuarioAtual.ObterUsuarioId();
+        if (!int.TryParse(userIdString, out int userId))
+            return Enumerable.Empty<ConsultaDto>();
+
+        var paciente = await _pacienteRepository.FindByUserIdAsync(userId);
+        if (paciente == null)
+            return Enumerable.Empty<ConsultaDto>();
+
+        var consultas = await _repositorio.BuscarPorPacienteIdAsync(paciente.Id);
+        return consultas.Select(ConverterParaDto);
     }
 
+    // ===============================================================
+    // BUSCAR POR ID
+    // ===============================================================
+    public async Task<ConsultaDto?> BuscarPorIdAsync(int id)
+    {
+        var consulta = await _repositorio.BuscarPorIdAsync(id);
+        return consulta == null ? null : ConverterParaDto(consulta);
+    }
+
+    // ===============================================================
+    // CRIAR CONSULTA
+    // ===============================================================
     public async Task<ConsultaDto> CriarAsync(CriarConsultaDto dto)
     {
-        var consulta = ConverterParaEntidade(dto);
+        var userIdString = _usuarioAtual.ObterUsuarioId();
+
+        if (!int.TryParse(userIdString, out int userId))
+            throw new Exception("Usuário não autenticado.");
+
+        var medico = await _medicoRepository.FindByUserIdAsync(userId)
+                     ?? throw new Exception("Nenhum médico associado ao usuário atual.");
+
+        var consulta = Consulta.Criar(
+            dto.DataHora,
+            dto.PacienteId,
+            medico.Id,
+            dto.InstituicaoId,
+            dto.Observacao
+        );
+
         var criada = await _repositorio.CriarAsync(consulta);
         return ConverterParaDto(criada);
     }
 
-    public async Task<ConsultaDto> AtualizarAsync(int id, CriarConsultaDto dto)
+    // ===============================================================
+    // ATUALIZAR
+    // ===============================================================
+    public async Task<ConsultaDto> AtualizarAsync(int id, EditarConsultaDto dto)
     {
-        var existente = await _repositorio.BuscarPorIdAsync(id)
-                       ?? throw new Exception($"Consulta com ID {id} não encontrada");
+        var userIdString = _usuarioAtual.ObterUsuarioId();
+        if (!int.TryParse(userIdString, out int userId))
+            throw new Exception("Usuário não autenticado.");
 
-        AtualizarEntidadeDoDto(existente, dto);
+        var medico = await _medicoRepository.FindByUserIdAsync(userId)
+                     ?? throw new Exception("Nenhum médico associado ao usuário atual.");
+
+        var existente = await _repositorio.BuscarPorIdAsync(id)
+                       ?? throw new Exception($"Consulta com ID {id} não encontrada.");
+
+        if (existente.MedicoId != medico.Id)
+            throw new UnauthorizedAccessException("Você não pode alterar esta consulta.");
+
+        existente.Atualizar(dto.Observacao);
+
         var atualizada = await _repositorio.AtualizarAsync(existente);
         return ConverterParaDto(atualizada);
     }
 
+    // ===============================================================
+    // REMOVER
+    // ===============================================================
     public async Task RemoverAsync(int id)
     {
-        if (!await _repositorio.ExisteAsync(id))
-            throw new Exception($"Consulta com ID {id} não encontrada");
+        var userIdString = _usuarioAtual.ObterUsuarioId();
+        if (!int.TryParse(userIdString, out int userId))
+            throw new Exception("Usuário não autenticado.");
+
+        var medico = await _medicoRepository.FindByUserIdAsync(userId)
+                     ?? throw new Exception("Nenhum médico associado ao usuário atual.");
+
+        var consulta = await _repositorio.BuscarPorIdAsync(id)
+                       ?? throw new Exception($"Consulta com ID {id} não encontrada");
+
+        if (consulta.MedicoId != medico.Id)
+            throw new UnauthorizedAccessException("Você não pode excluir esta consulta.");
 
         await _repositorio.RemoverAsync(id);
     }
 
-    // ----- Conversões -----
+    // ===============================================================
+    // DTO
+    // ===============================================================
     private static ConsultaDto ConverterParaDto(Consulta c) => new()
     {
-        IdConsulta = c.Id, // c.Id do BaseEntity
+        IdConsulta = c.Id,
         DataHora = c.DataHora,
         PacienteId = c.PacienteId,
         MedicoId = c.MedicoId,
         InstituicaoId = c.InstituicaoId,
         Observacao = c.Observacao
     };
-
-    private static Consulta ConverterParaEntidade(CriarConsultaDto dto) =>
-        Consulta.Criar(dto.DataHora, dto.PacienteId, dto.MedicoId, dto.InstituicaoId, dto.Observacao);
-
-    private static void AtualizarEntidadeDoDto(Consulta c, CriarConsultaDto dto)
-    {
-        c.Atualizar(dto.DataHora, dto.PacienteId, dto.MedicoId, dto.InstituicaoId, dto.Observacao);
-    }
 }

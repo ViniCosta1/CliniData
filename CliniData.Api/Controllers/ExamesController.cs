@@ -1,111 +1,100 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CliniData.Api.DTOs;
-using CliniData.Api.Services;
+﻿using CliniData.Api.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using CliniData.Api.Utils;
 
 namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ExamesController : ControllerBase
-    {
-        private readonly IExameService _service;
-        private readonly ILogger<ExamesController> _logger;
 
-        public ExamesController(IExameService service, ILogger<ExamesController> logger)
+    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Paciente")]// 🔒 Agora só o paciente acessa esse controller inteiro
+    public class ExameController : ControllerBase
+    {
+        private readonly IExameService _exameService;
+
+        public ExameController(IExameService exameService)
         {
-            _service = service;
-            _logger = logger;
+            _exameService = exameService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExameDto>>> BuscarTodos()
+        public async Task<IActionResult> GetAll()
         {
-            var exames = await _service.BuscarTodosAsync();
-            return Ok(exames);
+            return Ok(await _exameService.BuscarTodosAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ExameDto>> BuscarPorId(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            try
-            {
-                var exame = await _service.BuscarPorIdAsync(id);
-                return Ok(exame);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao buscar exame por ID");
-                return NotFound(ex.Message);
-            }
+            return Ok(await _exameService.BuscarPorIdAsync(id));
         }
 
-        [HttpGet("{id}/arquivo")]
-        public async Task<IActionResult> BaixarArquivo(int id)
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMine()
         {
-            var exame = await _service.BuscarPorIdAsync(id);
+            return Ok(await _exameService.BuscarDoPacienteAtualAsync());
+        }
 
-            if (exame == null)
-                return NotFound("Exame não encontrado.");
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CriarExameDto dto)
+        {
+            return Ok(await _exameService.CriarAsync(dto));
+        }
 
-            if (exame.DocumentoExame == null || exame.DocumentoExame.Length == 0)
-                return NotFound("Este exame não possui arquivo anexado.");
+        [HttpPost("upload")]
+        public async Task<IActionResult> PostFile([FromForm] CriarExameFormDto dto)
+        {
+            return Ok(await _exameService.CriarComArquivoAsync(dto));
+        }
 
-            // Definir tipo genérico (se quiser detectar por extensão depois, posso ajustar)
-            var contentType = "application/octet-stream";
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] CriarExameDto dto)
+        {
+            return Ok(await _exameService.AtualizarAsync(id, dto));
+        }
 
-            // Nome sugerido para o arquivo baixado
-            var fileName = $"exame_{exame.IdExame}.pdf";
+        [HttpPut("upload/{id}")]
+        public async Task<IActionResult> PutFile(int id, [FromForm] CriarExameFormDto dto)
+        {
+            return Ok(await _exameService.AtualizarComArquivoAsync(id, dto));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _exameService.RemoverAsync(id);
+            return NoContent();
+        }
+
+        // ------------------------------------------------------------
+        // 🔽 NOVO ENDPOINT: Paciente baixa o próprio exame
+        // ------------------------------------------------------------
+        [HttpGet("{exameId}/arquivo")]
+        public async Task<IActionResult> BaixarArquivo(int exameId)
+        {
+            var exame = await _exameService.ObterPorIdAsync(exameId);
+
+            if (exame == null || exame.DocumentoExame == null)
+                return NotFound("Exame não encontrado ou sem arquivo.");
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+                ?? throw new Exception("Usuário não identificado.");
+
+            var pertenceAoPaciente = await _exameService.VerificarPropriedadeDoExameAsync(exameId, int.Parse(userId));
+
+            if (!pertenceAoPaciente)
+                return Forbid("Você não tem permissão para acessar este exame.");
+
+            string extensao = exame.Extensao ?? "";
+            string fileName = $"exame_{exame.Id}{extensao}";
+            string contentType = MimeTypes.GetMimeType(fileName);
 
             return File(exame.DocumentoExame, contentType, fileName);
         }
 
 
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<ActionResult<ExameDto>> Criar([FromForm] CriarExameFormDto dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            try
-            {
-                var exame = await _service.CriarComArquivoAsync(dto);
-                return CreatedAtAction(nameof(BuscarPorId), new { id = exame.IdExame }, exame);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao criar exame");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ExameDto>> Atualizar(int id, [FromBody] CriarExameDto dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            try
-            {
-                var exame = await _service.AtualizarAsync(id, dto);
-                return Ok(exame);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao atualizar exame");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Remover(int id)
-        {
-            try
-            {
-                await _service.RemoverAsync(id);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao remover exame");
-                return NotFound(ex.Message);
-            }
-        }
     }
 }

@@ -20,11 +20,17 @@ public class CriarConsultaDto
     [Required]
     public int PacienteId { get; set; }
 
-    [Required]
-    public int MedicoId { get; set; }
 
     public int? InstituicaoId { get; set; }
 
     [StringLength(500)]
     public string Observacao { get; set; }
 }
+
+public class EditarConsultaDto
+{
+
+    [StringLength(500)]
+    public string Observacao { get; set; }
+}
+

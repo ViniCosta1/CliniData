@@ -31,12 +31,8 @@ public class Consulta : BaseEntity<int>
         return new Consulta(dataHora, pacienteId, medicoId, instituicaoId, observacao);
     }
 
-    public void Atualizar(DateTime dataHora, int pacienteId, int medicoId, int? instituicaoId = null, string? observacao = null)
+    public void Atualizar(string? observacao = null)
     {
-        DataHora = dataHora;
-        PacienteId = pacienteId;
-        MedicoId = medicoId;
-        InstituicaoId = instituicaoId;
         Observacao = observacao;
     }
 }

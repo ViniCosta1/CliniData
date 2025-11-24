@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-
-
+import Cadastro from "./pages/Cadastro/Cadastro";
 import Login from "./pages/Login/Login";
-
 import InstituicaoLayout from "./Layouts/InstituicaoLayout";
 import DashboardInstituicao from "./pages/Instituicao/DashboardInstituicao";
 import Medicos from "./pages/Instituicao/Medicos";
@@ -12,8 +10,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/login" element={<Login />} />
-
+      <Route path="/cadastro" element={<Cadastro />} />
+    
       <Route
         path="/instituicao"
         element={
@@ -28,4 +26,4 @@ export default function App() {
     </Routes>
   );
 }
-   s
+  

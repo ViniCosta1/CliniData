@@ -1,61 +1,60 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/logo.png";
+import { useState } from "react";
+import { login, saveAuth } from "../../services/authService";
+import "./Login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [erro, setErro] = useState("");
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
-    // 🔥 depois substitui pela API
-    if (email && senha) {
-      localStorage.setItem("token", "logado");
-      navigate("/instituicao");
-    } else {
-      alert("Preencha os campos.");
+    const res = await login(email, password);
+
+    if (!res) {
+      setErro("Email ou senha inválidos");
+      return;
     }
+
+    saveAuth(res.token, res.role);
+
+    if (res.role === "Medico") window.location.href = "/medico";
+    if (res.role === "Instituicao") window.location.href = "/instituicao";
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-        <div className="flex flex-col items-center mb-6">
-          <img src={Logo} className="w-24 mb-3" />
-          <h1 className="text-2xl font-bold">CliniData</h1>
-        </div>
+    <div className="login-bg-modern">
+      <div className="login-card-modern">
+        <h2>CliniData</h2>
+        <p className="subtitle">Acesse sua conta</p>
 
-        <form className="flex flex-col gap-4" onSubmit={handleLogin}>
-          <input
-            className="p-3 border rounded-lg"
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            className="p-3 border rounded-lg"
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
+        {erro && <div className="error-box">{erro}</div>}
 
-          <button className="bg-blue-600 text-white rounded-lg p-3 hover:bg-blue-700 transition">
-            Entrar
-          </button>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>Email</label>
+            <input 
+              type="email"
+              onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Senha</label>
+            <input 
+              type="password"
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button className="btn-modern">Entrar</button>
         </form>
 
-        <button
-          className="mt-4 w-full text-blue-600 hover:underline"
-          onClick={() => navigate("/cadastro")}
-        >
-          Criar conta
-        </button>
+        <p className="register-link">
+          Não tem conta? <a href="/cadastro">Criar conta</a>
+        </p>
       </div>
     </div>
   );
 }
-  //s

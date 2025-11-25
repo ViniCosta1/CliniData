@@ -1,0 +1,329 @@
+:root {
+  --primary: #0b6cff;
+  --muted: #6b7280;
+}
+
+/* PÁGINA GERAL */
+.inst-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, #0b6cff, #3b45ff, #6a43ff);
+}
+
+/* HEADER */
+.inst-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;   /* evita que o header estique e empurre o botão */
+  gap: 20px;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.inst-header > div {
+  flex: 1;   /* só o lado esquerdo expande, botão fica do tamanho dele */
+}
+
+.logo-clinidata {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logo-main {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.logo-sub {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #dbeafe;
+  letter-spacing: 0.16em;
+}
+
+.inst-header-subtitle {
+  margin-top: 8px;
+  color: #e5e7eb;
+}
+
+/* BOTÃO SAIR (versão corrigida) */
+.btn-sair {
+  width: auto;               /* impede esticar */
+  max-width: fit-content;    /* garante tamanho mínimo */
+  display: inline-block;     /* impede comportamento de block */
+  white-space: nowrap;       /* impede quebrar linha */
+  background: transparent;
+  border: 1px solid #bfdbfe;
+  color: #bfdbfe;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-sair:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.btn-sair:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+
+/* MENU HORIZONTAL (IGUAL DO MÉDICO) */
+.inst-nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(191, 219, 254, 0.4);
+  padding-bottom: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.inst-nav-link {
+  background: transparent;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 1rem;
+  color: #e5e7eb;
+  cursor: pointer;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.inst-nav-link:hover {
+  background: rgba(239, 246, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+}
+
+.inst-nav-link.active {
+  background: rgba(239, 246, 255, 0.98);
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.inst-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* CARDS DO DASHBOARD */
+.inst-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.inst-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.inst-card-icon {
+  font-size: 2.2rem;
+}
+
+.inst-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.inst-card-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.inst-card-valor {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.inst-card-alerta {
+  border: 2px solid #ef4444;
+}
+
+/* GRÁFICO */
+.inst-grafico-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* ALERTAS */
+.inst-alertas {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.inst-alerta-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inst-alerta-item:last-child {
+  border-bottom: none;
+}
+
+.alerta-badge {
+  background: #ef4444;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* SEÇÕES DAS OUTRAS ABAS (MÉDICOS, CONSULTAS, PACIENTES, MATERIAIS) */
+.inst-section-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.inst-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.btn-primario {
+  background: #0b6cff;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secundario {
+  background: transparent;
+  color: #0b6cff;
+  border: 1px solid #0b6cff;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.78rem;
+}
+
+/* TABELAS */
+.inst-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.inst-table th,
+.inst-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.inst-table th {
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.inst-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* STATUS PILL */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-ativo {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-inativo {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* BUSCA PACIENTE */
+.inst-input-busca {
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.inst-text-muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1100px) {
+  .inst-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .inst-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inst-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-main {
+    font-size: 1.6rem;
+  }
+}

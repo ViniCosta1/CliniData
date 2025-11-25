@@ -12,7 +12,8 @@ import Medicos from "./pages/Instituicao/Medicos";
 // MÉDICO
 import DashboardMedico from "./pages/Medico/DashboardMedico";
 import Prontuario from "./pages/Medico/Prontuario";
-import EscolherInstituicao from "./pages/Medico/EscolherInstituicao";
+import EscolherInstituicao from "./pages/Medico/RealizarConsulta";
+import RealizarConsulta from "./pages/Medico/RealizarConsulta";
 
 // NOT FOUND
 import NotFound from "./pages/NotFound";
@@ -38,12 +39,20 @@ export default function App() {
         <Route path="medicos" element={<Medicos />} />
       </Route>
 
-      {/* ÁREA DO MÉDICO (SEM PROTEÇÃO POR ENQUANTO, PRA DESENVOLVER O FRONT) */}
+      {/* ÁREA DO MÉDICO (SEM PROTECTED POR ENQUANTO PRA TESTE) */}
       <Route path="/medico/dashboard" element={<DashboardMedico />} />
       <Route
         path="/medico/escolher-instituicao"
         element={<EscolherInstituicao />}
       />
+
+      {/* NOVA TELA: REALIZAR CONSULTA */}
+      <Route
+        path="/medico/consulta/:consultaId"
+        element={<RealizarConsulta />}
+      />
+
+      {/* PRONTUÁRIO (pode ser usado depois para histórico) */}
       <Route
         path="/medico/prontuario/:pacienteId/:consultaId"
         element={<Prontuario />}

@@ -28,7 +28,7 @@ export default function ConsultasMedico({ consultas, onAtender }) {
                   <td>
                     <button
                       className="btn btn-primary"
-                      onClick={() => onAtender(c.pacienteId, c.id)}
+                      onClick={() => onAtender(c.id)}
                     >
                       Atender
                     </button>

@@ -8,7 +8,6 @@ export default function DashboardMedico() {
   const navigate = useNavigate();
 
   // MOCK de dados por enquanto.
-  // Depois você troca para dados reais vindos da API.
   const consultasDoDia = [
     {
       id: 10,
@@ -42,17 +41,19 @@ export default function DashboardMedico() {
     { id: 3, nome: "Carlos Souza", idade: 45, sexo: "M", cpf: "555.444.333-22" },
   ];
 
-  function abrirProntuario(pacienteId, consultaId) {
-    navigate(`/medico/prontuario/${pacienteId}/${consultaId}`);
+  function abrirConsulta(consultaId) {
+    // Só aqui entra na tela de realizar consulta
+    navigate(`/medico/consulta/${consultaId}`);
   }
 
   function renderConteudo() {
     switch (abaAtiva) {
       case "consultas":
+        // Fila de consultas, só entra na consulta ao clicar em Atender
         return (
           <ConsultasMedico
             consultas={consultasDoDia}
-            onAtender={abrirProntuario}
+            onAtender={abrirConsulta}
           />
         );
 

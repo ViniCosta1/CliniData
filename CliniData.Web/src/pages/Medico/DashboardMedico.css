@@ -1,0 +1,156 @@
+:root {
+  --primary: #0b6cff;
+  --muted: #6b7280;
+}
+
+/* Container geral da página do médico */
+.medico-page {
+  padding: 24px;
+  min-height: 100vh;
+  background: transparent; /* usa o degradê do body */
+}
+
+/* Header com "logo" CLINIDATA + botão sair */
+.medico-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* Logo CLINIDATA estilizado */
+.logo-clinidata {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logo-main {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.logo-sub {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #dbeafe;
+  letter-spacing: 0.16em;
+}
+
+.medico-subtitle {
+  margin-top: 8px;
+  color: #e5e7eb;
+}
+
+/* Botão sair mais discreto no header */
+.medico-btn-sair {
+  border-color: #bfdbfe;
+  color: #bfdbfe;
+}
+
+/* MENU HORIZONTAL */
+.medico-nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(191, 219, 254, 0.4);
+  padding-bottom: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* se muitas abas, rola horizontal */
+}
+
+/* Botão de aba (menu) */
+.medico-nav-link {
+  background: transparent;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 1rem; /* letras maiores */
+  color: #e5e7eb;
+  cursor: pointer;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.medico-nav-link:hover {
+  background: rgba(239, 246, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+}
+
+.medico-nav-link.active {
+  background: rgba(239, 246, 255, 0.98);
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+/* Área principal com cards */
+.medico-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Grid dos insights */
+.medico-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Títulos pequenos e números grandes nos cards */
+.mini-title {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.big-number {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* Entrada de busca na aba pacientes */
+.input-inline {
+  margin-bottom: 12px;
+}
+
+/* Lista simples na aba agenda */
+.lista-simples {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-simples li {
+  margin-bottom: 4px;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .medico-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .medico-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-main {
+    font-size: 1.6rem;
+  }
+}

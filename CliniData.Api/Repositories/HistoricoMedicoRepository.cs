@@ -14,14 +14,14 @@ namespace CliniData.Api.Repositories
         }
 
         public async Task<IEnumerable<HistoricoMedico>> BuscarTodosAsync() =>
-            await _contexto.HistoricosMedico.OrderBy(h => h.DataRegistro).ToListAsync();
+            await _contexto.HistoricosMedico.Include(p => p.Paciente).Include(m => m.Medico).OrderBy(h => h.DataRegistro).ToListAsync();
 
         public async Task<IEnumerable<HistoricoMedico>> BuscarPorPacienteAsync(int pacienteId) =>
-            await _contexto.HistoricosMedico.Where(h => h.PacienteId == pacienteId)
-                .OrderBy(h => h.DataRegistro).ToListAsync();
+            await _contexto.HistoricosMedico.Include(p => p.Paciente).Include(m => m.Medico).Where(h => h.PacienteId == pacienteId).ToListAsync();
+
 
         public async Task<HistoricoMedico?> BuscarPorIdAsync(int id) =>
-            await _contexto.HistoricosMedico.FirstOrDefaultAsync(h => h.Id == id);
+            await _contexto.HistoricosMedico.Include(p => p.Paciente).Include(m => m.Medico).FirstOrDefaultAsync(h => h.Id == id);
 
         public async Task<HistoricoMedico> CriarAsync(HistoricoMedico historico)
         {

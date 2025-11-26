@@ -106,8 +106,44 @@ public class HistoricoMedicoService : IHistoricoMedicoService
         PacienteId = h.PacienteId,
         MedicoId = h.MedicoId,
         DataRegistro = h.DataRegistro,
-        Descricao = h.Descricao
+        Descricao = h.Descricao,
+
+        // ============================
+        // MAPEAR PACIENTE
+        // ============================
+        Paciente = h.Paciente == null ? null : new PacienteDto
+        {
+            IdPaciente = h.Paciente.Id,
+            Nome = h.Paciente.Nome,
+            DataNascimento = h.Paciente.DataNascimento,
+            Sexo = h.Paciente.Sexo.ToString(),
+            CPF = h.Paciente.CPF.Valor,
+            Telefone = h.Paciente.Telefone,
+            Email = h.Paciente.Email.Valor,
+            Rua = h.Paciente.Endereco.Rua,
+            Numero = h.Paciente.Endereco.Numero,
+            Complemento = h.Paciente.Endereco.Complemento,
+            Bairro = h.Paciente.Endereco.Bairro,
+            Cidade = h.Paciente.Endereco.Cidade,
+            Estado = h.Paciente.Endereco.UF,
+            CEP = h.Paciente.Endereco.CEP
+        },
+
+        // ============================
+        // MAPEAR MÉDICO
+        // ============================
+        Medico = h.Medico == null ? null : new MedicoDto
+        {
+            IdMedico = h.Medico.Id,
+            Nome = h.Medico.Nome,
+            CRM = h.Medico.CRM.Valor,
+            EspecialidadeMedicaId = h.Medico.EspecialidadeMedicaId,
+            Telefone = h.Medico.Telefone,
+            Email = h.Medico.Email.Valor
+        }
     };
+
+
 
     public async Task<IEnumerable<HistoricoMedicoDto>> BuscarTodosDoPacienteAtualAsync()
     {

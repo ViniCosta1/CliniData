@@ -89,6 +89,18 @@ public class AppDbContext
             entity.Property(e => e.UF).HasMaxLength(2);
             entity.Property(e => e.CEP).HasMaxLength(10);
         });
+        modelBuilder.Entity<MedicoInstituicao>()
+        .HasKey(mi => new { mi.MedicoId, mi.InstituicaoId });
+
+        modelBuilder.Entity<MedicoInstituicao>()
+            .HasOne(mi => mi.Medico)
+            .WithMany(m => m.InstituicoesVinculos)
+            .HasForeignKey(mi => mi.MedicoId);
+
+        modelBuilder.Entity<MedicoInstituicao>()
+            .HasOne(mi => mi.Instituicao)
+            .WithMany(i => i.MedicosVinculos)
+            .HasForeignKey(mi => mi.InstituicaoId);
     }
     
 }

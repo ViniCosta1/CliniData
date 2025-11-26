@@ -42,7 +42,7 @@ namespace CliniData.Api.Controllers
                 {
                     "Medico" => Ok(await _service.BuscarTodasDoMedicoAtualAsync()),
                     "Paciente" => Ok(await _service.BuscarTodasDoPacienteAtualAsync()),
-                    "Instituicao" => Ok(await _service.BuscarTodasDoPacienteAtualAsync()),
+                    "Instituicao" => Ok(await _service.BuscarTodasDaInstituicaoAtualAsync()),
                     _ => Unauthorized("Papel desconhecido.")
                 };
             }

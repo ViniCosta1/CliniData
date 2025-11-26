@@ -334,3 +334,4 @@ project.nuget.cache
 
 /.vs/CliniData/v17/DocumentLayout.backup.json
 /.vs/CliniData/v17/DocumentLayout.json
+/tsconfig.json

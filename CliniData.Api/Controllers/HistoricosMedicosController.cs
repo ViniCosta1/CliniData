@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-[Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Medico")]// 🔒 Agora só o paciente acessa esse controller inteiro
-
+[Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "MedicoOuPaciente")]// 🔒 Agora só o paciente acessa esse controller inteiro
 public class HistoricosMedicosController : ControllerBase
 {
     private readonly IHistoricoMedicoService _service;
@@ -20,6 +19,7 @@ public class HistoricosMedicosController : ControllerBase
     // PACIENTE: todos dele mesmo
     // ================================
     [HttpGet("paciente")]
+    [Authorize(Roles = "Paciente")]
     public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarDoPacienteAtual()
     {
         return Ok(await _service.BuscarTodosDoPacienteAtualAsync());
@@ -34,11 +34,12 @@ public class HistoricosMedicosController : ControllerBase
     {
         return Ok(await _service.BuscarTodosDoMedicoAtualAsync());
     }
-
+        
     // ================================
     // Buscar por paciente específico (médico pode usar)
     // ================================
     [HttpGet("paciente/{pacienteId}")]
+    [Authorize(Roles = "Medico")]
     public async Task<ActionResult<IEnumerable<HistoricoMedicoDto>>> BuscarPorPaciente(int pacienteId)
     {
         return Ok(await _service.BuscarPorPacienteAsync(pacienteId));
@@ -48,6 +49,7 @@ public class HistoricosMedicosController : ControllerBase
     // Buscar por ID
     // ================================
     [HttpGet("{id}")]
+    [Authorize(Roles = "Medico,Paciente")]
     public async Task<ActionResult<HistoricoMedicoDto>> BuscarPorId(int id)
     {
         return Ok(await _service.BuscarPorIdAsync(id));

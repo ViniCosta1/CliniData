@@ -5,10 +5,12 @@ namespace CliniData.Api.DTOs
     public class HistoricoMedicoDto
     {
         public int IdHistorico { get; set; }
-        public int MedicoId { get; set; }
         public int PacienteId { get; set; }
+        public int MedicoId { get; set; }
         public DateTime DataRegistro { get; set; }
         public string Descricao { get; set; }
+        public PacienteDto? Paciente { get; set; }
+        public MedicoDto? Medico { get; set; }
     }
 
     public class CriarHistoricoMedicoDto

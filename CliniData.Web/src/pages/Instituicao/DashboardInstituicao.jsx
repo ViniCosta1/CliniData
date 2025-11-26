@@ -39,10 +39,37 @@ export default function DashboardInstituicao() {
   const [medicosDisponiveis, setMedicosDisponiveis] = useState([]);
   const [selectedMedicoId, setSelectedMedicoId] = useState("");
 
+  // Novo: id do médico que está sendo removido (ou null)
+  const [removingId, setRemovingId] = useState(null);
+
+  // Estado/modal para confirmação de exclusão
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [confirmMedico, setConfirmMedico] = useState(null);
+
   // Novo estado/ref para modal de sucesso
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const timerRef = useRef(null);
+
+  // helper: normaliza um objeto médico garantindo propriedade `id` (number) e campos úteis
+  function normalizeMedicoObject(m) {
+    if (!m || typeof m !== "object") return null;
+    const rawId = m.id ?? m.idMedico ?? m.medicoId ?? (m.medico && m.medico.id);
+    const id = rawId == null ? null : Number(rawId);
+    const nome = m.nome ?? m.nomeCompleto ?? (m.medico && m.medico.nome) ?? "";
+    const esp = m.esp ?? m.especialidade ?? m.especialidadeDescricao ?? "";
+    const crm = m.crm ?? m.CRM ?? "";
+    const ativo = m.ativo ?? m.isActive ?? true;
+    return { ...m, id, nome, esp, crm, ativo };
+  }
+
+  // normaliza arrays de médicos antes de armazenar no state
+  function normalizeMedicosArray(arr) {
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .map(normalizeMedicoObject)
+      .filter(Boolean);
+  }
 
   useEffect(() => {
     let mounted = true;
@@ -50,7 +77,7 @@ export default function DashboardInstituicao() {
       .getMedicosPorInstituicao()
       .then((data) => {
         if (!mounted) return;
-        setMedicos(Array.isArray(data) ? data : []);
+        setMedicos(normalizeMedicosArray(data));
       })
       .catch((err) => {
         console.error("Erro ao carregar médicos da instituição:", err);
@@ -62,7 +89,7 @@ export default function DashboardInstituicao() {
         clearTimeout(timerRef.current);
       }
     };
-  }, []);
+  }, []); // executar apenas uma vez
 
   async function openCadastroModal() {
     try {
@@ -93,15 +120,9 @@ export default function DashboardInstituicao() {
     setSelectedMedicoId("");
   }
 
-  // Substituir a função submitAdicionarMedico por esta versão otimista + tratamento de erro
+  // Substituir a função submitAdicionarMedico por versão que atualiza a tabela após cadastro
   async function submitAdicionarMedico(e) {
     e.preventDefault();
-
-    // limpa timer anterior se existir
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
 
     const medicoIdNum = Number(selectedMedicoId);
     if (!selectedMedicoId || Number.isNaN(medicoIdNum)) {
@@ -109,40 +130,23 @@ export default function DashboardInstituicao() {
       return;
     }
 
-    // Otimista: fecha modal de seleção e mostra modal de status imediatamente
-    setModalOpen(false);
-    setSuccessMessage("Cadastrando médico...");
-    setSuccessModalOpen(true);
-
     try {
       const payload = { medicoId: medicoIdNum, idMedico: medicoIdNum };
       console.log("Enviando payload adicionarMedicoInstituicao:", payload);
 
       await instituicaoService.adicionarMedicoInstituicao(payload);
 
-      // atualizar lista de médicos
+      // atualizar lista de médicos e fechar modal só após sucesso
       try {
         const dados = await instituicaoService.getMedicosPorInstituicao();
-        setMedicos(Array.isArray(dados) ? dados : []);
+        setMedicos(normalizeMedicosArray(dados));
       } catch (fetchErr) {
-        console.error("Erro ao atualizar lista de médicos:", fetchErr);
+        console.error("Erro ao buscar médicos após adicionar:", fetchErr);
       }
 
-      // mostrar sucesso por 1s
-      setSuccessMessage("Médico cadastrado com sucesso");
-      timerRef.current = setTimeout(() => {
-        setSuccessModalOpen(false);
-        timerRef.current = null;
-      }, 1000);
+      closeModal();
     } catch (err) {
       console.error("Erro ao adicionar médico à instituição:", err);
-      // mostrar erro e reabrir modal de seleção para tentar novamente
-      setSuccessMessage("Erro ao cadastrar. Tentando novamente...");
-      timerRef.current = setTimeout(() => {
-        setSuccessModalOpen(false);
-        setModalOpen(true);
-        timerRef.current = null;
-      }, 2000);
     } finally {
       // limpa seleção local (opcional)
       setMedicosDisponiveis([]);
@@ -244,6 +248,45 @@ export default function DashboardInstituicao() {
     );
   }
 
+  function openConfirmRemover(medico) {
+    setConfirmMedico(medico);
+    setConfirmModalOpen(true);
+  }
+
+  // Função que executa a remoção após confirmação
+  async function handleRemoverMedico(medicoId) {
+    // garante id numérico válido (caso venha undefined/nulo)
+    const idNum = Number(medicoId);
+    try {
+      setRemovingId(idNum);
+      await instituicaoService.removerMedicoInstituicao({ medicoId: idNum });
+      const dados = await instituicaoService.getMedicosPorInstituicao();
+      setMedicos(normalizeMedicosArray(dados));
+    } catch (err) {
+      console.error("Erro ao remover médico:", err);
+    } finally {
+      setRemovingId(null);
+    }
+  }
+
+  async function confirmRemover() {
+    if (!confirmMedico) return;
+    // usa campo id normalizado se disponível, senão tenta outras chaves
+    const confirmedId =
+      confirmMedico.id ??
+      confirmMedico.idMedico ??
+      confirmMedico.medicoId ??
+      (confirmMedico.medico && confirmMedico.medico.id);
+    setConfirmModalOpen(false);
+    await handleRemoverMedico(confirmedId);
+    setConfirmMedico(null);
+  }
+
+  function cancelRemover() {
+    setConfirmMedico(null);
+    setConfirmModalOpen(false);
+  }
+
   function renderMedicos() {
     return (
       <section className="inst-section-card">
@@ -254,31 +297,51 @@ export default function DashboardInstituicao() {
 
         <table className="inst-table">
           <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Especialidade</th>
-              <th>CRM</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
+            <tr><th>Nome</th><th>CRM</th><th></th></tr>
           </thead>
           <tbody>
-            {medicos.map((m) => (
-              <tr key={m.id}>
+            {medicos.map((m, idx) => (
+              <tr key={m.id ?? m.idMedico ?? m.medicoId ?? `med-${idx}`}>
                 <td>{m.nome}</td>
-                <td>{m.esp}</td>
                 <td>{m.crm}</td>
                 <td>
-                  <span
-                    className={
-                      m.ativo ? "status-pill status-ativo" : "status-pill status-inativo"
-                    }
+                  {/* botão de exclusão (mantido) */}
+                  <button
+                    onClick={() => openConfirmRemover(normalizeMedicoObject(m))}
+                    disabled={removingId === (m.id ?? m.idMedico ?? m.medicoId)}
+                    aria-label="Excluir médico"
+                    title="Excluir"
+                    style={{
+                      marginLeft: 8,
+                      backgroundColor: '#ef4444',
+                      color: '#fff',
+                      padding: 6,
+                      borderRadius: 6,
+                      border: 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 34,
+                      height: 34,
+                      cursor: 'pointer',
+                      fontSize: 14,
+                    }}
                   >
-                    {m.ativo ? "Ativo" : "Inativo"}
-                  </span>
-                </td>
-                <td>
-                  <button className="btn-secundario btn-sm">Detalhes</button>
+                    {removingId === (m.id ?? m.idMedico ?? m.medicoId) ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 50 50" fill="none">
+                        <circle cx="25" cy="25" r="20" stroke="#fff" strokeWidth="4" strokeOpacity="0.2" />
+                        <path d="M45 25a20 20 0 0 1-20 20" stroke="#fff" strokeWidth="4" strokeLinecap="round" />
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                        <path d="M10 11v6" />
+                        <path d="M14 11v6" />
+                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                      </svg>
+                    )}
+                  </button>
                 </td>
               </tr>
             ))}
@@ -298,17 +361,11 @@ export default function DashboardInstituicao() {
 
         <table className="inst-table">
           <thead>
-            <tr>
-              <th>Data</th>
-              <th>Hora</th>
-              <th>Paciente</th>
-              <th>Médico</th>
-              <th>Status</th>
-            </tr>
+            <tr><th>Data</th><th>Hora</th><th>Paciente</th><th>Médico</th><th>Status</th></tr>
           </thead>
           <tbody>
-            {consultasMock.map((c) => (
-              <tr key={c.id}>
+            {consultasMock.map((c, idx) => (
+              <tr key={c.id ?? `cons-${idx}`}>
                 <td>{c.data}</td>
                 <td>{c.hora}</td>
                 <td>{c.paciente}</td>
@@ -337,23 +394,16 @@ export default function DashboardInstituicao() {
 
         <table className="inst-table">
           <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Data de nascimento</th>
-              <th>Documento</th>
-              <th></th>
-            </tr>
+            <tr><th>Nome</th><th>Data de nascimento</th><th>Documento</th><th></th></tr>
           </thead>
           <tbody>
-            {pacientesMock.map((p) => (
-              <tr key={p.id}>
+            {pacientesMock.map((p, idx) => (
+              <tr key={p.id ?? `pac-${idx}`}>
                 <td>{p.nome}</td>
                 <td>{p.nasc}</td>
                 <td>{p.doc}</td>
                 <td>
-                  <button className="btn-secundario btn-sm">
-                    Ver histórico completo
-                  </button>
+                  <button className="btn-secundario btn-sm">Ver histórico completo</button>
                 </td>
               </tr>
             ))}
@@ -377,20 +427,16 @@ export default function DashboardInstituicao() {
 
         <table className="inst-table">
           <thead>
-            <tr>
-              <th>Material / Medicamento</th>
-              <th>Qtd. usada (mês)</th>
-              <th>Custo total (R$)</th>
-            </tr>
+            <tr><th>Material / Medicamento</th><th>Qtd. usada (mês)</th><th>Custo total (R$)</th></tr>
           </thead>
           <tbody>
-            {materiaisMock.map((m) => (
-              <tr key={m.id}>
-                <td>{m.nome}</td>
-                <td>{m.qtdUsadaMes}</td>
+            {materiaisMock.map((mat, idx) => (
+              <tr key={mat.id ?? `mat-${idx}`}>
+                <td>{mat.nome}</td>
+                <td>{mat.qtdUsadaMes}</td>
                 <td>
                   R{" "}
-                  {m.custoTotal.toLocaleString("pt-BR", {
+                  {mat.custoTotal.toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,
                   })}
                 </td>
@@ -500,9 +546,9 @@ export default function DashboardInstituicao() {
                   <option value="" disabled>
                     Selecione...
                   </option>
-                  {medicosDisponiveis.map((m) => (
-                    <option key={m.id} value={String(m.id)}>
-                      {m.nome} {m.esp ? `- ${m.esp}` : ""} {m.crm ? `(${m.crm})` : ""}
+                  {medicosDisponiveis.map((opt, idx) => (
+                    <option key={opt.id ?? `opt-${idx}`} value={String(opt.id)}>
+                      {opt.nome} {opt.esp ? `- ${opt.esp}` : ""} {opt.crm ? `(${opt.crm})` : ""}
                     </option>
                   ))}
                 </select>
@@ -512,6 +558,20 @@ export default function DashboardInstituicao() {
                 <button type="button" className="btn-secundario" onClick={closeModal}>Cancelar</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de confirmação de exclusão */}
+      {confirmModalOpen && confirmMedico && (
+        <div className="modal-overlay" style={{ zIndex: 9999 }}>
+          <div className="modal-card">
+            <h3>Confirmar exclusão</h3>
+            <p>Deseja remover <strong>{confirmMedico.nome}</strong> da instituição?</p>
+            <div className="modal-actions">
+              <button className="btn-danger" onClick={confirmRemover}>Sim</button>
+              <button className="btn-secundario" onClick={cancelRemover}>Não</button>
+            </div>
           </div>
         </div>
       )}

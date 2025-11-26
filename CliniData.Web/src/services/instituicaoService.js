@@ -9,11 +9,22 @@ function getAuthHeaders(additional = {}) {
 
 async function handleResponse(res) {
 	if (!res.ok) {
+		// tenta ler texto/JSON para obter mensagem de erro
 		const text = await res.text().catch(() => '');
-		let err = text || res.statusText || 'Erro na requisição';
-		throw new Error(err);
+		let errMsg = text || res.statusText || 'Erro na requisição';
+		throw new Error(errMsg);
 	}
-	return res.status === 204 ? null : res.json();
+	// Se não houver conteúdo
+	if (res.status === 204) return null;
+	// tenta parsear JSON; se falhar, retorna texto cru
+	const text = await res.text().catch(() => '');
+	if (!text) return null;
+	try {
+		return JSON.parse(text);
+	} catch {
+		// resposta não-JSON (p.ex. "Vínculo criado...") — retorna o texto cru
+		return text;
+	}
 }
 
 export async function adicionarMedicoInstituicao(payload) {

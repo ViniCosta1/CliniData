@@ -3,7 +3,7 @@ import api from "./api";
 // LOGIN
 export async function login(email, password) {
   try {
-    const res = await api.post("/login", { email, password });
+    const res = await api.post("api/Auth/login-mobile", { email, password });
     return res.data;
   } catch (err) {
     console.error("Erro no login:", err);

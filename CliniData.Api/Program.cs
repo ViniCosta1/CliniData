@@ -99,11 +99,16 @@ builder.Services.AddAuthorization(options =>
 // ==============================
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", p => p
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // agora pode credentials
+    });
 });
+
 
 // ==============================
 // 🔹 DEPENDÊNCIAS
@@ -145,8 +150,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
-
+app.UseCors("Frontend");
 app.UseAuthentication();
 app.UseAuthorization();
 

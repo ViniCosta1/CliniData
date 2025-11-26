@@ -17,7 +17,7 @@ export default function Login() {
       return;
     }
 
-    saveAuth(res.token, res.role);
+    saveAuth(res.accessToken, res.role);
 
     if (res.role === "Medico") window.location.href = "/medico";
     if (res.role === "Instituicao") window.location.href = "/instituicao";

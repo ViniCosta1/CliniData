@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   LineChart,
@@ -9,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import instituicaoService from "../../services/instituicaoService";
 import "./DashboardInstituicao.css";
 
 export default function DashboardInstituicao() {
@@ -33,11 +34,121 @@ export default function DashboardInstituicao() {
     { dia: "Dom", consultas: 32 },
   ];
 
-  const medicosMock = [
-    { id: 1, nome: "Dr. João Silva", esp: "Clínico Geral", crm: "12345-SP", ativo: true },
-    { id: 2, nome: "Dra. Maria Oliveira", esp: "Pediatria", crm: "67890-SP", ativo: true },
-    { id: 3, nome: "Dr. Carlos Souza", esp: "Cardiologia", crm: "54321-SP", ativo: false },
-  ];
+  const [medicos, setMedicos] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [medicosDisponiveis, setMedicosDisponiveis] = useState([]);
+  const [selectedMedicoId, setSelectedMedicoId] = useState("");
+
+  // Novo estado/ref para modal de sucesso
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    let mounted = true;
+    instituicaoService
+      .getMedicosPorInstituicao()
+      .then((data) => {
+        if (!mounted) return;
+        setMedicos(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("Erro ao carregar médicos da instituição:", err);
+      });
+    return () => {
+      mounted = false;
+      // cleanup do timer de sucesso, se existir
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  async function openCadastroModal() {
+    try {
+      const lista = await instituicaoService.getMedicos();
+      console.log("getMedicos() retornou:", lista);
+      const arrRaw = Array.isArray(lista) ? lista : [];
+      // normaliza incluindo idMedico (formato da sua API)
+      const arr = arrRaw
+        .map((m) => {
+          const id = m.id ?? m.idMedico ?? m.medicoId ?? (m.medico && m.medico.id);
+          const nome = m.nome ?? m.nomeCompleto ?? (m.medico && m.medico.nome) ?? "";
+          const esp = m.esp ?? m.especialidade ?? m.especialidadeDescricao ?? "";
+          const crm = m.crm ?? m.CRM ?? "";
+          return id ? { id, nome, esp, crm } : null;
+        })
+        .filter(Boolean);
+      setMedicosDisponiveis(arr);
+      setSelectedMedicoId(arr.length ? String(arr[0].id) : "");
+      setModalOpen(true);
+    } catch (err) {
+      console.error("Erro ao buscar médicos disponíveis:", err);
+    }
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+    setMedicosDisponiveis([]);
+    setSelectedMedicoId("");
+  }
+
+  // Substituir a função submitAdicionarMedico por esta versão otimista + tratamento de erro
+  async function submitAdicionarMedico(e) {
+    e.preventDefault();
+
+    // limpa timer anterior se existir
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    const medicoIdNum = Number(selectedMedicoId);
+    if (!selectedMedicoId || Number.isNaN(medicoIdNum)) {
+      console.error("medicoId inválido:", selectedMedicoId);
+      return;
+    }
+
+    // Otimista: fecha modal de seleção e mostra modal de status imediatamente
+    setModalOpen(false);
+    setSuccessMessage("Cadastrando médico...");
+    setSuccessModalOpen(true);
+
+    try {
+      const payload = { medicoId: medicoIdNum, idMedico: medicoIdNum };
+      console.log("Enviando payload adicionarMedicoInstituicao:", payload);
+
+      await instituicaoService.adicionarMedicoInstituicao(payload);
+
+      // atualizar lista de médicos
+      try {
+        const dados = await instituicaoService.getMedicosPorInstituicao();
+        setMedicos(Array.isArray(dados) ? dados : []);
+      } catch (fetchErr) {
+        console.error("Erro ao atualizar lista de médicos:", fetchErr);
+      }
+
+      // mostrar sucesso por 1s
+      setSuccessMessage("Médico cadastrado com sucesso");
+      timerRef.current = setTimeout(() => {
+        setSuccessModalOpen(false);
+        timerRef.current = null;
+      }, 1000);
+    } catch (err) {
+      console.error("Erro ao adicionar médico à instituição:", err);
+      // mostrar erro e reabrir modal de seleção para tentar novamente
+      setSuccessMessage("Erro ao cadastrar. Tentando novamente...");
+      timerRef.current = setTimeout(() => {
+        setSuccessModalOpen(false);
+        setModalOpen(true);
+        timerRef.current = null;
+      }, 2000);
+    } finally {
+      // limpa seleção local (opcional)
+      setMedicosDisponiveis([]);
+      setSelectedMedicoId("");
+    }
+  }
 
   const consultasMock = [
     { id: 10, paciente: "Ana Paula", medico: "Dr. João Silva", data: "24/11/2025", hora: "08:30", status: "Agendada" },
@@ -138,7 +249,7 @@ export default function DashboardInstituicao() {
       <section className="inst-section-card">
         <div className="inst-section-header">
           <h2>Médicos da Instituição</h2>
-          <button className="btn-primario">Cadastrar novo médico</button>
+          <button className="btn-primario" onClick={openCadastroModal}>Cadastrar novo médico</button>
         </div>
 
         <table className="inst-table">
@@ -152,7 +263,7 @@ export default function DashboardInstituicao() {
             </tr>
           </thead>
           <tbody>
-            {medicosMock.map((m) => (
+            {medicos.map((m) => (
               <tr key={m.id}>
                 <td>{m.nome}</td>
                 <td>{m.esp}</td>
@@ -372,6 +483,49 @@ export default function DashboardInstituicao() {
 
       {/* CONTEÚDO DA ABA ATIVA */}
       <main className="inst-main">{renderConteudo()}</main>
+
+      {/* Modal de cadastro de médico */}
+      {modalOpen && (
+        <div className="modal-overlay" style={{ zIndex: 1000 }}>
+          <div className="modal-card">
+            <h3>Adicionar médico à instituição</h3>
+            <form onSubmit={submitAdicionarMedico}>
+              <label>
+                Médico
+                <select
+                  value={selectedMedicoId}
+                  onChange={(e) => setSelectedMedicoId(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>
+                    Selecione...
+                  </option>
+                  {medicosDisponiveis.map((m) => (
+                    <option key={m.id} value={String(m.id)}>
+                      {m.nome} {m.esp ? `- ${m.esp}` : ""} {m.crm ? `(${m.crm})` : ""}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <div className="modal-actions">
+                <button type="submit" className="btn-primario">Cadastrar</button>
+                <button type="button" className="btn-secundario" onClick={closeModal}>Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de sucesso exibido por 1s após cadastro.
+          inline zIndex alto para evitar ser oculto por estilos existentes */}
+      {successModalOpen && (
+        <div className="modal-overlay" style={{ zIndex: 9999 }}>
+          <div className="modal-card">
+            <h3>{successMessage}</h3>
+            <p>Atualizando lista...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

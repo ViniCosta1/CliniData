@@ -66,6 +66,12 @@ public class ConsultaRepository : IConsultaRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Consulta>> BuscarPorInstituicaoIdAsync(int instituicaoId)
+    {
+        return await _contexto.Consulta.Include(p => p.Paciente).ThenInclude(e => e.Endereco).Include(m => m.Medico).Include(i => i.Instituicao)
+            .Where(c => c.InstituicaoId== instituicaoId)
+            .OrderBy(c => c.DataHora)
+            .ToListAsync();
+    }
 
-
-}
+} 

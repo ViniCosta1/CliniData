@@ -10,6 +10,8 @@ namespace CliniData.Api.Services
         Task<ConsultaDto> AtualizarAsync(int id, EditarConsultaDto atualizarDto);
         Task RemoverAsync(int id);
         Task<IEnumerable<ConsultaDto>> BuscarTodasDoPacienteAtualAsync();
+        Task<IEnumerable<ConsultaDto>> BuscarTodasDaInstituicaoAtualAsync();
+
 
     }
 }

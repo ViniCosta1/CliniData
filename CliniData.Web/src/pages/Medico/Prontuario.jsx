@@ -1,6 +1,7 @@
 // src/pages/Medico/Prontuario.jsx
 import { useEffect, useState } from "react";
 import { getExamesPorPaciente, getExameArquivo } from "../../services/medicoExameService";
+import consultaService from "../../services/consultaService";
 
 // Componente enxuto: recebe pacienteId e onClose. Renderiza só os cards de exames.
 export default function Prontuario({ pacienteId, onClose }) {
@@ -8,6 +9,9 @@ export default function Prontuario({ pacienteId, onClose }) {
   const [loading, setLoading] = useState(false);
   const [loadingIds, setLoadingIds] = useState([]); // ids de exames sendo abertos
   const [erro, setErro] = useState(null);
+  const [consultas, setConsultas] = useState([]);
+  const [consultasLoading, setConsultasLoading] = useState(false);
+  const [consultasErro, setConsultasErro] = useState(null);
 
   useEffect(() => {
     let mounted = true;
@@ -28,6 +32,32 @@ export default function Prontuario({ pacienteId, onClose }) {
       }
     }
     carregar();
+    // busca consultas (todas) e filtra por pacienteId
+    (async function carregarConsultas() {
+      let mountedC = true;
+      try {
+        setConsultasLoading(true);
+        setConsultasErro(null);
+        const all = await consultaService.getConsultas();
+        if (!mountedC) return;
+        const arr = Array.isArray(all) ? all : [];
+        // filtra considerando várias possíveis chaves (pacienteId ou paciente.idPaciente)
+        const filtradas = arr.filter((c) => {
+          const pid = pacienteId ?? String(pacienteId);
+          const pac = c?.paciente ?? {};
+          const cid1 = String(c.pacienteId ?? c.paciente?.id ?? c.paciente?.idPaciente ?? "");
+          // compara como string para evitar problemas de tipos
+          return pid != null && (String(pid) === cid1 || String(pid) === String(c.pacienteId));
+        });
+        setConsultas(filtradas);
+      } catch (err) {
+        console.error("Erro ao carregar consultas:", err);
+        if (mountedC) setConsultasErro("Não foi possível carregar consultas.");
+      } finally {
+        if (mountedC) setConsultasLoading(false);
+      }
+      return () => (mountedC = false);
+    })();
     return () => (mounted = false);
   }, [pacienteId]);
 
@@ -112,6 +142,45 @@ export default function Prontuario({ pacienteId, onClose }) {
           ))}
         </ul>
       )}
+
+      {/* Consultas relacionadas ao paciente */}
+      <div style={{ marginTop: 20 }}>
+        <h4 style={{ marginBottom: 8 }}>Consultas relacionadas</h4>
+        {consultasLoading ? (
+          <div>Carregando consultas...</div>
+        ) : consultasErro ? (
+          <div className="texto-muted erro">{consultasErro}</div>
+        ) : consultas.length === 0 ? (
+          <div className="texto-muted">Nenhuma consulta encontrada para este paciente.</div>
+        ) : (
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {consultas.map((c) => {
+              const id = c.idConsulta ?? c.id;
+              const dataHora = c.dataHora ? new Date(c.dataHora).toLocaleString() : "";
+              const medicoNome = c.medico?.nome ?? (c.medicoNome ?? "");
+              const instituicaoNome = c.instituicao?.nome ?? (c.instituicaoNome ?? "");
+              return (
+                <li key={id} style={{ marginBottom: 10 }}>
+                  <div style={{ background: "#fff", borderRadius: 8, padding: 10, boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div>
+                        <strong>{dataHora}</strong>
+                        <div style={{ fontSize: 13, color: "#444" }}>
+                          {medicoNome && <span>{medicoNome}{instituicaoNome ? ` • ${instituicaoNome}` : ""}</span>}
+                        </div>
+                        <div style={{ marginTop: 6, fontSize: 13 }}>{c.observacao ?? ""}</div>
+                      </div>
+                      <div style={{ marginLeft: 12, textAlign: "right" }}>
+                        <small className="texto-muted">ID: {id}</small>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

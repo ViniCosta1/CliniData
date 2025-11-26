@@ -19,7 +19,7 @@ export default function Login() {
 
     saveAuth(res.accessToken, res.role);
 
-    if (res.role === "Medico") window.location.href = "/medico";
+    if (res.role === "Medico") window.location.href = "/medico/dashboard";
     if (res.role === "Instituicao") window.location.href = "/instituicao";
   }
 

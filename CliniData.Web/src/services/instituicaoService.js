@@ -83,11 +83,23 @@ export async function getMedicos() {
 	return handleResponse(res);
 }
 
+// Novo: obter lista de instituições
+export async function getInstituicoes() {
+	const url = `${BASE_URL}/api/Instituicoes`;
+	const res = await fetch(url, {
+		method: 'GET',
+		headers: getAuthHeaders({ 'Accept': 'application/json' }),
+		credentials: 'include'
+	});
+	return handleResponse(res);
+}
+
 // Export padrão compatível com outros serviços
 export default {
 	adicionarMedicoInstituicao,
 	removerMedicoInstituicao,
 	getMedicoPorId,
 	getMedicosPorInstituicao,
-	getMedicos
+	getMedicos,
+	getInstituicoes
 };

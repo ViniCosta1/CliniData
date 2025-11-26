@@ -52,7 +52,7 @@ public class ConsultaRepository : IConsultaRepository
 
     public async Task<IEnumerable<Consulta>> BuscarPorMedicoIdAsync(int medicoId)
     {
-        return await _contexto.Consulta.Include(p => p.Paciente).Include(m => m.Medico).Include(i => i.Instituicao)
+        return await _contexto.Consulta.Include(p => p.Paciente).ThenInclude(e => e.Endereco).Include(m => m.Medico).Include(i => i.Instituicao)
             .Where(c => c.MedicoId == medicoId)
             .OrderBy(c => c.DataHora)
             .ToListAsync();
@@ -60,7 +60,7 @@ public class ConsultaRepository : IConsultaRepository
 
     public async Task<IEnumerable<Consulta>> BuscarPorPacienteIdAsync(int pacienteId)
     {
-        return await _contexto.Consulta.Include(p => p.Paciente).Include(m => m.Medico).Include(i => i.Instituicao)
+        return await _contexto.Consulta.Include(p => p.Paciente).ThenInclude(e=>e.Endereco).Include(m => m.Medico).Include(i => i.Instituicao)
             .Where(c => c.PacienteId == pacienteId)
             .OrderBy(c => c.DataHora)
             .ToListAsync();

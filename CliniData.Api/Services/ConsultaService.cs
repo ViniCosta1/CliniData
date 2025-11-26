@@ -11,19 +11,22 @@ public class ConsultaService : IConsultaService
     private readonly IPacienteRepository _pacienteRepository;
     private readonly ILogger<ConsultaService> _logger;
     private readonly IUsuarioAtualService _usuarioAtual;
+    private readonly IInstituicaoRepository _instituicaoRepository;
 
     public ConsultaService(
         IConsultaRepository repositorio,
         IMedicoRepository medicoRepository,
         IPacienteRepository pacienteRepository,
         ILogger<ConsultaService> logger,
-        IUsuarioAtualService usuarioAtual)
+        IUsuarioAtualService usuarioAtual,
+        IInstituicaoRepository instituicaoRepository)
     {
         _repositorio = repositorio;
         _medicoRepository = medicoRepository;
         _pacienteRepository = pacienteRepository;
         _logger = logger;
         _usuarioAtual = usuarioAtual;
+        _instituicaoRepository = instituicaoRepository;
     }
 
     // ===============================================================
@@ -72,11 +75,11 @@ public class ConsultaService : IConsultaService
     // ===============================================================
     // CRIAR CONSULTA
     // ===============================================================
+    // ===============================================================
+    // CRIAR CONSULTA
+    // ===============================================================
     public async Task<ConsultaDto> CriarAsync(CriarConsultaDto dto)
-
     {
-
-        
         var userIdString = _usuarioAtual.ObterUsuarioId();
 
         if (!int.TryParse(userIdString, out int userId))
@@ -85,17 +88,35 @@ public class ConsultaService : IConsultaService
         var medico = await _medicoRepository.FindByUserIdAsync(userId)
                      ?? throw new Exception("Nenhum médico associado ao usuário atual.");
 
+        // -----------------------------------------------------------
+        // Instituição opcional → declarar antes do IF
+        // -----------------------------------------------------------
+        Instituicao? instituicao = null;
+
+        if (dto.InstituicaoId.HasValue)
+        {
+            instituicao = await _instituicaoRepository.BuscarPorIdAsync(dto.InstituicaoId.Value)
+                          ?? throw new Exception($"Instituição com ID {dto.InstituicaoId} não encontrada.");
+        }
+
+        var paciente = await _pacienteRepository.BuscarPorIdAsync(dto.PacienteId)
+                       ?? throw new Exception($"Paciente com ID {dto.PacienteId} não encontrado.");
+
+        // -----------------------------------------------------------
+        // Passar instituicao?.Id (int?) e não instituicao.Id
+        // -----------------------------------------------------------
         var consulta = Consulta.Criar(
             dto.DataHora,
-            dto.PacienteId,
+            paciente.Id,
             medico.Id,
-            dto.InstituicaoId,
+            instituicao?.Id,
             dto.Observacao
         );
 
         var criada = await _repositorio.CriarAsync(consulta);
         return ConverterParaDto(criada);
     }
+
 
     // ===============================================================
     // ATUALIZAR

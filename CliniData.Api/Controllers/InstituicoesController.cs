@@ -7,7 +7,7 @@ namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Instituicao")]// 🔒 Agora só o paciente acessa esse controller inteiro
+    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer")]// 🔒 Agora só o paciente acessa esse controller inteiro
 
     public class InstituicoesController : ControllerBase
     {

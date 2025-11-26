@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DashboardMedico.css";
 import ConsultasMedico from "./ConsultasMedico";
+import pacienteService from "../../services/pacienteService";
 
 export default function DashboardMedico() {
   const [abaAtiva, setAbaAtiva] = useState("consultas");
+  const [pacientes, setPacientes] = useState([]);
+  const [pacientesLoading, setPacientesLoading] = useState(false);
+  const [pacientesError, setPacientesError] = useState(null);
   const navigate = useNavigate();
 
   // MOCK de dados por enquanto.
@@ -35,11 +39,50 @@ export default function DashboardMedico() {
     },
   ];
 
-  const pacientesMock = [
-    { id: 1, nome: "João Silva", idade: 34, sexo: "M", cpf: "123.456.789-00" },
-    { id: 2, nome: "Maria Oliveira", idade: 28, sexo: "F", cpf: "987.654.321-00" },
-    { id: 3, nome: "Carlos Souza", idade: 45, sexo: "M", cpf: "555.444.333-22" },
-  ];
+  // helper: calcula idade a partir de uma data de nascimento (string ISO ou similar)
+  function calculateAge(dataNascimento) {
+    if (!dataNascimento) return undefined;
+    const d = new Date(dataNascimento);
+    if (Number.isNaN(d.getTime())) return undefined;
+    const today = new Date();
+    let age = today.getFullYear() - d.getFullYear();
+    const m = today.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < d.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  useEffect(() => {
+    let mounted = true;
+    setPacientesLoading(true);
+    pacienteService
+      .getPacientes()
+      .then((data) => {
+        if (!mounted) return;
+        // adiciona propriedade idade calculada a cada paciente quando possível
+        const list = Array.isArray(data)
+          ? data.map((p) => {
+              const idade =
+                calculateAge(p.dataNascimento ?? p.dataNascimentoISO ?? p.nascimento);
+              return { ...p, idade };
+            })
+          : [];
+        setPacientes(list);
+        setPacientesError(null);
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        console.error("Erro ao carregar pacientes:", err);
+        setPacientes([]);
+        setPacientesError(String(err?.message || err));
+      })
+      .finally(() => {
+        if (!mounted) return;
+        setPacientesLoading(false);
+      });
+    return () => { mounted = false; };
+  }, []);
 
   function abrirConsulta(consultaId) {
     // Só aqui entra na tela de realizar consulta
@@ -54,6 +97,7 @@ export default function DashboardMedico() {
           <ConsultasMedico
             consultas={consultasDoDia}
             onAtender={abrirConsulta}
+            pacientes={pacientes}
           />
         );
 
@@ -78,22 +122,30 @@ export default function DashboardMedico() {
                   </tr>
                 </thead>
                 <tbody>
-                  {pacientesMock.map((p) => (
-                    <tr key={p.id}>
-                      <td>{p.nome}</td>
-                      <td>{p.idade}</td>
-                      <td>{p.sexo}</td>
-                      <td>{p.cpf}</td>
-                      <td>
-                        <button
-                          className="btn btn-outline"
-                          onClick={() => navigate(`/medico/prontuario/${p.id}/0`)}
-                        >
-                          Ver prontuário
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {pacientesLoading ? (
+                    <tr><td colSpan={5}>Carregando pacientes...</td></tr>
+                  ) : pacientesError ? (
+                    <tr><td colSpan={5}>Erro: {pacientesError}</td></tr>
+                  ) : pacientes.length === 0 ? (
+                    <tr><td colSpan={5}>Nenhum paciente encontrado.</td></tr>
+                  ) : (
+                    pacientes.map((p) => (
+                      <tr key={p.id ?? p.pacienteId ?? JSON.stringify(p)}>
+                        <td>{p.nome ?? p.nomeCompleto ?? p.pacienteNome}</td>
+                        <td>{p.idade ?? ""}</td>
+                        <td>{p.sexo ?? ""}</td>
+                        <td>{p.cpf ?? ""}</td>
+                        <td>
+                          <button
+                            className="btn btn-outline"
+                            onClick={() => navigate(`/medico/prontuario/${p.id ?? p.pacienteId}/0`)}
+                          >
+                            Ver prontuário
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

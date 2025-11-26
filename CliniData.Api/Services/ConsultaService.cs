@@ -63,6 +63,20 @@ public class ConsultaService : IConsultaService
         return consultas.Select(ConverterParaDto);
     }
 
+    public async Task<IEnumerable<ConsultaDto>> BuscarTodasDaInstituicaoAtualAsync()
+    {
+        var userIdString = _usuarioAtual.ObterUsuarioId();
+        if (!int.TryParse(userIdString, out int userId))
+            return Enumerable.Empty<ConsultaDto>();
+
+        var instituicao = await _instituicaoRepository.BuscarPorIdAsync(userId);
+        if (instituicao  == null)
+            return Enumerable.Empty<ConsultaDto>();
+
+        var consultas = await _repositorio.BuscarPorInstituicaoIdAsync(instituicao.Id);
+        return consultas.Select(ConverterParaDto);
+    }
+
     // ===============================================================
     // BUSCAR POR ID
     // ===============================================================

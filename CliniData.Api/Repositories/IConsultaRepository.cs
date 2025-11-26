@@ -12,6 +12,8 @@ namespace CliniData.Api.Repositories
         Task<bool> ExisteAsync(int id);
         Task<IEnumerable<Consulta>> BuscarPorMedicoIdAsync(int medicoId);
         Task<IEnumerable<Consulta>> BuscarPorPacienteIdAsync(int pacienteId);
+        Task<IEnumerable<Consulta>> BuscarPorInstituicaoIdAsync(int instituicaoId);
+
 
     }
 }

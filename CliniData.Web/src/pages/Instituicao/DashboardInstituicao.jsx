@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import instituicaoService from "../../services/instituicaoService";
+import consultaService from "../../services/consultaService";
 import "./DashboardInstituicao.css";
 
 export default function DashboardInstituicao() {
@@ -51,6 +52,11 @@ export default function DashboardInstituicao() {
   const [successMessage, setSuccessMessage] = useState("");
   const timerRef = useRef(null);
 
+  // CONSULTAS (novo estado)
+  const [consultas, setConsultas] = useState([]);
+  const [consultasLoading, setConsultasLoading] = useState(false);
+  const [consultasError, setConsultasError] = useState(null);
+
   // helper: normaliza um objeto médico garantindo propriedade `id` (number) e campos úteis
   function normalizeMedicoObject(m) {
     if (!m || typeof m !== "object") return null;
@@ -68,6 +74,34 @@ export default function DashboardInstituicao() {
     if (!Array.isArray(arr)) return [];
     return arr
       .map(normalizeMedicoObject)
+      .filter(Boolean);
+  }
+
+  // normaliza dados da consulta, incluindo paciente, médico e instituição
+  function normalizeConsultaObject(c) {
+    if (!c || typeof c !== "object") return null;
+    const idConsulta = c.idConsulta ?? c.id;
+    const paciente = c.paciente ?? {};
+    const medico = c.medico ?? {};
+    const instituicao = c.instituicao ?? {};
+    return {
+      idConsulta,
+      dataHora: c.dataHora ? new Date(c.dataHora).toISOString() : null,
+      pacienteId: paciente.id ?? paciente.idPaciente ?? null,
+      pacienteNome: paciente.nome ?? `#${paciente.id}`,
+      medicoId: medico.id ?? medico.idMedico ?? null,
+      medicoNome: medico.nome ?? `#${medico.id}`,
+      instituicaoId: instituicao.id ?? instituicao.idInstituicao ?? null,
+      instituicaoNome: instituicao.nome ?? `#${instituicao.id}`,
+      observacao: c.observacao ?? "",
+    };
+  }
+
+  // normaliza arrays de consultas antes de armazenar no state
+  function normalizeConsultasArray(arr) {
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .map(normalizeConsultaObject)
       .filter(Boolean);
   }
 
@@ -154,23 +188,39 @@ export default function DashboardInstituicao() {
     }
   }
 
-  const consultasMock = [
-    { id: 10, paciente: "Ana Paula", medico: "Dr. João Silva", data: "24/11/2025", hora: "08:30", status: "Agendada" },
-    { id: 11, paciente: "João Pedro", medico: "Dra. Maria Oliveira", data: "24/11/2025", hora: "09:15", status: "Em espera" },
-    { id: 12, paciente: "Carlos Lima", medico: "Dr. Carlos Souza", data: "24/11/2025", hora: "10:00", status: "Realizada" },
-  ];
+  // calcula a idade a partir da data de nascimento (formato ISO)
+  function calculateAge(dataNascimento) {
+    if (!dataNascimento) return "";
+    const d = new Date(dataNascimento);
+    if (isNaN(d.getTime())) return "";
+    const today = new Date();
+    let age = today.getFullYear() - d.getFullYear();
+    const m = today.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < d.getDate())) age--;
+    return age;
+  }
 
-  const pacientesMock = [
-    { id: 1, nome: "Ana Paula", nasc: "12/03/1992", doc: "123.456.789-00" },
-    { id: 2, nome: "João Pedro", nasc: "05/09/1988", doc: "987.654.321-00" },
-    { id: 3, nome: "Carlos Lima", nasc: "23/01/1975", doc: "555.444.333-22" },
-  ];
+  async function loadConsultas() {
+    setConsultasLoading(true);
+    setConsultasError(null);
+    try {
+      const data = await consultaService.getConsultas();
+      setConsultas(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Erro ao carregar consultas:", err);
+      setConsultas([]);
+      setConsultasError(String(err?.message || err));
+    } finally {
+      setConsultasLoading(false);
+    }
+  }
 
-  const materiaisMock = [
-    { id: 1, nome: "Seringa 3 mL", qtdUsadaMes: 340, custoTotal: 510.0 },
-    { id: 2, nome: "Luvas procedimento (par)", qtdUsadaMes: 780, custoTotal: 1560.0 },
-    { id: 3, nome: "Soro fisiológico 0,9% (500 mL)", qtdUsadaMes: 210, custoTotal: 1890.5 },
-  ];
+  useEffect(() => {
+    // carrega apenas quando a aba consultas for ativada e ainda não há dados
+    if (abaAtiva === "consultas" && consultas.length === 0 && !consultasLoading) {
+      loadConsultas();
+    }
+  }, [abaAtiva]); // reexecutar quando abaAtiva mudar
 
   function handleSair() {
     navigate("/login");
@@ -352,98 +402,88 @@ export default function DashboardInstituicao() {
   }
 
   function renderConsultas() {
+    // estado de exibição
+    if (consultasLoading) {
+      return (
+        <section className="inst-section-card">
+          <div className="inst-section-header">
+            <h2>Agenda e Consultas</h2>
+            <button className="btn-primario" disabled>Carregando...</button>
+          </div>
+          <p>Carregando consultas...</p>
+        </section>
+      );
+    }
+    if (consultasError) {
+      return (
+        <section className="inst-section-card">
+          <div className="inst-section-header">
+            <h2>Agenda e Consultas</h2>
+            {/* botão removido */}
+          </div>
+          <p style={{ color: "#dc2626" }}>Erro: {consultasError}</p>
+        </section>
+      );
+    }
+    const temConsultas = consultas && consultas.length > 0;
     return (
       <section className="inst-section-card">
         <div className="inst-section-header">
           <h2>Agenda e Consultas</h2>
-          <button className="btn-primario">Agendar nova consulta</button>
+          <button className="btn-primario" onClick={loadConsultas}>Recarregar</button>
         </div>
-
-        <table className="inst-table">
-          <thead>
-            <tr><th>Data</th><th>Hora</th><th>Paciente</th><th>Médico</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            {consultasMock.map((c, idx) => (
-              <tr key={c.id ?? `cons-${idx}`}>
-                <td>{c.data}</td>
-                <td>{c.hora}</td>
-                <td>{c.paciente}</td>
-                <td>{c.medico}</td>
-                <td>{c.status}</td>
+        {!temConsultas ? (
+          <p>Nenhuma consulta encontrada.</p>
+        ) : (
+          <table className="inst-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Data / Hora</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Instituição</th>
+                <th>Observação</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-    );
-  }
-
-  function renderPacientes() {
-    return (
-      <section className="inst-section-card">
-        <div className="inst-section-header">
-          <h2>Pacientes</h2>
-        </div>
-
-        <input
-          type="text"
-          placeholder="Buscar paciente por nome ou documento..."
-          className="inst-input-busca"
-        />
-
-        <table className="inst-table">
-          <thead>
-            <tr><th>Nome</th><th>Data de nascimento</th><th>Documento</th><th></th></tr>
-          </thead>
-          <tbody>
-            {pacientesMock.map((p, idx) => (
-              <tr key={p.id ?? `pac-${idx}`}>
-                <td>{p.nome}</td>
-                <td>{p.nasc}</td>
-                <td>{p.doc}</td>
-                <td>
-                  <button className="btn-secundario btn-sm">Ver histórico completo</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-    );
-  }
-
-  function renderMateriais() {
-    return (
-      <section className="inst-section-card">
-        <div className="inst-section-header">
-          <h2>Materiais & Medicamentos</h2>
-        </div>
-
-        <p className="inst-text-muted">
-          Controle de uso e custo de materiais e medicamentos por mês. No futuro, esses
-          dados podem vir do módulo de estoque + registros de consulta.
-        </p>
-
-        <table className="inst-table">
-          <thead>
-            <tr><th>Material / Medicamento</th><th>Qtd. usada (mês)</th><th>Custo total (R$)</th></tr>
-          </thead>
-          <tbody>
-            {materiaisMock.map((mat, idx) => (
-              <tr key={mat.id ?? `mat-${idx}`}>
-                <td>{mat.nome}</td>
-                <td>{mat.qtdUsadaMes}</td>
-                <td>
-                  R{" "}
-                  {mat.custoTotal.toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {consultas.map((c) => {
+                const idConsulta = c.idConsulta ?? c.id;
+                const paciente = c.paciente ?? {};
+                const medico = c.medico ?? {};
+                const instituicao = c.instituicao ?? {};
+                const pacienteNome = paciente.nome ?? c.pacienteNome ?? `#${c.pacienteId ?? ""}`;
+                const pacienteAge = calculateAge(paciente.dataNascimento);
+                const pacienteCpf = paciente.cpf;
+                const medicoNome = medico.nome ?? `#${c.medicoId ?? ""}`;
+                const medicoCrm = medico.crm;
+                const instituicaoNome = instituicao.nome ?? `#${c.instituicaoId ?? ""}`;
+                return (
+                  <tr key={idConsulta}>
+                    <td>{idConsulta}</td>
+                    <td>{c.dataHora ? new Date(c.dataHora).toLocaleString() : (c.dataHora ?? "")}</td>
+                    <td>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span>{pacienteNome}{pacienteAge ? ` • ${pacienteAge} anos` : ""}</span>
+                        {pacienteCpf ? <small className="texto-muted">{pacienteCpf}</small> : null}
+                      </div>
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span>{medicoNome}</span>
+                        {medicoCrm ? <small className="texto-muted">CRM: {medicoCrm}</small> : null}
+                      </div>
+                    </td>
+                    <td>{instituicaoNome}</td>
+                    <td style={{ maxWidth: 250, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {c.observacao ?? ""}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </section>
     );
   }
@@ -454,10 +494,6 @@ export default function DashboardInstituicao() {
         return renderMedicos();
       case "consultas":
         return renderConsultas();
-      case "pacientes":
-        return renderPacientes();
-      case "materiais":
-        return renderMateriais();
       case "dashboard":
       default:
         return renderDashboard();
@@ -508,22 +544,6 @@ export default function DashboardInstituicao() {
           onClick={() => setAbaAtiva("consultas")}
         >
           Consultas
-        </button>
-        <button
-          className={
-            abaAtiva === "pacientes" ? "inst-nav-link active" : "inst-nav-link"
-          }
-          onClick={() => setAbaAtiva("pacientes")}
-        >
-          Pacientes
-        </button>
-        <button
-          className={
-            abaAtiva === "materiais" ? "inst-nav-link active" : "inst-nav-link"
-          }
-          onClick={() => setAbaAtiva("materiais")}
-        >
-          Materiais & Medicamentos
         </button>
       </nav>
 

@@ -3,7 +3,7 @@ import consultaService from "../../services/consultaService";
 import instituicaoService from "../../services/instituicaoService";
 import pacienteService from "../../services/pacienteService";
 
-export default function ConsultasMedico({ consultas, onAtender, pacientes: pacientesProp, instituicoes: instituicoesProp, onCriarConsulta }) {
+export default function ConsultasMedico({ consultas, pacientes: pacientesProp, instituicoes: instituicoesProp, onCriarConsulta }) {
   // estado local para consultas quando não fornecidas via props
   const [apiConsultas, setApiConsultas] = useState([]);
   const [consultasLoading, setConsultasLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function ConsultasMedico({ consultas, onAtender, pacientes: pacie
       loadConsultas();
   }, [consultas]);
 
-  const displayedConsultas = Array.isArray(consultas) && consultas.length ? consultas : apiConsultas;
+  const displayedConsultas = apiConsultas;
   const temConsultas = displayedConsultas && displayedConsultas.length > 0;
 
   // estados para modal de criação de consulta
@@ -227,26 +227,27 @@ export default function ConsultasMedico({ consultas, onAtender, pacientes: pacie
                 <th>Médico</th>
                 <th>Instituição</th>
                 <th>Observação</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
               {displayedConsultas.map((c) => {
-                const id = c.idConsulta ?? c.id;
-                const paciente = c.paciente ?? null;
-                const medico = c.medico ?? null;
-                const instituicao = c.instituicao ?? null;
-                const pacienteNome = paciente?.nome ?? c.pacienteNome ?? `#${c.pacienteId ?? ""}`;
-                const pacienteCpf = paciente?.cpf ?? "";
-                const pacienteIdDisplay = paciente?.idPaciente ?? c.pacienteId ?? "";
-                const pacienteIdade = calculateAge(paciente?.dataNascimento) ?? "";
-                const medicoNome = medico?.nome ?? `#${c.medicoId ?? ""}`;
-                const medicoCrm = medico?.crm ?? "";
-                const instituicaoNome = instituicao?.nome ?? `#${c.instituicaoId ?? ""}`;
+                // usa explicitamente o formato do payload que você enviou
+                const idConsulta = c.idConsulta ?? c.id;
+                const paciente = c.paciente ?? {};
+                const medico = c.medico ?? {};
+                const instituicao = c.instituicao ?? {};
 
+                const pacienteNome = paciente.nome ?? c.pacienteNome ?? `#${c.pacienteId ?? ""}`;
+                const pacienteCpf = paciente.cpf ?? "";
+                const pacienteIdDisplay = paciente.idPaciente ?? c.pacienteId ?? "";
+                const pacienteIdade = calculateAge(paciente.dataNascimento) ?? "";
+
+                const medicoNome = medico.nome ?? `#${c.medicoId ?? ""}`;
+                const medicoCrm = medico.crm ?? "";
+                const instituicaoNome = instituicao.nome ?? `#${c.instituicaoId ?? ""}`;
                 return (
-                  <tr key={id}>
-                    <td>{id}</td>
+                  <tr key={idConsulta}>
+                    <td>{idConsulta}</td>
                     <td>{c.dataHora ? new Date(c.dataHora).toLocaleString() : (c.dataHora ?? "")}</td>
                     <td>
                       <div style={{ display: "flex", flexDirection: "column" }}>
@@ -265,14 +266,7 @@ export default function ConsultasMedico({ consultas, onAtender, pacientes: pacie
                     <td style={{ maxWidth: 300, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       {c.observacao ?? ""}
                     </td>
-                    <td>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => typeof onAtender === "function" && onAtender(id)}
-                      >
-                        Atender
-                      </button>
-                    </td>
+                    {/* ação "Atender" removida */}
                   </tr>
                 );
               })}

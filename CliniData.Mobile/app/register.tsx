@@ -30,6 +30,18 @@ export default function RegisterScreen() {
     
     const logo = require('../assets/images/logoreal.png');
 
+    // estilo simples para input web (date)
+    const inputWebStyle: any = {
+        fontSize: 16,
+        padding: 12,
+        borderRadius: 8,
+        border: '1px solid #ddd',
+        width: '100%',
+        boxSizing: 'border-box',
+        backgroundColor: '#fff',
+        marginBottom: 15,
+    };
+
     const displayAlert = (title: string, message: string) => {
         if (Platform.OS === 'web') {
             alert(title + '\n' + message);
@@ -147,7 +159,7 @@ export default function RegisterScreen() {
         const currentDate = selectedDate || dataNascimento;
         setShowDatePicker(Platform.OS === 'ios'); 
         setDataNascimento(currentDate);
-        if (event.type === 'set' || Platform.OS === 'ios') {
+        if (event?.type === 'set' || Platform.OS === 'ios') {
              setShowDatePicker(false);
              setDataNascimento(currentDate);
         } else {
@@ -164,19 +176,39 @@ export default function RegisterScreen() {
 
                     {/* --- DADOS PESSOAIS --- */}
                     <TextInput style={styles.input} placeholder="Nome Completo*" placeholderTextColor="#aaa" value={nome} onChangeText={setNome} />
-                    
-                    <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
-                        <Text style={styles.datePickerText}>
-                            Data de Nascimento*: {dataNascimento.toLocaleDateString('pt-BR')}
-                        </Text>
-                    </TouchableOpacity>
-                    {showDatePicker && (
-                        <DateTimePicker 
-                            value={dataNascimento} 
-                            mode={'date'} 
-                            display="default"
-                            onChange={onDateChange}
-                        />
+
+                    {/* substitui o botão por input web quando for web; mantém DateTimePicker no mobile */}
+                    {Platform.OS === 'web' ? (
+                        <>
+                            <input
+                                type="date"
+                                value={dataNascimento.toISOString().slice(0, 10)}
+                                onChange={(e: any) => {
+                                    const v = e?.target?.value;
+                                    if (v) {
+                                        // cria Date a partir de YYYY-MM-DD (assume meia-noite local)
+                                        setDataNascimento(new Date(v + 'T00:00:00'));
+                                    }
+                                }}
+                                style={inputWebStyle}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
+                                <Text style={styles.datePickerText}>
+                                    Data de Nascimento*: {dataNascimento.toLocaleDateString('pt-BR')}
+                                </Text>
+                            </TouchableOpacity>
+                            {showDatePicker && (
+                                <DateTimePicker 
+                                    value={dataNascimento} 
+                                    mode={'date'} 
+                                    display="default"
+                                    onChange={onDateChange}
+                                />
+                            )}
+                        </>
                     )}
 
                     <TextInput style={styles.input} placeholder="CPF*" placeholderTextColor="#aaa" value={cpf} onChangeText={(t) => setCpf(formatCPF(t))} keyboardType="numeric" maxLength={14} />

@@ -15,6 +15,20 @@ import { Ionicons } from "@expo/vector-icons";
 import api from "@/services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// adiciona função para formatar datas como "dd/MM/yyyy - HH-mm"
+const formatDateForList = (dateInput: string | Date | undefined | null) => {
+	// aceita string ISO ou Date
+	if (!dateInput) return "";
+	const d = typeof dateInput === "string" ? new Date(dateInput) : new Date(dateInput);
+	if (isNaN(d.getTime())) return String(dateInput);
+	const dd = String(d.getDate()).padStart(2, "0");
+	const MM = String(d.getMonth() + 1).padStart(2, "0");
+	const yyyy = d.getFullYear();
+	const hh = String(d.getHours()).padStart(2, "0");
+	const mm = String(d.getMinutes()).padStart(2, "0");
+	return `${dd}/${MM}/${yyyy} - ${hh}h ${mm}min`;
+};
+
 // --- Componente de Card ---
 const ExameCard = ({ item, onDelete }: { item: any; onDelete: (id: number) => void }) => {
   const handlePress = () => {
@@ -29,7 +43,8 @@ const ExameCard = ({ item, onDelete }: { item: any; onDelete: (id: number) => vo
         <View style={styles.cardTextContainer}>
           <Text style={styles.cardTitle}>{item.tipoExame}</Text>
           <Text style={styles.cardSubtitle}>{item.instituicao}</Text>
-          <Text style={styles.cardDate}>{item.dataHora}</Text>
+          {/* usa a função de formatação */}
+          <Text style={styles.cardDate}>{formatDateForList(item.dataHora)}</Text>
         </View>
       </TouchableOpacity>
 
@@ -87,6 +102,11 @@ export default function ExamesScreen() {
   const handleAgendar = () => {
     // Navega para a tela de cadastro do exame
     router.push("/exames/CadastroExameScreen");
+  };
+
+  // nova função: volta para tabs/home
+  const handleBackHome = () => {
+    router.replace("/tabs/home");
   };
 
   // abre modal de confirmação
@@ -170,6 +190,14 @@ export default function ExamesScreen() {
         keyExtractor={(item) => item.idExame.toString()}
         contentContainerStyle={styles.listContainer}
       />
+
+      {/* Novo botão para voltar à home */}
+      <View style={styles.footerContainer}>
+        <TouchableOpacity style={styles.homeButton} onPress={handleBackHome}>
+          <Ionicons name="home-outline" size={18} color="#007bff" />
+          <Text style={styles.homeButtonText}>Home</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -252,15 +280,28 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#777",
   },
-  statusBadge: {
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 12,
-    marginLeft: 10,
+  // adicionados / alterados:
+  footerContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 24,
+    alignItems: "center",
   },
-  statusText: {
-    color: "#fff",
-    fontSize: 12,
+  // estilo agora igual ao "Sair" do home.tsx (fundo branco, borda colorida), mas com azul
+  homeButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderColor: "#007bff", // azul
+    borderWidth: 1,
+    marginTop: 10,
+    alignSelf: "center",
+  },
+  homeButtonText: {
+    color: "#007bff", // azul
+    marginLeft: 8,
     fontWeight: "bold",
   },
 });

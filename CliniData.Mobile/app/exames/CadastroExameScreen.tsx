@@ -37,7 +37,16 @@ const fileButtonStyle: any = {
 };
 
 export default function CadastroExameScreen() {
+  // --- moved hooks: declare all hooks before any early return ---
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [tipoExame, setTipoExame] = useState("");
+  const [instituicao, setInstituicao] = useState("");
+  const [resultado, setResultado] = useState("");
+  const [observacao, setObservacao] = useState("");
+  const [data, setData] = useState(new Date());
+  const [file, setFile] = useState<any | null>(null); // evita dependência estrita de File (web/native)
+  const fileInputRef = React.useRef<any>(null); // evita exigir lib.dom para HTMLInputElement
+
   useEffect(() => {
     const check = async () => {
       try {
@@ -65,22 +74,11 @@ export default function CadastroExameScreen() {
     );
   }
 
-  const [tipoExame, setTipoExame] = useState("");
-  const [instituicao, setInstituicao] = useState("");
-  const [resultado, setResultado] = useState("");
-  const [observacao, setObservacao] = useState("");
-  const [data, setData] = useState(new Date());
-  const [file, setFile] = useState<any | null>(null); // evita dependência estrita de File (web/native)
-  const fileInputRef = React.useRef<any>(null); // evita exigir lib.dom para HTMLInputElement
-
-  const formatDateTime = (d: Date) =>
-    d.toLocaleString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  // helper: converte Date para string compatível com <input type="datetime-local"> no fuso local
+  const toDateTimeLocalValue = (d: Date) => {
+    const pad = (n: number) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  };
 
   const handleFileChange = (e: any) => {
     if (e?.target?.files && e.target.files.length > 0) {
@@ -88,8 +86,14 @@ export default function CadastroExameScreen() {
     }
   };
 
+  // novo: parse do value "YYYY-MM-DDTHH:MM" criando Date localmente
   const handleDateChange = (e: any) => {
-    const dt = new Date(e?.target?.value);
+    const v = e?.target?.value; // ex: "2025-11-26T14:30"
+    if (!v) return;
+    const [datePart, timePart] = v.split("T");
+    const [year, month, day] = datePart.split("-").map((s: string) => parseInt(s, 10));
+    const [hour = "0", minute = "0"] = (timePart || "").split(":");
+    const dt = new Date(year, (month || 1) - 1, day, parseInt(hour, 10), parseInt(minute, 10));
     if (!isNaN(dt.getTime())) setData(dt);
   };
 
@@ -125,6 +129,9 @@ export default function CadastroExameScreen() {
       setObservacao("");
       setData(new Date());
       setFile(null);
+
+      // redireciona para a página de exames
+      router.replace('/tabs/exames');
     } catch (err: any) {
       console.error(err);
       Alert.alert("Erro", "Não foi possível salvar o exame.");
@@ -144,10 +151,9 @@ export default function CadastroExameScreen() {
           <input
             type="datetime-local"
             style={inputWebStyle}
-            value={data.toISOString().slice(0,16)}
+            value={toDateTimeLocalValue(data)} // usa representação local
             onChange={handleDateChange}
           />
-          <Text>Selecionado: {formatDateTime(data)}</Text>
         </View>
 
         <View style={styles.field}>

@@ -14,6 +14,8 @@ namespace CliniData.Domain.Entities
         public string Telefone { get; private set; }
         public Email Email { get; private set; }
         public ICollection<Instituicao> Instituicoes { get; private set; } = new List<Instituicao>();
+        public ICollection<MedicoInstituicao> InstituicoesVinculos { get; private set; } = new List<MedicoInstituicao>();
+
 
         public int UserId { get; private set; }
 

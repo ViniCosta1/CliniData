@@ -73,7 +73,10 @@ public class ConsultaService : IConsultaService
     // CRIAR CONSULTA
     // ===============================================================
     public async Task<ConsultaDto> CriarAsync(CriarConsultaDto dto)
+
     {
+
+        
         var userIdString = _usuarioAtual.ObterUsuarioId();
 
         if (!int.TryParse(userIdString, out int userId))

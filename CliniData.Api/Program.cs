@@ -89,6 +89,8 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("Admin"));
     options.AddPolicy("MedicoOuPaciente", policy =>
         policy.RequireRole("Medico", "Paciente"));
+    options.AddPolicy("MedicoOuInstituicao", policy =>
+        policy.RequireRole("Medico", "Instituicao"));
 });
 
 
@@ -133,6 +135,10 @@ builder.Services.AddScoped<IHistoricoMedicoService, HistoricoMedicoService>();
 builder.Services.AddScoped<IUsuarioAtualService, UsuarioAtualService>();
 builder.Services.AddScoped<IMedicoInstituicaoService, MedicoInstituicaoService>();
 builder.Services.AddScoped<IMedicoInstituicaoRepository, MedicoInstituicaoRepository>();
+builder.Services.AddScoped<IDashboardInstituicaoRepository, DashboardInstituicaoRepository>();
+builder.Services.AddScoped<IDashboardInstituicaoService, DashboardInstituicaoService>();
+
+
 
 builder.Services.AddScoped<AuthService>();
 

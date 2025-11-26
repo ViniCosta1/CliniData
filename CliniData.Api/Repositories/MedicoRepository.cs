@@ -83,6 +83,15 @@ public class MedicoRepository : IMedicoRepository
         return await _context.Medico
             .FirstOrDefaultAsync(m => m.UserId == userId);
     }
+    public async Task<List<Instituicao>> BuscarInstituicoesDoMedicoAsync(int medicoId)
+    {
+        var medico = await _context.Medico
+            .Include(m => m.Instituicoes)
+            .FirstOrDefaultAsync(m => m.Id == medicoId);
+
+        return medico?.Instituicoes.ToList() ?? new List<Instituicao>();
+    }
+
 
 
 }

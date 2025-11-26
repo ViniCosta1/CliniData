@@ -20,6 +20,9 @@ namespace CliniData.Domain.Entities
 
         // Navegação
         public ICollection<Medico>? Medicos { get; private set; }
+        public ICollection<MedicoInstituicao>? MedicosVinculos { get; private set; }
+    = new List<MedicoInstituicao>();
+
         public int UserId { get; private set; }
 
         protected Instituicao() { }

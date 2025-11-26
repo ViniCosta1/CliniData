@@ -21,7 +21,7 @@ namespace CliniData.Api.Services
             var id = user.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!string.IsNullOrEmpty(id))
                 return id;
-
+                
             id = user.FindFirstValue("sub");
             if (!string.IsNullOrEmpty(id))
                 return id;

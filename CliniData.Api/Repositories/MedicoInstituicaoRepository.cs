@@ -16,40 +16,33 @@ public class MedicoInstituicaoRepository : IMedicoInstituicaoRepository
 
     public async Task<bool> JaExisteLigacaoAsync(int medicoId, int instituicaoId)
     {
-        // precisa do using Microsoft.EntityFrameworkCore para AnyAsync
-        return await _context.Set<Dictionary<string, object>>("medico_instituicao")
-            .AnyAsync(x =>
-                (int)x["medicoid"] == medicoId &&
-                (int)x["instituicaoid"] == instituicaoId
-            );
+        return await _context.MedicoInstituicao
+            .AnyAsync(x => x.MedicoId == medicoId && x.InstituicaoId == instituicaoId);
     }
 
     public async Task AdicionarAsync(int medicoId, int instituicaoId)
     {
-        await _context.Set<Dictionary<string, object>>("medico_instituicao")
-            .AddAsync(new Dictionary<string, object>
-            {
-                ["medicoid"] = medicoId,
-                ["instituicaoid"] = instituicaoId
-            });
+        await _context.MedicoInstituicao.AddAsync(new MedicoInstituicao
+        {
+            MedicoId = medicoId,
+            InstituicaoId = instituicaoId
+        });
 
         await _context.SaveChangesAsync();
     }
 
     public async Task RemoverAsync(int medicoId, int instituicaoId)
     {
-        var entidade = await _context.Set<Dictionary<string, object>>("medico_instituicao")
-            .FirstOrDefaultAsync(x =>
-                (int)x["medicoid"] == medicoId &&
-                (int)x["instituicaoid"] == instituicaoId
-            );
+        var entidade = await _context.MedicoInstituicao
+            .FirstOrDefaultAsync(x => x.MedicoId == medicoId && x.InstituicaoId == instituicaoId);
 
         if (entidade != null)
         {
-            _context.Remove(entidade);
+            _context.MedicoInstituicao.Remove(entidade);
             await _context.SaveChangesAsync();
         }
     }
+
 
     public async Task<IEnumerable<Instituicao>> BuscarInstituicoesDoMedicoAsync(int medicoId)
     {

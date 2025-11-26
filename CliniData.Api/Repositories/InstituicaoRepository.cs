@@ -60,5 +60,6 @@ namespace CliniData.Api.Repositories
         public async Task<Instituicao?> BuscarPorUserIdAsync(int userId) =>
     await _contexto.Instituicao.FirstOrDefaultAsync(i => i.UserId == userId);
 
+
     }
 }

@@ -26,6 +26,8 @@ public class AppDbContext
     public DbSet<Instituicao> Instituicao { get; set; }
     public DbSet<EspecialidadeMedica> EspecialidadeMedica { get; set; }
     public DbSet<Endereco> Endereco { get; set; }
+    public DbSet<MedicoInstituicao> MedicoInstituicao { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

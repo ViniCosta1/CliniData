@@ -10,10 +10,10 @@ public class Consulta : BaseEntity<int>
     public int? InstituicaoId { get; private set; }
     public string? Observacao { get; private set; }
 
-    // Navegação opcional
-    // public Paciente Paciente { get; private set; }
-    // public Medico Medico { get; private set; }
-    // public Instituicao Instituicao { get; private set; }
+   
+    public Paciente Paciente { get; private set; }
+    public Medico Medico { get; private set; }
+    public Instituicao Instituicao { get; private set; }
 
     protected Consulta() { } // EF Core precisa de construtor sem parâmetros
 

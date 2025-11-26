@@ -17,10 +17,10 @@ public class ConsultaRepository : IConsultaRepository
     }
 
     public async Task<IEnumerable<Consulta>> BuscarTodasAsync() =>
-        await _contexto.Consulta.OrderBy(c => c.DataHora).ToListAsync();
+        await _contexto.Consulta.Include(p => p.Paciente).Include(m => m.Medico).Include(i => i.Instituicao).OrderBy(c => c.DataHora).ToListAsync();
 
     public async Task<Consulta?> BuscarPorIdAsync(int id) =>
-        await _contexto.Consulta.FirstOrDefaultAsync(c => c.Id == id);
+        await _contexto.Consulta.Include(p => p.Paciente).Include(m => m.Medico).Include(i => i.Instituicao).FirstOrDefaultAsync(c => c.Id == id);
 
     public async Task<Consulta> CriarAsync(Consulta consulta)
     {
@@ -52,7 +52,7 @@ public class ConsultaRepository : IConsultaRepository
 
     public async Task<IEnumerable<Consulta>> BuscarPorMedicoIdAsync(int medicoId)
     {
-        return await _contexto.Consulta
+        return await _contexto.Consulta.Include(p => p.Paciente).Include(m => m.Medico).Include(i => i.Instituicao)
             .Where(c => c.MedicoId == medicoId)
             .OrderBy(c => c.DataHora)
             .ToListAsync();
@@ -60,7 +60,7 @@ public class ConsultaRepository : IConsultaRepository
 
     public async Task<IEnumerable<Consulta>> BuscarPorPacienteIdAsync(int pacienteId)
     {
-        return await _contexto.Consulta
+        return await _contexto.Consulta.Include(p => p.Paciente).Include(m => m.Medico).Include(i => i.Instituicao)
             .Where(c => c.PacienteId == pacienteId)
             .OrderBy(c => c.DataHora)
             .ToListAsync();

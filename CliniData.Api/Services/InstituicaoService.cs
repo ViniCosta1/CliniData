@@ -53,6 +53,7 @@ namespace CliniData.Api.Services
                 nome: dto.Nome,
                 cnpj: dto.CNPJ,
                 telefone: dto.Telefone,
+                email: dto.Email,
                 rua: dto.Rua,
                 numero: dto.Numero,
                 bairro: dto.Bairro,
@@ -76,6 +77,7 @@ namespace CliniData.Api.Services
             existente.Atualizar(
                 nome: dto.Nome,
                 telefone: dto.Telefone,
+                email: dto.Email,
                 rua: dto.Rua,
                 numero: dto.Numero,
                 bairro: dto.Bairro,

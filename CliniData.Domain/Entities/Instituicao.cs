@@ -10,6 +10,7 @@ namespace CliniData.Domain.Entities
         public string Nome { get; private set; }
         public string Cnpj { get; private set; }
         public string Telefone { get; private set; }
+        public string Email { get; private set; }
         public string Rua { get; private set; }
         public string Numero { get; private set; }
         public string Bairro { get; private set; }
@@ -23,12 +24,13 @@ namespace CliniData.Domain.Entities
 
         protected Instituicao() { }
 
-        public Instituicao(string nome, string cnpj, string telefone, string rua, string numero,
+        public Instituicao(string nome, string cnpj, string telefone, string email, string rua, string numero,
             string bairro, string cidade, string estado, string cep)
         {
             Nome = nome;
             Cnpj = cnpj;
             Telefone = telefone;
+            Email = email;
             Rua = rua;
             Numero = numero;
             Bairro = bairro;
@@ -37,11 +39,12 @@ namespace CliniData.Domain.Entities
             Cep = cep;
         }
 
-        public void Atualizar(string nome, string telefone, string rua, string numero, string bairro,
+        public void Atualizar(string nome, string telefone, string email, string rua, string numero, string bairro,
             string cidade, string estado, string cep)
         {
             Nome = nome;
             Telefone = telefone;
+            Email = email;
             Rua = rua;
             Numero = numero;
             Bairro = bairro;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CliniData.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace CliniData.Api.DTOs;
 
@@ -10,6 +11,9 @@ public class ConsultaDto
     public int MedicoId { get; set; }
     public int? InstituicaoId { get; set; }
     public string Observacao { get; set; }
+    public PacienteDto Paciente { get; set; }
+    public MedicoDto Medico { get; set; }
+    public InstituicaoDto Instituicao { get; set; }
 }
 
 public class CriarConsultaDto

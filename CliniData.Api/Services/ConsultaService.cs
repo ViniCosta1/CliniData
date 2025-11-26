@@ -149,6 +149,50 @@ public class ConsultaService : IConsultaService
         PacienteId = c.PacienteId,
         MedicoId = c.MedicoId,
         InstituicaoId = c.InstituicaoId,
-        Observacao = c.Observacao
+        Observacao = c.Observacao,
+        Paciente = c.Paciente == null ? null : new PacienteDto
+        {
+            IdPaciente = c.Paciente.Id,
+            Nome = c.Paciente.Nome,
+            DataNascimento = c.Paciente.DataNascimento,
+            Sexo = c.Paciente.Sexo.ToString(),
+            CPF = c.Paciente.CPF.Valor,
+            Telefone = c.Paciente.Telefone,
+            Email = c.Paciente.Email.Valor,
+            Rua = c.Paciente.Endereco.Rua,
+            Numero = c.Paciente.Endereco.Numero,
+            Complemento = c.Paciente.Endereco.Complemento,
+            Bairro = c.Paciente.Endereco.Bairro,
+            Cidade = c.Paciente.Endereco.Cidade,
+            Estado = c.Paciente.Endereco.UF,
+            CEP = c.Paciente.Endereco.CEP
+        },
+
+        // ============================
+        // MAPEAR MÉDICO
+        // ============================
+        Medico = c.Medico == null ? null : new MedicoDto
+        {
+            IdMedico = c.Medico.Id,
+            Nome = c.Medico.Nome,
+            CRM = c.Medico.CRM.Valor,
+            EspecialidadeMedicaId = c.Medico.EspecialidadeMedicaId,
+            Telefone = c.Medico.Telefone,
+            Email = c.Medico.Email.Valor
+        },
+        Instituicao = c.Instituicao == null ? null : new InstituicaoDto
+        {
+            IdInstituicao = c.Instituicao.Id,
+            Nome = c.Instituicao.Nome,
+            Email = c.Instituicao.Email,
+            CNPJ = c.Instituicao.Cnpj,
+            Telefone = c.Instituicao.Telefone,
+            Rua = c.Instituicao.Rua,
+            Numero = c.Instituicao.Numero,
+            Bairro = c.Instituicao.Bairro,
+            Cidade = c.Instituicao.Cidade,
+            Estado = c.Instituicao.Estado,
+            CEP = c.Instituicao.Cep
+        }
     };
 }

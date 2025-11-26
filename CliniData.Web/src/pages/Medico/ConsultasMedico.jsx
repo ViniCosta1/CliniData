@@ -1,10 +1,35 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import consultaService from "../../services/consultaService";
 import instituicaoService from "../../services/instituicaoService";
 import pacienteService from "../../services/pacienteService";
 
 export default function ConsultasMedico({ consultas, onAtender, pacientes: pacientesProp, instituicoes: instituicoesProp, onCriarConsulta }) {
-  const temConsultas = consultas && consultas.length > 0;
+  // estado local para consultas quando não fornecidas via props
+  const [apiConsultas, setApiConsultas] = useState([]);
+  const [consultasLoading, setConsultasLoading] = useState(false);
+  const [consultasError, setConsultasError] = useState(null);
+
+  const loadConsultas = useCallback(async () => {
+    setConsultasLoading(true);
+    setConsultasError(null);
+    try {
+      const data = await consultaService.getConsultas();
+      setApiConsultas(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Erro ao carregar consultas:", err);
+      setApiConsultas([]);
+      setConsultasError(String(err?.message || err));
+    } finally {
+      setConsultasLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+      loadConsultas();
+  }, [consultas]);
+
+  const displayedConsultas = Array.isArray(consultas) && consultas.length ? consultas : apiConsultas;
+  const temConsultas = displayedConsultas && displayedConsultas.length > 0;
 
   // estados para modal de criação de consulta
   const [consultaModalOpen, setConsultaModalOpen] = useState(false);
@@ -68,6 +93,18 @@ export default function ConsultasMedico({ consultas, onAtender, pacientes: pacie
     const id = rawId == null ? null : Number(rawId);
     const nome = i.nome ?? i.descricao ?? i.razaoSocial ?? i.nomeFantasia ?? "";
     return id ? { id, nome } : null;
+  }
+
+  // helper: calcula idade a partir de dataNascimento (ISO string)
+  function calculateAge(dataNascimento) {
+    if (!dataNascimento) return undefined;
+    const d = new Date(dataNascimento);
+    if (Number.isNaN(d.getTime())) return undefined;
+    const today = new Date();
+    let age = today.getFullYear() - d.getFullYear();
+    const m = today.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < d.getDate())) age--;
+    return age;
   }
 
   // instituições carregadas da API (normalizadas) — mesma lógica que usamos para pacientes
@@ -165,6 +202,8 @@ export default function ConsultasMedico({ consultas, onAtender, pacientes: pacie
       await consultaService.criarConsulta(payload);
       // callback opcional para que o pai atualize a lista
       if (typeof onCriarConsulta === "function") onCriarConsulta();
+      // recarrega quando este componente está consumindo a API diretamente
+      try { await loadConsultas(); } catch { /* ignore */ }
       closeConsultaModal();
     } catch (err) {
       console.error("Erro ao criar consulta:", err);
@@ -178,40 +217,65 @@ export default function ConsultasMedico({ consultas, onAtender, pacientes: pacie
         {!temConsultas ? (
           <p className="texto-muted">Nenhuma consulta agendada para hoje.</p>
         ) : (
-          /* tabela atualizada para refletir o payload da API */
+          /* tabela atualizada para payload com objetos aninhados (paciente, medico, instituicao) */
           <table className="tabela-simples">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Data / Hora</th>
-                <th>Paciente (ID)</th>
-                <th>Médico (ID)</th>
-                <th>Instituição (ID)</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Instituição</th>
                 <th>Observação</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {consultas.map((c) => (
-                <tr key={c.idConsulta ?? c.id}>
-                  <td>{c.idConsulta ?? c.id}</td>
-                  <td>{c.dataHora ? new Date(c.dataHora).toLocaleString() : (c.dataHora ?? "")}</td>
-                  <td>{c.pacienteId ?? ""}</td>
-                  <td>{c.medicoId ?? ""}</td>
-                  <td>{c.instituicaoId ?? ""}</td>
-                  <td style={{ maxWidth: 300, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    {c.observacao ?? ""}
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => typeof onAtender === "function" && onAtender(c.idConsulta ?? c.id)}
-                    >
-                      Atender
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {displayedConsultas.map((c) => {
+                const id = c.idConsulta ?? c.id;
+                const paciente = c.paciente ?? null;
+                const medico = c.medico ?? null;
+                const instituicao = c.instituicao ?? null;
+                const pacienteNome = paciente?.nome ?? c.pacienteNome ?? `#${c.pacienteId ?? ""}`;
+                const pacienteCpf = paciente?.cpf ?? "";
+                const pacienteIdDisplay = paciente?.idPaciente ?? c.pacienteId ?? "";
+                const pacienteIdade = calculateAge(paciente?.dataNascimento) ?? "";
+                const medicoNome = medico?.nome ?? `#${c.medicoId ?? ""}`;
+                const medicoCrm = medico?.crm ?? "";
+                const instituicaoNome = instituicao?.nome ?? `#${c.instituicaoId ?? ""}`;
+
+                return (
+                  <tr key={id}>
+                    <td>{id}</td>
+                    <td>{c.dataHora ? new Date(c.dataHora).toLocaleString() : (c.dataHora ?? "")}</td>
+                    <td>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span>{pacienteNome} {pacienteIdade !== "" ? `• ${pacienteIdade} anos` : ""}</span>
+                        {pacienteCpf ? <small className="texto-muted">{pacienteCpf}</small> : null}
+                        {pacienteIdDisplay ? <small className="texto-muted">ID: {pacienteIdDisplay}</small> : null}
+                      </div>
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span>{medicoNome}</span>
+                        {medicoCrm ? <small className="texto-muted">CRM: {medicoCrm}</small> : null}
+                      </div>
+                    </td>
+                    <td>{instituicaoNome}</td>
+                    <td style={{ maxWidth: 300, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {c.observacao ?? ""}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => typeof onAtender === "function" && onAtender(id)}
+                      >
+                        Atender
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}

@@ -7,7 +7,7 @@ namespace CliniData.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "Instituicao")]
+    [Authorize(AuthenticationSchemes = "Identity.Application, Bearer", Policy = "MedicoOuInstituicao")]
     public class MedicoInstituicaoController : ControllerBase
     {
         private readonly IMedicoInstituicaoService _service;
@@ -18,6 +18,7 @@ namespace CliniData.Api.Controllers
         }
 
         [HttpPost("adicionar")]
+        [Authorize(Roles = "Instituicao")]
         public async Task<ActionResult> Adicionar([FromBody] VincularMedicoInstituicaoDto dto)
         {
             await _service.VincularAsync(dto);
@@ -25,6 +26,7 @@ namespace CliniData.Api.Controllers
         }
 
         [HttpDelete("remover")]
+        [Authorize(Roles = "Instituicao")]
         public async Task<ActionResult> Remover([FromBody] VincularMedicoInstituicaoDto dto)
         {
             await _service.RemoverAsync(dto);
@@ -32,6 +34,7 @@ namespace CliniData.Api.Controllers
         }
 
         [HttpGet("medico/{id}")]
+        [Authorize(Roles ="Medico,Instituicao")]
         public async Task<ActionResult<IEnumerable<InstituicaoDeMedicoDto>>> BuscarInstituicoesDoMedico(int id)
         {
             var lista = await _service.BuscarInstituicoesDoMedicoAsync(id);
@@ -40,6 +43,7 @@ namespace CliniData.Api.Controllers
 
         // Lista os médicos da instituição logada (não recebe id)
         [HttpGet("instituicao/medicos")]
+        [Authorize(Roles = "Instituicao")]
         public async Task<ActionResult<IEnumerable<MedicoEmInstituicaoDto>>> BuscarMedicosDaInstituicao()
         {
             var lista = await _service.BuscarMedicosDaInstituicaoAsync();

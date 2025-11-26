@@ -11,11 +11,16 @@ namespace CliniData.Api.Services
     {
         private readonly IMedicoRepository _repositorio;
         private readonly ILogger<MedicoService> _logger;
+        private readonly IUsuarioAtualService _usuarioAtual; // ADICIONADO
 
-        public MedicoService(IMedicoRepository repositorio, ILogger<MedicoService> logger)
+        public MedicoService(
+            IMedicoRepository repositorio,
+            ILogger<MedicoService> logger,
+            IUsuarioAtualService usuarioAtual) // ADICIONADO
         {
             _repositorio = repositorio;
             _logger = logger;
+            _usuarioAtual = usuarioAtual;
         }
 
         public async Task<IEnumerable<MedicoDto>> BuscarTodosAsync()
@@ -83,6 +88,33 @@ namespace CliniData.Api.Services
             await _repositorio.RemoverAsync(id);
         }
 
+        public async Task<IEnumerable<InstituicaoDto>> BuscarInstituicoesDoMedicoAtualAsync()
+        {
+            var userIdString = _usuarioAtual.ObterUsuarioId();
+            if (!int.TryParse(userIdString, out int userId))
+                return Enumerable.Empty<InstituicaoDto>();
+
+            var medico = await _repositorio.FindByUserIdAsync(userId);
+            if (medico == null)
+                return Enumerable.Empty<InstituicaoDto>();
+
+            var instituicoes = await _repositorio.BuscarInstituicoesDoMedicoAsync(medico.Id);
+
+            return instituicoes.Select(i => new InstituicaoDto
+            {
+                IdInstituicao = i.Id,
+                Nome = i.Nome,
+                Email = i.Email,
+                CNPJ = i.Cnpj,
+                Telefone = i.Telefone,
+                Rua = i.Rua,
+                Numero = i.Numero,
+                Bairro = i.Bairro,
+                Cidade = i.Cidade,
+                Estado = i.Estado,
+                CEP = i.Cep
+            });
+        }
         private static MedicoDto ConverterParaDto(Medico medico) => new()
         {
             IdMedico = medico.Id,

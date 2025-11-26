@@ -103,7 +103,15 @@ namespace CliniData.Api.Controllers
                 return NotFound(ex.Message);
             }
         }
-        
+
+        [HttpGet("instituicoes")]
+        public async Task<ActionResult<IEnumerable<InstituicaoDto>>> BuscarInstituicoesDoMedicoAtual()
+        {
+            var resultado = await _service.BuscarInstituicoesDoMedicoAtualAsync();
+            return Ok(resultado);
+        }
+
+
     }
 
 }

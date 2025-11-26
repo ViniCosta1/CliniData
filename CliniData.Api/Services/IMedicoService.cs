@@ -10,5 +10,7 @@ namespace CliniData.Api.Services
         Task<MedicoDto> CriarAsync(CriarMedicoDto criarDto);
         Task<MedicoDto> AtualizarAsync(int id, CriarMedicoDto atualizarDto);
         Task RemoverAsync(int id);
+        Task<IEnumerable<InstituicaoDto>> BuscarInstituicoesDoMedicoAtualAsync();
+
     }
 }

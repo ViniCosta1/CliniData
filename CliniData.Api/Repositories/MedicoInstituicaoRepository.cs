@@ -55,10 +55,14 @@ public class MedicoInstituicaoRepository : IMedicoInstituicaoRepository
 
     public async Task<IEnumerable<Medico>> BuscarMedicosDaInstituicaoAsync(int instituicaoId)
     {
-        var instituicao = await _context.Instituicao
-            .Include(i => i.Medicos)
-            .FirstOrDefaultAsync(i => i.Id == instituicaoId);
+        var medicoInstituicoes = await _context.MedicoInstituicao
+            .Where(mi => mi.InstituicaoId == instituicaoId)
+            .Include(mi => mi.Medico)
+            .ToListAsync();
 
-        return instituicao?.Medicos ?? Enumerable.Empty<Medico>();
+        return medicoInstituicoes
+            .Select(mi => mi.Medico)
+            .Where(m => m != null);
     }
+
 }

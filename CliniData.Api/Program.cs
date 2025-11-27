@@ -106,10 +106,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Frontend", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173")
+            .WithOrigins(
+                "http://localhost:5173", // web
+                "http://localhost:8081"  // expo/web
+            )
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); // agora pode credentials
+            .AllowCredentials();
     });
 });
 

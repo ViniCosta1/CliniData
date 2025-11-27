@@ -74,4 +74,5 @@ public class ConsultaRepository : IConsultaRepository
             .ToListAsync();
     }
 
+
 } 

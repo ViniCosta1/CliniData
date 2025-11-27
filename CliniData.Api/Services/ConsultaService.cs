@@ -69,7 +69,7 @@ public class ConsultaService : IConsultaService
         if (!int.TryParse(userIdString, out int userId))
             return Enumerable.Empty<ConsultaDto>();
 
-        var instituicao = await _instituicaoRepository.BuscarPorIdAsync(userId);
+        var instituicao = await _instituicaoRepository.BuscarPorUserIdAsync(userId);
         if (instituicao  == null)
             return Enumerable.Empty<ConsultaDto>();
 
